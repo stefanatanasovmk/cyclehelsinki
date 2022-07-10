@@ -13,7 +13,7 @@ const mongoDbPath = process.env.MONGO_DB_PATH;
 
 const firstTrips: any = [];
 
-fs.createReadStream("../../csv-files/2021-06.csv")
+fs.createReadStream("../../csv-files/2021-05.csv")
   .pipe(
     csv({
       skipLines: 1,
