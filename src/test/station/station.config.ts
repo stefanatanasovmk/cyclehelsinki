@@ -1,11 +1,5 @@
-import supertest from "supertest";
-import App from "../../app";
-import StationController from "../../resources/station/station.controller";
-import Station from "../../resources/station/station.interface";
-import TripController from "../../resources/trip/trip.controller";
-import "dotenv/config";
-
 const path = "/api/station";
+
 const exampleStation = {
   OldID: 123,
   Nimi: "Innopoli",
@@ -22,11 +16,4 @@ const exampleStation = {
   },
 };
 
-const app = new App(
-  [new StationController(), new TripController()],
-  Number(process.env.TEST_PORT)
-);
-const application = app.listen();
-const api = supertest(application);
-
-export { api, path, exampleStation };
+export { path, exampleStation };

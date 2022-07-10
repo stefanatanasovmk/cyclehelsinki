@@ -1,6 +1,7 @@
 import stationModel from "../../resources/station/station.model";
 import Station from "../../resources/station/station.interface";
-import { api, path, exampleStation } from "./station.config";
+import { path, exampleStation } from "./station.config";
+import api from "../test.config";
 
 describe("Station routes tests", () => {
   describe("Get all stations", () => {
