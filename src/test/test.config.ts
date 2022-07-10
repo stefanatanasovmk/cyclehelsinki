@@ -7,7 +7,7 @@ import "dotenv/config";
 
 const app = new App(
   [new StationController(), new TripController()],
-  Number(4001)
+  Number(process.env.TE)
 );
 const application = app.listen();
 const api = supertest(application);
