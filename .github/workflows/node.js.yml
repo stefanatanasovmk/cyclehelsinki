@@ -10,8 +10,22 @@ on:
     branches: ["main"]
 
 jobs:
+  create-envfile:
+    runs-on: self-hosted
+
+    steps:
+      - name: Make envfile
+        run: |
+          touch .env
+          echo MONGO_DB_PATH: ${{ secrets.MONGO_DB_PATH }} >> .env
+          echo NODE_ENV: ${{ secrets.NODE_ENV }} >> .env
+          echo PORT: ${{ secrets.PORT }} >> .env
+          echo TEST_PORT: ${{ secrets.TEST_PORT }} >> .env
+          cat .env
+
   build:
     runs-on: self-hosted
+    needs: create-envfile
 
     strategy:
       matrix:
@@ -25,13 +39,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: |
-          touch .env
-          echo MONGO_DB_PATH: ${{ secrets.MONGO_DB_PATH }}
-          echo NODE_ENV: ${{ secrets.NODE_ENV }}
-          echo PORT: ${{ secrets.PORT }}
-          echo TEST_PORT: ${{ secrets.TEST_PORT }}
-          cat .env
       - run: npm install --also=dev
       - run: npm run build --if-present
       - run: npm test
