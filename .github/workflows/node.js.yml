@@ -10,9 +10,28 @@ on:
     branches: ["main"]
 
 jobs:
+
+  create-envfile:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_MONGO_DB_PATH: ${{ secrets.MONGO_DB_PATH }}
+        envkey_NODE_ENV: ${{ secrets.NODE_ENV }}
+        envkey_PORT: ${{ secrets.PORT }}
+        envkey_TEST_PORT: ${{ secrets.TEST_PORT }}
+        directory: "../../"
+        file_name: .env
+        fail_on_empty: false
+
+jobs:
+  needs: create-envfile
   build:
     runs-on: self-hosted
-
+    
     strategy:
       matrix:
         node-version: [16.x]
@@ -25,17 +44,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-
-      - name: Make envfile
-      - uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_MONGO_DB_PATH: ${{ secrets.MONGO_DB_PATH }}
-          envkey_NODE_ENV: ${{ secrets.NODE_ENV }}
-          envkey_PORT: ${{ secrets.PORT }}
-          envkey_TEST_PORT: ${{ secrets.TEST_PORT }}
-          directory: "../../"
-          fail_on_empty: false
-
       - run: npm install --also=dev
       - run: npm run build --if-present
       - run: npm test
