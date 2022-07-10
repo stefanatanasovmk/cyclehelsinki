@@ -13,17 +13,13 @@ jobs:
   create-envfile:
     runs-on: self-hosted
 
-    steps:
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_MONGO_DB_PATH: ${{ secrets.MONGO_DB_PATH }}
-          envkey_NODE_ENV: ${{ secrets.NODE_ENV }}
-          envkey_PORT: ${{ secrets.PORT }}
-          envkey_TEST_PORT: ${{ secrets.TEST_PORT }}
-          directory: "../../"
-          file_name: .env
-          fail_on_empty: false
+    run: |
+      touch .env
+      echo MONGO_DB_PATH: ${{ secrets.MONGO_DB_PATH }}
+      echo NODE_ENV: ${{ secrets.NODE_ENV }}
+      echo PORT: ${{ secrets.PORT }}
+      echo TEST_PORT: ${{ secrets.TEST_PORT }}
+      cat .env
 
   build:
     runs-on: self-hosted
