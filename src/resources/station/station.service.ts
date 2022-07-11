@@ -17,21 +17,34 @@ export default class StationService {
   }
 
   //Service for finding and returning one Station in the db with given ID
-  public async getOne(id: string): Promise<Object | string> {
+  public async getOne(id: string): Promise<Station | string> {
     try {
       const station = await this.station.findById(id);
-      if (station !== null) {
-        const departureTripsFromStation = await this.trip.find({
-          DeparturedStationId: id,
-        });
-        const returnedTripsToStation = await this.trip.find({
-          ReturnedStationId: id,
-        });
-        return { station, departureTripsFromStation, returnedTripsToStation };
+      if (typeof station !== "undefined" && station !== null) {
+        return station;
       } else {
         return "Station with the given ID wasn't found";
       }
     } catch (e) {
+      throw new Error();
+    }
+  }
+
+  public async getOneWithTrips(id: string): Promise<Object | string> {
+    try {
+      const station = await this.station.findById(id);
+      if (typeof station !== "undefined" && station !== null) {
+        const tripsReturnedToStation = await this.trip.find({
+          DeparturedStationId: station.id,
+        });
+        const tripDepartedToStation = await this.trip.find({
+          ReturnedStationId: station.id,
+        });
+        return { station, tripsReturnedToStation, tripDepartedToStation };
+      } else {
+        return "Station with the given ID wasn't found";
+      }
+    } catch {
       throw new Error();
     }
   }

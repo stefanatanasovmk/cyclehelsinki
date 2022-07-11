@@ -16,6 +16,7 @@ export default class StationController implements Controller {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.getAll);
     this.router.get(`${this.path}/getone/:id`, this.getOne);
+    this.router.get(`${this.path}/getonewithtrips/:id`, this.getOneWithTrips);
   }
 
   //Controller for fetching all the Stations in the db
@@ -43,6 +44,21 @@ export default class StationController implements Controller {
       const station = await this.StationService.getOne(id);
       res.status(200).json(station);
     } catch (e) {
+      next(new HttpError(500, "Problems with the server, please try again"));
+    }
+  };
+
+  //Controler for finding one Station in the db with given param as a ID and finding all the trips that departed and arrived at the station
+  private getOneWithTrips = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+      const station = await this.StationService.getOneWithTrips(id);
+      res.status(200).json(station);
+    } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
     }
   };

@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import helmet from "helmet";
@@ -37,6 +37,9 @@ export default class App {
   private initializeControllers(controllers: Controller[]): void {
     controllers.forEach((controller) => {
       this.express.use("/api", controller.router);
+    });
+    this.express.get("*", (req: Request, res: Response, next: NextFunction) => {
+      res.status(404).json({ message: "404 | This page doesn't exist" });
     });
   }
 

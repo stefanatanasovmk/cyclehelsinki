@@ -28,5 +28,18 @@ const errExampleTrip = {
   ReturnedStationId: "713",
   Duration: 198,
 };
+const exampleTripWithoutStationsIds = {
+  Departure: 1622494069000,
+  Return: 1622494271000,
+  DeparturedStationId: "",
+  ReturnedStationId: "",
+  Duration: 198,
+};
 
-export { api, path, exampleTrip, errExampleTrip };
+export {
+  api,
+  path,
+  exampleTrip,
+  errExampleTrip,
+  exampleTripWithoutStationsIds,
+};

@@ -5,7 +5,7 @@ import "dotenv/config";
 
 //Initializing of the App class, it requres all the Controllers and the PORT which is defined in the .env file in the root directory.
 const app = new App(
-  [new StationController(), new TripController()],
+  [new TripController(), new StationController()],
   Number(process.env.PORT)
 );
 app.listen();

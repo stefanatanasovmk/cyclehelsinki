@@ -1,16 +1,31 @@
 import tripModel from "./trip.model";
 import stationModel from "../station/station.model";
 import Trip from "./trip.interface";
+import mongoose from "mongoose";
 
 export default class TripService {
   private trip = tripModel;
   private station = stationModel;
 
   //Service for fetching one trip and the stations from where the trip departured and returned to
-  public async getOne(id: string): Promise<Object | string> {
+  public async getOne(id: string): Promise<Trip | string> {
     try {
       const trip = await this.trip.findById(id);
-      if (trip !== null) {
+      if (typeof trip !== "undefined" && trip !== null) {
+        return trip;
+      } else {
+        return "Trip with the given ID wasn't found";
+      }
+    } catch {
+      throw new Error();
+    }
+  }
+
+  //Service for fetching one trip, which return the trip itself including the departure and the return station of the trip
+  public async getOneWithStations(id: string): Promise<Object | string> {
+    try {
+      const trip = await this.trip.findById(id);
+      if (typeof trip !== "undefined" && trip !== null) {
         const departureStation = await this.station.findById(
           trip.DeparturedStationId
         );
@@ -19,9 +34,9 @@ export default class TripService {
         );
         return { trip, departureStation, returnStation };
       } else {
-        return "Trip with the given ID wasn't found...";
+        return "Trip with the given ID wasn't found";
       }
-    } catch (e) {
+    } catch {
       throw new Error();
     }
   }
@@ -33,12 +48,12 @@ export default class TripService {
         .find()
         .limit(limit * 1)
         .skip((page - 1) * limit);
-      if (typeof trips !== "undefined" || trips !== null) {
+      if (typeof trips !== "undefined" && trips !== null) {
         return trips;
       } else {
-        return "We couldn't  load the trips, please try again...";
+        return "We couldn't load the trips, please try again...";
       }
-    } catch (e) {
+    } catch {
       throw new Error();
     }
   }
