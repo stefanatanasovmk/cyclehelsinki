@@ -4,6 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import Controller from "./utils/interfaces/controller.interface";
 import ErrorMiddleware from "./middleware/error.middleware";
+import "dotenv/config";
 
 export default class App {
   public express: Application;

@@ -14,7 +14,5 @@ export default interface Station extends Document {
     type: string;
     coordinates: Array<number>;
   };
-  TripsDepartedFrom: ObjectId[];
-  TripReturnedTo: ObjectId[];
   timestamp: Date;
 }

@@ -8,13 +8,11 @@ const TripSchema = new Schema({
   Return: {
     type: Number,
   },
-  DeparturedStation: {
-    type: Schema.Types.ObjectId,
-    ref: "Route",
+  DeparturedStationId: {
+    type: String,
   },
-  ReturnedStation: {
-    type: Schema.Types.ObjectId,
-    ref: "Route",
+  ReturnedStationId: {
+    type: String,
   },
   CoveredDistance: Number,
   Duration: Number,

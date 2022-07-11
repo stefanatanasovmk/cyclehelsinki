@@ -9,8 +9,9 @@ config({ path: "../../.env" });
 
 const mongoDbPath = process.env.MONGO_DB_PATH;
 let stations: any = [];
+let path = "../../../csv-files/stations.csv";
 
-fs.createReadStream("../../csv-files/stations.csv")
+fs.createReadStream(path)
   .pipe(
     csv({
       skipLines: 1,
@@ -34,10 +35,10 @@ fs.createReadStream("../../csv-files/stations.csv")
   .on("data", (data) => stations.push(data))
   .on("end", async () => {
     try {
-      let start = new Date().getTime();
+      let start = new Date().getTime(); 
       for (let e of stations) {
         const newStation = new stationModel({
-          OldID: +e.ID,
+          _id: e.ID,
           Nimi: e.Nimi,
           Namn: e.Namn,
           Name: e.Name,
@@ -51,7 +52,7 @@ fs.createReadStream("../../csv-files/stations.csv")
         newStation.Location.coordinates.push(+e.x, +e.y);
         await newStation.save();
       }
-      let end = new Date().getTime();
+      let end = new Date().getTime(); 
       console.log("It took:", ((end - start) / 60000).toFixed(2), "minutes.");
       process.exit();
     } catch (e) {

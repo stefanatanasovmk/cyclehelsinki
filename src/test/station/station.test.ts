@@ -1,11 +1,11 @@
 import stationModel from "../../resources/station/station.model";
 import Station from "../../resources/station/station.interface";
-import { path, exampleStation } from "./station.config";
-import api from "../test.config";
+import { api, path, exampleStation } from "./station.test.config";
+import mongoose from "mongoose";
 
 describe("Station routes tests", () => {
   describe("Get all stations", () => {
-    it("should return an error with all the stations in the dbs and 200 status", async () => {
+    it("should return an array with all the stations in the dbs and 200 status", async () => {
       try {
         const { body, status } = await api.get(`${path}`);
         expect(status).toBe(200);
@@ -21,10 +21,27 @@ describe("Station routes tests", () => {
           const station = new stationModel(exampleStation);
           await station.save();
           const { body, status } = await api.get(
-            `${path}/getone/${station._id}`
+            `${path}/getone/${station.id}`
           );
+
           expect(status).toBe(200);
-          expect(body._id).toEqual(station.id);
+
+          expect(body.station).toStrictEqual({
+            _id: expect.any(String),
+            Nimi: "Innopoli",
+            Namn: "Innopoli",
+            Name: "Innopoli",
+            Osoite: "Somekatutie 20",
+            Adress: "Somekatutie 20",
+            Kaupunki: "Helsinki",
+            Stad: "Helsinki",
+            Operaattor: "CityBiki Finland",
+            Kapasiteet: "20",
+            Location: expect.any(Object),
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String),
+            __v: expect.any(Number),
+          });
           await stationModel.findByIdAndDelete(station._id);
         } catch (e) {
           console.log(e);

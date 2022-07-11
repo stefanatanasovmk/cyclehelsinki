@@ -1,11 +1,11 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import Station from "./station.interface";
 
 const StationSchema = new Schema(
   {
-    OldID: {
-      type: Number,
-      default: 0,
+    _id: {
+      type: String,
+      default: new mongoose.Types.ObjectId(), //if you don't provide unique ID for new Station, MongoDB will assing it itself.
     },
     Nimi: {
       type: String,
@@ -41,18 +41,6 @@ const StationSchema = new Schema(
       },
       coordinates: [],
     },
-    TripsDepartedFrom: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Trip",
-      },
-    ],
-    TripReturnedTo: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Trip",
-      },
-    ],
   },
   { timestamps: true }
 );
