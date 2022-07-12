@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+csv-files
+
+client/node_modules
+/client/node_modules
