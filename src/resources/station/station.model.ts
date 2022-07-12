@@ -41,10 +41,6 @@ const StationSchema = new Schema(
       },
       coordinates: [],
     },
-    BikesAvailable: {
-      type: String,
-      default: "0",
-    },
   },
   { timestamps: true }
 );
