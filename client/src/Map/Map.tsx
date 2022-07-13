@@ -1,71 +1,87 @@
 import React,{ useEffect, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer  } from 'react-leaflet'
 import "./Style/Map.css"
 import Station from '../Utils/Interfaces/station.interface'
-import { v4 as uuidv4 } from 'uuid';
-import L from "leaflet"
-import Control from 'react-leaflet-custom-control'
-import BikesAvailable from './BikesAvailable';
-
-// var greenIcon = L.icon({
-//     iconUrl: 'https://img.icons8.com/office/344/street-view.png',
-
-//     iconSize:     [38, 95], // size of the icon
-//     shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//     shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
-
+import StationMarker from './StationMarker';
+import FindUserLocationControl from "./FindUserLocationControl"
+import UserLocationMarker from './UserLocationMarker';
+import SearchBar from './SearchBar';
+import SearchedStation from './SearchedStation';
 
 export default function Map(): JSX.Element{
      const [stations, setStations] = useState<Station[] | []>([])
+
      const [longLat, setLongLat] = useState<[number, number]>([60.1699, 24.9384])
      const [doesUserHaveLocation, setDoesUserHaveLocation] = useState<boolean>(false)
-     function findLocation() {
-          if (navigator.geolocation) {
-               if (!doesUserHaveLocation) { 
-              navigator.geolocation.getCurrentPosition(position => {
-                    setLongLat([ position.coords.latitude,position.coords.longitude])
-                              setDoesUserHaveLocation(true)
-              })
-               } else {
-                    setDoesUserHaveLocation(false)
-                    }
+
+     const [search, setSearch] = useState<string | undefined>()
+     const [isSearched, setIsSearched] = useState<boolean>(false)
+     const [searchedStations, setSearchedStations] = useState<Station[] | []>([])
+
+     function findLocation(): [number, number]{
+          if ("geolocation" in navigator) {
+               navigator.geolocation.getCurrentPosition(position=> {
+                         setLongLat([ position.coords.latitude,position.coords.longitude])
+                   setDoesUserHaveLocation(true) 
+               }, () => {
+                    console.log("You didnt allow us")
+               })   
+          } else {
+                    console.log("geolocation is not available")
+          }
+          return [longLat[0], longLat[1]]
+     }
+     function searchStation(value: string): void{
+          if(value !== undefined){
+               setSearch(value)
+               setIsSearched(true)
+               setSearchedStations(stations.filter(e => e.Name.toLowerCase().includes(value.toLowerCase())))
+          } else {
+               setIsSearched(false)
+               setSearch(value)
           }
      }
 
      useEffect(() => {
-        
           fetch("/api/station")
                .then(res => res.json())
                .then(res => setStations(res))
                .catch(e => console.log(e))
-   }, [])
+     }, [])
+  
      return (
           <div>
-          <MapContainer className="map" center={[longLat[0],longLat[1]]} zoom={11} scrollWheelZoom={true}>        
+               <MapContainer className="map" center={[longLat[0], longLat[1]]} zoom={11} scrollWheelZoom={true}>   
+                             
                     <TileLayer attribution={attribution} url={url} />
-               {stations.map(e => <Marker key={uuidv4()}   position={[e.Location.coordinates[1], e.Location.coordinates[0]]}>
-                    <Popup>
-                         <h4>Station {e.Name}</h4>
-                         <h5>Address {e.Osoite}</h5>
-                         <h5>Operator {e.Operaattor}</h5>
-                         <h5>Capacity {e.Kapasiteet}</h5>
-                         <BikesAvailable id={e._id !== undefined ? e._id:"0"} />
-                    </Popup>
-               </Marker>)}  
-                    <Control position="topleft" >
-                         <button onClick={findLocation}>Something</button>
-                    </Control>
-               {doesUserHaveLocation && <Marker key={uuidv4()}  position={[longLat[0], longLat[1]]}><Popup>You are here</Popup></Marker>}
+                                       
+                    {!isSearched ?
+                         stations.map(e => <StationMarker
+                         key={e._id}
+                         id={e._id}
+                         Name={e.Name}
+                         Osoite={e.Adress}
+                         Kapasiteet={e.Kapasiteet}
+                      coordinates={[e.Location.coordinates[1], e.Location.coordinates[0]]} />)
+                         :
+                        <SearchedStation station={searchedStations} />
+                    }
+                            
+                    {doesUserHaveLocation && <UserLocationMarker coordinates={longLat} />} 
+                    
+                    <FindUserLocationControl
+                         pos={"topleft"}
+                         onClick={findLocation}
+                         isLocationShared={doesUserHaveLocation} />
+                    
+                    <SearchBar stations={stations} onSearch={searchStation} value={search} />
                </MapContainer>
              </div>
      )
 }
 
+
 const attribution = '&copy; <a target="_blank" href="https://carto.com/basemaps/">Carto Basemaps</a> contributors'
 const url ="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
-
 
 

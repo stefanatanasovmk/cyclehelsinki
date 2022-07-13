@@ -4,6 +4,7 @@ import HttpError from "../../utils/errors/HttpError";
 import TripService from "./trip.service";
 import { tripValidator, ValidateSchema } from "../../middleware/dataValidator";
 import mongoose from "mongoose";
+
 export default class TripController implements Controller {
   public path = "/trip";
   public router = Router();

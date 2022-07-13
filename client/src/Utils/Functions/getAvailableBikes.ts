@@ -10,7 +10,7 @@ export default async function getAvailableBikes(stationId: string | undefined) {
      }
           `;
       const res = await fetch(
-        "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
+        "https://api.digitransit.fi/routing/v1/routers/finland/index/graphql",
         {
           method: "POST",
           headers: {
@@ -23,6 +23,6 @@ export default async function getAvailableBikes(stationId: string | undefined) {
       return await res.json();
     }
   } catch (err) {
-    console.log(err);
+    return null;
   }
 }

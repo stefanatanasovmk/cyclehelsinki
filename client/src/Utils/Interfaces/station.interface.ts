@@ -1,14 +1,14 @@
 export default interface Station extends Document {
-  _id: string | undefined;
-  Nimi: String;
-  Namn: String;
-  Name: String;
-  Osoite: String;
-  Adress: String;
-  Kaupunki: String;
-  Stad: String;
-  Operaattor: String;
-  Kapasiteet: String;
+  _id: string;
+  Nimi: string;
+  Namn: string;
+  Name: string;
+  Osoite: string;
+  Adress: string;
+  Kaupunki: string;
+  Stad: string;
+  Operaattor: string;
+  Kapasiteet: string;
   Location: {
     type: string;
     coordinates: Array<number>;
