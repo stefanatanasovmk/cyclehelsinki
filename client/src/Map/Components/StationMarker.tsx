@@ -1,8 +1,8 @@
 import  { useEffect, useState } from 'react'
 import { Marker ,useMap} from 'react-leaflet'
-import getAvailableBikes from '../Utils/Functions/getAvailableBikes'
+import getAvailableBikes from '../../Utils/Functions/getAvailableBikes'
 import PopUp from './PopUp'
-import {StationIcon} from "./Icons/StationIcon.config"
+import {StationIcon} from ".././Icons/StationIcon.config"
 
 interface Props {
      id:string

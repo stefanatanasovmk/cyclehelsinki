@@ -1,8 +1,9 @@
 export default interface Trip extends Document {
-  Departure: Number;
-  Return: Number;
-  DeparturedStationId: String;
-  ReturnedStationId: String;
-  CoveredDistance: Number;
-  Duration: Number;
+  _id: string;
+  Departure: number;
+  Return: number;
+  DeparturedStationId: string;
+  ReturnedStationId: string;
+  CoveredDistance: number;
+  Duration: number;
 }

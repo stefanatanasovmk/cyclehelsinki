@@ -1,5 +1,5 @@
 import { Marker,useMap } from 'react-leaflet';
-import { userIcon } from './Icons/StationIcon.config';
+import { userIcon } from './../Icons/StationIcon.config';
 
 interface Props{
      coordinates: [number, number]

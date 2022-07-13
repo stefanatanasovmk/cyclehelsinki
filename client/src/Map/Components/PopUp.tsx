@@ -1,6 +1,6 @@
 import { Popup } from "react-leaflet";
-import greenIcon from "./Icons/images/green-square.png"
-import redIcon from "./Icons/images/red-square.png"
+import greenIcon from ".././Icons/images/green-square.png"
+import redIcon from ".././Icons/images/red-square.png"
 interface Props{
      Name: string
      Osoite: string

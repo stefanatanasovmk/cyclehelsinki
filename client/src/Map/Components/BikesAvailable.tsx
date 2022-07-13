@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react"
-import getAvailableBikes from "../Utils/Functions/getAvailableBikes"
+import getAvailableBikes from "../../Utils/Functions/getAvailableBikes"
 interface Props{
      id:string
 }

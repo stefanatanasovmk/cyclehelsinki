@@ -1,5 +1,5 @@
 import Control from 'react-leaflet-custom-control'
-import userLocationIcon from "./Icons/images/user-location.png"
+import userLocationIcon from ".././Icons/images/user-location.png"
 import {useMap} from "react-leaflet"
 interface Props{
      onClick: () => void

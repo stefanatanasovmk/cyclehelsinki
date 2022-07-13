@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
-import Station from "../Utils/Interfaces/station.interface";
+import Station from "../../Utils/Interfaces/station.interface";
 import StationMarker from "./StationMarker";
 interface Props{
 

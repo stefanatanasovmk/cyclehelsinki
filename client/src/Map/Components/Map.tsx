@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { MapContainer, TileLayer  } from 'react-leaflet'
-import "./Style/Map.css"
-import Station from '../Utils/Interfaces/station.interface'
+import ".././Style/Map.css"
+import Station from '../../Utils/Interfaces/station.interface'
 import StationMarker from './StationMarker';
 import FindUserLocationControl from "./FindUserLocationControl"
 import UserLocationMarker from './UserLocationMarker';

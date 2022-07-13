@@ -2,9 +2,9 @@ import Control from "react-leaflet-custom-control"
 import { useMap } from "react-leaflet"
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Station from "../Utils/Interfaces/station.interface"
+import Station from "../../Utils/Interfaces/station.interface"
 import { v4 as uuid } from 'uuid';
-import {disableMap,enableMap} from "../Utils/Functions/mapStatus";
+import {disableMap,enableMap} from "../../Utils/Functions/mapStatus";
 import { useEffect,useState } from "react";
 
 interface Props{
