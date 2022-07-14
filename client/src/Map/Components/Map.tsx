@@ -8,7 +8,7 @@ import UserLocationMarker from "./UserLocationMarker";
 import SearchBar from "./SearchBar";
 import SearchedStation from "./SearchedStation";
 import getStations from "../../Utils/Functions/getStations";
-import AppContext from "../../context/context";
+import Context from "../../context/context";
 export default function Map(): JSX.Element {
   const [stations, setStations] = useState<Station[] | []>([]);
   const [longLat, setLongLat] = useState<[number, number]>([60.1699, 24.9384]);
@@ -19,7 +19,7 @@ export default function Map(): JSX.Element {
   const [searchedStations, setSearchedStations] = useState<Station[] | []>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const setError = useContext(AppContext);
+  const { setError } = useContext(Context);
 
   function findLocation(): [number, number] {
     if ("geolocation" in navigator) {
@@ -51,16 +51,12 @@ export default function Map(): JSX.Element {
       setSearch(value);
     }
   }
-  if (setError === null) {
-    console.log("fuck you");
-  } else {
-    setError("dont fuck you");
-  }
+
   useMemo(() => {
     getStations()
       .then((res) => setStations(res.data))
       .then(() => setLoading(false))
-      .catch((e) => console.log(e));
+      .catch((e) => setError(e.response.data.message));
   }, []);
 
   return (

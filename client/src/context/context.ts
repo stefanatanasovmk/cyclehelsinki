@@ -1,9 +1,11 @@
 import { createContext } from "react";
 
-interface ContextInterface {
+export type ContextInterface = {
   setError: (text: string) => void;
 }
 
-const AppContext = createContext<ContextInterface | null>(null);
+const Context = createContext<ContextInterface>({
+  setError: (text: string) => {},
+});
 
-export default AppContext;
+export default Context;

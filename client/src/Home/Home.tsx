@@ -4,7 +4,7 @@ import Trips from "../Trips/Components/Trips";
 import "./Style/Home.css";
 import Navbar from "../Navbar/Navbar";
 import ErrorModal from "./ErrorModal/ErrorModal";
-import AppContext from "../context/context";
+import Context from "../context/context";
 export default function Home(): JSX.Element {
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [errorText, setErrorText] = React.useState<string>("");
@@ -15,7 +15,7 @@ export default function Home(): JSX.Element {
   }
 
   return (
-    <AppContext.Provider value={{ setError }}>
+    <Context.Provider value={{ setError }}>
       <div className="Home">
         <Navbar />
         <div className="MapAndTrips">
@@ -28,6 +28,6 @@ export default function Home(): JSX.Element {
           text={errorText}
         />
       </div>
-    </AppContext.Provider>
+    </Context.Provider>
   );
 }
