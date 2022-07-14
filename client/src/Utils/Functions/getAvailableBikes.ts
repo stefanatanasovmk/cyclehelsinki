@@ -23,6 +23,6 @@ export default async function getAvailableBikes(stationId: string | undefined) {
       return await res.json();
     }
   } catch (err) {
-    return null;
+    return "unknown";
   }
 }

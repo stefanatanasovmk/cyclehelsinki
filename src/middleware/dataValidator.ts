@@ -17,9 +17,9 @@ export const ValidateSchema = {
   trip: Joi.object({
     Departure: Joi.number().required(),
     Return: Joi.number().required(),
-    DeparturedStationId: Joi.string().required(),
-    ReturnedStationId: Joi.string().required(),
-    CoveredDistance: Joi.number().min(10).required(),
-    Duration: Joi.number().min(10).required(),
+    DeparturedStation: Joi.string().required(),
+    ReturnedStation: Joi.string().required(),
+    CoveredDistance: Joi.number(),
+    Duration: Joi.number().required(),
   }),
 };

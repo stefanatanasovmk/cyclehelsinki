@@ -1,0 +1,16 @@
+.ErrorModal{
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     align-items: center;
+     position: absolute;
+     top: 20%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 80vh;
+     height: 15vh;
+     background-color: #ffae00;
+     box-shadow: 24px;
+     padding: 2vh;
+     border-radius: 5px;
+}

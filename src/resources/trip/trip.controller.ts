@@ -83,8 +83,8 @@ export default class TripController implements Controller {
   //Controller for creating a new trip
   private addTrip = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const trip = await this.TripService.addTrip(req.body);
-      res.status(200).json(trip);
+      const [status, trip] = await this.TripService.addTrip(req.body);
+      res.status(status).json(trip);
     } catch {
       next(new HttpError(500, "Something went kaboom, please try again"));
     }

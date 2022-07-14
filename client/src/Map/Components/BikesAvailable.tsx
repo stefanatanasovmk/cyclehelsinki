@@ -8,8 +8,12 @@ export default function BikesAvailable({id}:Props): JSX.Element{
      const [bikes, setBikes] = useState("unknown")
      useEffect(() => { 
           const getBikesAvailable = async () => {
-               const data = await getAvailableBikes(id)
-               setBikes(data.data.bikeRentalStation.bikesAvailable)
+               try {
+                    const data = await getAvailableBikes(id)
+                    setBikes(data.data.bikeRentalStation.bikesAvailable)
+               } catch (err) {
+                    setBikes("unknown")
+               }
           }
           getBikesAvailable()
      },[id])
