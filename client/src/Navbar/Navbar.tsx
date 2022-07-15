@@ -8,7 +8,7 @@ export default function Navbar(): JSX.Element {
   return (
     <div className="Navbar">
       <div className="Navbar-logo">
-        <Typography style={{ fontSize: "2em" }} variant="button">
+        <Typography style={{ fontSize: "1em" }} variant="button">
           cycle helsinki
         </Typography>
       </div>

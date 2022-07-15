@@ -89,4 +89,6 @@ export default class TripController implements Controller {
       next(new HttpError(500, "Something went kaboom, please try again"));
     }
   };
+
+  
 }

@@ -1,11 +1,12 @@
-import { Modal, Button, Input, Typography, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Modal, Button, TextField } from "@mui/material";
+import { useEffect, useState, useContext } from "react";
 import Station from "../Utils/Interfaces/station.interface";
 import "./Style/Modal.css";
 import StationSearch from "./StationSearch";
 import saveTrip from "../Utils/Functions/saveTrip";
-import Trip from "../Utils/Interfaces/trip.interface";
 import axios from "axios";
+import Context from "../context/context";
+
 interface Props {
   isAddTripOpen: boolean;
   setIsAddTripOpen: (isAddTripOpen: boolean) => void;
@@ -23,6 +24,8 @@ export default function AddTrip({
 
   const [coveredDistance, setCoveredDistance] = useState<number>(1);
 
+  const { setPopup } = useContext(Context);
+
   async function saveTripHandler(): Promise<void> {
     await saveTrip(
       chosenDepartureStation,
@@ -31,10 +34,11 @@ export default function AddTrip({
       departureTime,
       returnTime
     )
-      .then((trip) => {
-        console.log(trip);
+      .then(() => {
+        setIsAddTripOpen(false);
+        setPopup("The trip has beeen saved successfully");
       })
-      .catch((error) => console.log(error));
+      .catch((e) => setPopup(e.response.data.message));
   }
 
   useEffect(() => {
@@ -45,8 +49,9 @@ export default function AddTrip({
         setChosenDepartureStation(data.data[0].Name);
         setChosenReturnStation(data.data[0].Name);
       })
-      .catch((err) => console.log(err));
-  });
+      .catch((e) => setPopup(e.response.data.message));
+  }, [setPopup]);
+
   return (
     <Modal open={isAddTripOpen}>
       <div className="Modal">

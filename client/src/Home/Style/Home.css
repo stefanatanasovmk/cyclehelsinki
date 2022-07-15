@@ -1,33 +1,35 @@
-.Home{
-     display: flex;
-     flex-direction: column;
-     height: 100vh;
-     width: 100%;
+.Home {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
 }
-.MapAndTrips{
-     display: flex;
-     flex-direction: row;
-     justify-content: space-around;
-     width: 100%;
+.MapAndTrips {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
 }
 @media (max-width: 850px) {
-     .MapAndTrips{
-          flex-direction: column-reverse;
-          margin-bottom: 20px;
-     }
-     .map{
-          width: 100%;
-     }
-     .Trips{
-          width: 100%;
-          padding-left: 0;
-          padding-right: 0;
-          overflow-y:visible;
-          margin-bottom:20px;
-          padding-bottom: 20px;
-     }
+  .MapAndTrips {
+    flex-direction: column-reverse;
+    margin-bottom: 20px;
+  }
+  .map,
+  .MapDiv,
+  .Loading {
+    width: 100%;
+  }
+  .Trips {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    overflow-y: visible;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
 
-     .TripModalBox{
-          width: 80%;
-     }
+  .TripModalBox {
+    width: 80%;
+  }
 }

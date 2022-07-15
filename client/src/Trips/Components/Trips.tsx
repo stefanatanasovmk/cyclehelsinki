@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import Trip from "../../Utils/Interfaces/trip.interface";
-import { v4 as uuidv4 } from "uuid";
 import getTrips from "../../Utils/Functions/getTrips";
 import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button } from "@mui/material";
-import axios from "axios";
+import Context from "../../context/context";
+
 const length = 10;
 
 export default function Trips(): JSX.Element {
   const [page, setPage] = useState<number>(1);
   const [trips, setTrips] = useState<Trip[]>([]);
+
+  const { setPopup } = useContext(Context);
 
   function getTripsHandler(): void {
     getTrips(length, page + 1).then((data) =>
@@ -22,8 +24,8 @@ export default function Trips(): JSX.Element {
   useEffect(() => {
     getTrips(10, 1)
       .then((data) => setTrips(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((e) => setPopup(e.response.data.message));
+  }, [setPopup]);
 
   return (
     <div className="Trips">

@@ -40,7 +40,11 @@ export default function StationSearchBar({
       options={[...stations.map((e) => e.Name)]}
       sx={{ width: matches ? "300px" : "230px" }}
       renderInput={(params) => <TextField {...params} label={label} />}
-      onChange={(e: any) => setChosenStation(e.target.innerText)}
+      onChange={(e: any) =>
+        e.target.innerText !== undefined
+          ? setChosenStation(e.target.innerText)
+          : chosenStation
+      }
     />
   );
 }

@@ -17,6 +17,10 @@ export default class StationController implements Controller {
     this.router.get(`${this.path}`, this.getAll);
     this.router.get(`${this.path}/getone/:id`, this.getOne);
     this.router.get(`${this.path}/getonewithtrips/:id`, this.getOneWithTrips);
+    this.router.get(
+      `${this.path}/getmostpopulardepartures/:id/`,
+      this.getMostPopularDepartures
+    );
   }
 
   //Controller for fetching all the Stations in the db
@@ -58,6 +62,23 @@ export default class StationController implements Controller {
       const { id } = req.params;
       const station = await this.StationService.getOneWithTrips(id);
       res.status(200).json(station);
+    } catch {
+      next(new HttpError(500, "Problems with the server, please try again"));
+    }
+  };
+
+  //Controler for finding the most popular departure and return stations for journeys starting or ending at the station with the given id in params
+  private getMostPopularDepartures = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+
+      const [status, stations] =
+        await this.StationService.getMostPopularDepartures(id);
+      res.status(status).json(stations);
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
     }

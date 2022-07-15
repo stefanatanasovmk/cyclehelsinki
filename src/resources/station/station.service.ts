@@ -11,6 +11,8 @@ export default class StationService {
   public async getAll(): Promise<Station[]> {
     try {
       return await this.station.find();
+      // .limit(2 * 1)
+      // .skip((1 - 1) * 2);
     } catch (e) {
       throw new Error();
     }
@@ -45,6 +47,51 @@ export default class StationService {
         return "Station with the given ID wasn't found";
       }
     } catch {
+      throw new Error();
+    }
+  }
+
+  public async getMostPopularDepartures(
+    id: string
+  ): Promise<[number, Station[]] | [number, object]> {
+    try {
+      const station = await this.station.findById(id);
+      if (station !== null && station !== undefined) {
+        const trips = await this.trip.find({ DeparturedStationId: id });
+        const stationsIds: any = [];
+        trips.forEach((trip) => {
+          stationsIds.push(trip.ReturnedStationId);
+        });
+
+        const stationsCount = stationsIds.reduce((acc: any, curr: any) => {
+          if (acc[curr]) {
+            acc[curr]++;
+          } else {
+            acc[curr] = 1;
+          }
+          return acc;
+        }, {});
+        const stationsSorted = Object.keys(stationsCount)
+          .map((key) => ({
+            key,
+            value: stationsCount[key],
+          }))
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 5);
+        let stations: Station[] = [];
+        for (let e of stationsSorted) {
+          const foundStation: Station | null = await this.station.findById(
+            e.key
+          );
+          if (foundStation !== null && foundStation !== undefined) {
+            stations.push(foundStation);
+          }
+        }
+        return [200, stations];
+      } else {
+        return [500, { message: "Station with the given ID wasn't found" }];
+      }
+    } catch (e) {
       throw new Error();
     }
   }

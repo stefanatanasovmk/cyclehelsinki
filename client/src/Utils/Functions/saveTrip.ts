@@ -22,6 +22,7 @@ export default async function saveTrip(
       ReturnedStation: returnStation,
       CoveredDistance: coveredDistance,
       Duration: duration,
+      
     });
   }
 }

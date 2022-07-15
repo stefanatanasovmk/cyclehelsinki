@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import getStation from "../../Utils/Functions/getStation";
 import secondsToTime from "../../Utils/Functions/secondsToTime";
 import "./Style/TripCard.css";
-import { Card, CardContent, Typography, Modal } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import parseDate from "../../Utils/Functions/parseDate";
 import TripModal from "./TripModal";
+import Context from "../../context/context";
 interface Props {
   Departure: number;
   Return: number;
@@ -25,19 +26,28 @@ export default function TripCard({
   const [departureStation, setDepartureStation] = useState<string>("");
   const [arrivalStation, setArrivalStation] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [backgroundColor, setBackgroundColor] = useState<string>("#02b2b8");
+  const { setPopup } = useContext(Context);
+
   useEffect(() => {
     getStation(DeparturedStationId)
       .then((data) => setDepartureStation(data.Name))
-      .catch((err) => setDepartureStation("We could not find the station"));
+      .catch((e) => setPopup(e.response.data.message));
     getStation(ReturnedStationId)
       .then((data) => setArrivalStation(data.Name))
-      .catch((err) => setArrivalStation("We could not find the station"));
-  }, [DeparturedStationId, ReturnedStationId]);
+      .catch((e) => setPopup(e.response.data.message));
+  }, [DeparturedStationId, ReturnedStationId, setPopup]);
   return (
     <div className="TripCard">
       <Card
+        onMouseEnter={() => setBackgroundColor("#039ba1")}
+        onMouseLeave={() => setBackgroundColor("#02b2b8")}
         variant="outlined"
-        style={{ backgroundColor: "#94B4F3", cursor: "pointer" }}
+        style={{
+          backgroundColor: backgroundColor,
+          cursor: "pointer",
+          boxShadow: "2px 2px 5px black",
+        }}
         onClick={() =>
           isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true)
         }

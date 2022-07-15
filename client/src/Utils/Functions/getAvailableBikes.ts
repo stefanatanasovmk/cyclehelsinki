@@ -1,4 +1,8 @@
-export default async function getAvailableBikes(stationId: string | undefined) {
+export default async function getAvailableBikes(
+  stationId: string | undefined
+): Promise<
+  { data: { bikeRentalStation: { bikesAvailable: string } } } | undefined
+> {
   try {
     if (stationId !== undefined) {
       const query = `
@@ -23,6 +27,6 @@ export default async function getAvailableBikes(stationId: string | undefined) {
       return await res.json();
     }
   } catch (err) {
-    return "unknown";
+    return undefined;
   }
 }

@@ -1,24 +1,24 @@
-.Navbar{
-     display: flex;
-     flex-direction: row;
-     justify-content: space-between;
-     align-items: center;
-     width: 100%;
-     height: 8vh;
-     background-color: salmon;
-     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
-     margin-bottom: 2vh;
+.Navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  background-color: salmon;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2vh;
 }
 
-.Navbar-logo{
-     padding-left: 2vw;
+.Navbar-logo {
+  padding-left: 2vw;
 }
 
-.Navbar-links{
-     width: 20%;
-     display: flex;
-     flex-direction: row;
-     justify-content: space-between;
-     align-items: center;
-     padding-right: 2vw;
+.Navbar-links {
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 2vw;
 }

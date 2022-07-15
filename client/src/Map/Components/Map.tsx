@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import ".././Style/Map.css";
 import Station from "../../Utils/Interfaces/station.interface";
@@ -8,18 +8,21 @@ import UserLocationMarker from "./UserLocationMarker";
 import SearchBar from "./SearchBar";
 import SearchedStation from "./SearchedStation";
 import getStations from "../../Utils/Functions/getStations";
+import Loading from "../../Loading/Loading";
 import Context from "../../context/context";
+import getAvailableBikes from "../../Utils/Functions/getAvailableBikes";
 export default function Map(): JSX.Element {
   const [stations, setStations] = useState<Station[] | []>([]);
   const [longLat, setLongLat] = useState<[number, number]>([60.1699, 24.9384]);
   const [doesUserHaveLocation, setDoesUserHaveLocation] =
     useState<boolean>(false);
+
   const [search, setSearch] = useState<string | undefined>();
   const [isSearched, setIsSearched] = useState<boolean>(false);
   const [searchedStations, setSearchedStations] = useState<Station[] | []>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const { setError } = useContext(Context);
+  const { setPopup } = useContext(Context);
 
   function findLocation(): [number, number] {
     if ("geolocation" in navigator) {
@@ -29,11 +32,11 @@ export default function Map(): JSX.Element {
           setDoesUserHaveLocation(true);
         },
         () => {
-          console.log("You didnt allow us");
+          setPopup("You need to allow us to use your location");
         }
       );
     } else {
-      console.log("geolocation is not available");
+      setPopup("Your browser does not support geolocation");
     }
     return [longLat[0], longLat[1]];
   }
@@ -52,17 +55,31 @@ export default function Map(): JSX.Element {
     }
   }
 
-  useMemo(() => {
-    getStations()
-      .then((res) => setStations(res.data))
-      .then(() => setLoading(false))
-      .catch((e) => setError(e.response.data.message));
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getStations();
+        for (let e of res.data) {
+          const bikesAvailable = await getAvailableBikes(e._id);
+          if (bikesAvailable !== null && bikesAvailable !== undefined) {
+            e.bikesAvailable =
+              bikesAvailable.data?.bikeRentalStation?.bikesAvailable;
+          }
+        }
+        setStations(res.data);
+        setLoading(false);
+      } catch (e: any) {
+        setPopup(e.response.data.message);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [setPopup]);
 
   return (
-    <div>
+    <div className="MapDiv">
       {loading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <MapContainer
           className="map"
@@ -76,7 +93,6 @@ export default function Map(): JSX.Element {
             stations.map((e) => (
               <StationMarker
                 key={e._id}
-                id={e._id}
                 Name={e.Name}
                 Osoite={e.Adress}
                 Kapasiteet={e.Kapasiteet}
@@ -84,6 +100,9 @@ export default function Map(): JSX.Element {
                   e.Location.coordinates[1],
                   e.Location.coordinates[0],
                 ]}
+                bikesAvailable={
+                  e.bikesAvailable !== undefined ? e.bikesAvailable : "0"
+                }
               />
             ))
           ) : (

@@ -46,10 +46,10 @@ export default class TripService {
     try {
       const trips = await this.trip
         .find()
-        .sort({ _id: -1 })
+        .sort({ Return: -1 })
         .limit(limit * 1)
         .skip((page - 1) * limit);
-      if (typeof trips !== "undefined" && trips !== null) {
+      if (typeof trips !== undefined && trips !== null) {
         return trips;
       } else {
         return "We couldn't load the trips, please try again...";
@@ -59,13 +59,12 @@ export default class TripService {
     }
   }
 
-
- 
   //Service for creating new trip
-  public async addTrip(body: object): Promise<[number,object]> {
+  public async addTrip(body: object): Promise<[number, object]> {
     try {
-      console.log(body);
       const newTrip = new this.trip({ ...body });
+      console.log(newTrip);
+
       await newTrip.save();
       return [200, newTrip];
     } catch {
