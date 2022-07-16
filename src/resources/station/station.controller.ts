@@ -34,8 +34,8 @@ export default class StationController implements Controller {
     next: NextFunction
   ): Promise<Response | void> => {
     try {
-      const stations = await this.StationService.getAll();
-      res.status(200).json(stations);
+      const [status, stations] = await this.StationService.getAll();
+      res.status(status).json(stations);
     } catch (e) {
       next(new HttpError(500, "Problems with the server, please try again"));
     }
@@ -49,8 +49,8 @@ export default class StationController implements Controller {
   ): Promise<Response | void> => {
     try {
       const { id } = req.params;
-      const station = await this.StationService.getOne(id);
-      res.status(200).json(station);
+      const [status, station] = await this.StationService.getOne(id);
+      res.status(status).json(station);
     } catch (e) {
       next(new HttpError(500, "Problems with the server, please try again"));
     }
@@ -64,8 +64,9 @@ export default class StationController implements Controller {
   ): Promise<Response | void> => {
     try {
       const { id } = req.params;
-      const station = await this.StationService.getOneWithTrips(id);
-      res.status(200).json(station);
+      const [status, stationAndTrips] =
+        await this.StationService.getOneWithTrips(id);
+      res.status(status).json(stationAndTrips);
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
     }

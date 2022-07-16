@@ -36,4 +36,8 @@
   .ErrorModal {
     width: 80%;
   }
+  .StationInfoDiv {
+    flex-direction: column;
+    overflow-y: scroll;
+  }
 }

@@ -6,13 +6,14 @@ import {
   exampleTrip,
   errExampleTrip,
   exampleTripWithoutStationsIds,
+  exampleStationWithStationsNames,
 } from "./trip.test.config";
 
 describe("Trip routes tests", () => {
   describe("Get all routes with pagination implemented path: /", () => {
     it("should return one trip and 200 status", async () => {
       try {
-        const { body, status } = await api.get(`${path}/?limit=1&page=1`);
+        const { body, status } = await api.get(`${path}/?limit=1&page=100`);
         expect(status).toBe(200);
         expect(body).toEqual([
           {
@@ -41,13 +42,14 @@ describe("Trip routes tests", () => {
         expect(body).toMatchObject({
           Departure: 1622494069000,
           Return: 1622494271000,
-          DeparturedStationId: "727",
-          ReturnedStationId: "713",
+          DeparturedStationId: "501",
+          ReturnedStationId: "501",
           CoveredDistance: 549,
           Duration: 198,
           _id: expect.any(String),
           __v: expect.any(Number),
         });
+        await tripModel.findByIdAndDelete(trip._id);
       });
     });
 
@@ -55,15 +57,17 @@ describe("Trip routes tests", () => {
       it("should return status 200 and a message saying that the Trip is not found", async () => {
         const fakeId = new mongoose.Types.ObjectId();
         const { body, status } = await api.get(`${path}/getone/${fakeId}`);
-        expect(status).toBe(200);
-        expect(body).toContain("Trip with the given ID wasn't found");
+        expect(status).toBe(500);
+        expect(body).toMatchObject({
+          message: "Trip with the given ID wasn't found",
+        });
       });
     });
 
     describe("If the trip ID doesn't exist, and the ID is not valid", () => {
       it("should return a status 404 and message saying that the ID is not valid", async () => {
         const { body, status } = await api.get(`${path}/getone/alskdf`);
-        expect(status).toBe(404);
+        expect(status).toBe(500);
         expect(body).toMatchObject({
           message: "The provided ID is not valid",
         });
@@ -77,15 +81,15 @@ describe("Trip routes tests", () => {
         try {
           const { body, status } = await api
             .post(`${path}/addtrip`)
-            .send(exampleTrip);
+            .send(exampleStationWithStationsNames);
           expect(status).toBe(200);
           expect(body).toMatchObject({
-            Departure: 1622494069000,
-            Return: 1622494271000,
-            DeparturedStationId: "727",
-            ReturnedStationId: "713",
             CoveredDistance: 549,
+            Departure: 1622494069000,
+            DeparturedStationId: "501",
             Duration: 198,
+            Return: 1622494271000,
+            ReturnedStationId: "501",
             _id: expect.any(String),
             __v: expect.any(Number),
           });
@@ -103,7 +107,7 @@ describe("Trip routes tests", () => {
             .post(`${path}/addtrip`)
             .send(errExampleTrip);
           expect(status).toBe(500);
-          expect(body).toEqual({ message: "All fields are required" });
+          expect(body).toMatchObject({ message: "All fields are required" });
         } catch (e) {
           console.log(e);
         }
@@ -140,8 +144,10 @@ describe("Trip routes tests", () => {
           const { body, status } = await api.get(
             `${path}/getonewithstations/${fakeId}`
           );
-          expect(status).toBe(200);
-          expect(body).toContain("Trip with the given ID wasn't found");
+          expect(status).toBe(500);
+          expect(body).toMatchObject({
+            message: "Trip with the given ID wasn't found",
+          });
         } catch (e) {
           console.log(e);
         }
@@ -153,7 +159,7 @@ describe("Trip routes tests", () => {
           const { body, status } = await api.get(
             `${path}/getonewithstations/23oirdfewdnsmc`
           );
-          expect(status).toBe(404);
+          expect(status).toBe(500);
           expect(body).toMatchObject({
             message: "The provided ID is not valid",
           });

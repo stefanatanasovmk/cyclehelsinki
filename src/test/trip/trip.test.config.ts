@@ -12,12 +12,19 @@ const application = app.listen();
 const api = supertest(application);
 
 const path = "/api/trip";
-
+const exampleStationWithStationsNames = {
+  CoveredDistance: 549,
+  Departure: 1622494069000,
+  Return: 1622494271000,
+  DeparturedStation: "Hanasaari",
+  ReturnedStation: "Hanasaari",
+  Duration: 198,
+};
 const exampleTrip = {
   Departure: 1622494069000,
   Return: 1622494271000,
-  DeparturedStationId: "727",
-  ReturnedStationId: "713",
+  DeparturedStationId: "501",
+  ReturnedStationId: "501",
   CoveredDistance: 549,
   Duration: 198,
 };
@@ -42,4 +49,5 @@ export {
   exampleTrip,
   errExampleTrip,
   exampleTripWithoutStationsIds,
+  exampleStationWithStationsNames,
 };

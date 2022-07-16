@@ -9,32 +9,35 @@ export default class StationService {
   private trip = tripModel;
 
   //Service for finding and returning all the Stations in the database
-  public async getAll(): Promise<Station[]> {
+  public async getAll(): Promise<[number, Station[]]> {
     try {
-      return await this.station
+      const stations = await this.station
         .find()
         .limit(2 * 1)
         .skip((1 - 1) * 2);
+      return [200, stations];
     } catch (e) {
       throw new Error();
     }
   }
 
   //Service for finding and returning one Station in the db with given ID
-  public async getOne(id: string): Promise<Station | string> {
+  public async getOne(
+    id: string
+  ): Promise<[number, Station] | [number, object]> {
     try {
       const station = await this.station.findById(id);
       if (typeof station !== "undefined" && station !== null) {
-        return station;
+        return [200, station];
       } else {
-        return "Station with the given ID wasn't found";
+        return [500, { message: "Station with the given ID wasn't found" }];
       }
     } catch (e) {
       throw new Error();
     }
   }
 
-  public async getOneWithTrips(id: string): Promise<Object | string> {
+  public async getOneWithTrips(id: string): Promise<[number, object]> {
     try {
       const station = await this.station.findById(id);
       if (typeof station !== "undefined" && station !== null) {
@@ -44,9 +47,12 @@ export default class StationService {
         const tripDepartedToStation = await this.trip.find({
           ReturnedStationId: station.id,
         });
-        return { station, tripsReturnedToStation, tripDepartedToStation };
+        return [
+          200,
+          { station, tripsReturnedToStation, tripDepartedToStation },
+        ];
       } else {
-        return "Station with the given ID wasn't found";
+        return [500, { message: "Station with the given ID wasn't found" }];
       }
     } catch {
       throw new Error();

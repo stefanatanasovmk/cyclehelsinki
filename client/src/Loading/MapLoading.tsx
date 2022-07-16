@@ -5,7 +5,7 @@ export default function MapLoading(): JSX.Element {
   return (
     <div className="MapLoading">
       <Typography style={{ fontSize: "1.3rem" }} variant="button">
-        Please wait a bit, very complicated computation is going on...
+        This can take a minute...
       </Typography>
       <CircularProgress />
     </div>

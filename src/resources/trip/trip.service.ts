@@ -8,13 +8,13 @@ export default class TripService {
   private station = stationModel;
 
   //Service for fetching one trip and the stations from where the trip departured and returned to
-  public async getOne(id: string): Promise<Trip | string> {
+  public async getOne(id: string): Promise<[number, Trip] | [number, object]> {
     try {
       const trip = await this.trip.findById(id);
       if (typeof trip !== "undefined" && trip !== null) {
-        return trip;
+        return [200, trip];
       } else {
-        return "Trip with the given ID wasn't found";
+        return [500, { message: "Trip with the given ID wasn't found" }];
       }
     } catch {
       throw new Error();
@@ -22,7 +22,7 @@ export default class TripService {
   }
 
   //Service for fetching one trip, which return the trip itself including the departure and the return station of the trip
-  public async getOneWithStations(id: string): Promise<Object | string> {
+  public async getOneWithStations(id: string): Promise<[number, object]> {
     try {
       const trip = await this.trip.findById(id);
       if (typeof trip !== "undefined" && trip !== null) {
@@ -32,9 +32,9 @@ export default class TripService {
         const returnStation = await this.station.findById(
           trip.ReturnedStationId
         );
-        return { trip, departureStation, returnStation };
+        return [200, { trip, departureStation, returnStation }];
       } else {
-        return "Trip with the given ID wasn't found";
+        return [500, { message: "Trip with the given ID wasn't found" }];
       }
     } catch {
       throw new Error();
@@ -42,7 +42,10 @@ export default class TripService {
   }
 
   //Service for fetching all the trips, with implemented pagination
-  public async getAll(page: number, limit: number): Promise<Trip[] | string> {
+  public async getAll(
+    page: number,
+    limit: number
+  ): Promise<[number, Trip[]] | [number, object]> {
     try {
       const trips = await this.trip
         .find()
@@ -50,9 +53,12 @@ export default class TripService {
         .limit(limit * 1)
         .skip((page - 1) * limit);
       if (typeof trips !== undefined && trips !== null) {
-        return trips;
+        return [200, trips];
       } else {
-        return "We couldn't load the trips, please try again...";
+        return [
+          500,
+          { message: "We couldn't load the trips, please try again..." },
+        ];
       }
     } catch {
       throw new Error();
@@ -60,9 +66,16 @@ export default class TripService {
   }
 
   //Service for creating new trip
-  public async addTrip(body: Trip): Promise<[number, object]> {
+  public async addTrip(body: any): Promise<[number, object]> {
     try {
-      const { Duration } = body;
+      const {
+        Departure,
+        Return,
+        DeparturedStation,
+        ReturnedStation,
+        CoveredDistanceDuration,
+        Duration,
+      } = body;
       if (Duration < 0) {
         return [
           500,
@@ -72,7 +85,20 @@ export default class TripService {
           },
         ];
       } else {
-        const newTrip = new this.trip({ ...body });
+        const departureStationId = await this.station.findOne({
+          Name: DeparturedStation,
+        });
+        const returnStationId = await this.station.findOne({
+          Name: ReturnedStation,
+        });
+        const newTrip = new this.trip({
+          Departure: Departure,
+          Return: Return,
+          DeparturedStationId: departureStationId,
+          ReturnedStationId: returnStationId,
+          CoveredDistance: CoveredDistanceDuration,
+          Duration: Duration,
+        });
         await newTrip.save();
         return [200, newTrip];
       }

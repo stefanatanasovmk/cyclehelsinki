@@ -24,6 +24,7 @@ const exampleStation = {
   Operaattor: "CityBiki Finland",
   Kapasiteet: "20",
   Location: {
+    type: "Point",
     coordinates: [24.81422, 60.185096],
   },
 };

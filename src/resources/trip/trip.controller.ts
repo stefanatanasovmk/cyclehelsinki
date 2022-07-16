@@ -39,10 +39,10 @@ export default class TripController implements Controller {
       const { id } = req.params;
       const isValidId = mongoose.Types.ObjectId.isValid(id);
       if (!isValidId) {
-        res.status(404).json({ message: "The provided ID is not valid" });
+        res.status(500).json({ message: "The provided ID is not valid" });
       } else {
-        const trip = await this.TripService.getOne(id);
-        res.status(200).json(trip);
+        const [status, trip] = await this.TripService.getOne(id);
+        res.status(status).json(trip);
       }
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
@@ -59,10 +59,11 @@ export default class TripController implements Controller {
       const { id } = req.params;
       const isValidId = mongoose.Types.ObjectId.isValid(id);
       if (!isValidId) {
-        res.status(404).json({ message: "The provided ID is not valid" });
+        res.status(500).json({ message: "The provided ID is not valid" });
       } else {
-        const trip = await this.TripService.getOneWithStations(id);
-        res.status(200).json(trip);
+        const [status, tripAndStations] =
+          await this.TripService.getOneWithStations(id);
+        res.status(status).json(tripAndStations);
       }
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
@@ -73,8 +74,8 @@ export default class TripController implements Controller {
   private getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { page = 1, limit = 20 } = req.query;
-      const trips = await this.TripService.getAll(+page, +limit);
-      res.status(200).json(trips);
+      const [status, trips] = await this.TripService.getAll(+page, +limit);
+      res.status(status).json(trips);
     } catch {
       next(new HttpError(500, "Something went kaboom, please try again"));
     }
@@ -89,6 +90,4 @@ export default class TripController implements Controller {
       next(new HttpError(500, "Something went kaboom, please try again"));
     }
   };
-
-  
 }
