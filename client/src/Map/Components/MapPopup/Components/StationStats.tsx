@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import Station from "../../../../Utils/Interfaces/station.interface";
 import "../Style/StationStats.css";
@@ -25,13 +24,6 @@ export default function StationStats({
     map.setView(coordinates, 16);
     setValue(0);
   }
-
-  useEffect(() => {
-    console.log(mostPopularDepartures);
-    console.log(mostPopularReturns);
-    console.log(averageDistanceDepartures);
-    console.log(averageDistanceReturns);
-  });
   return (
     <div className="StationStats">
       {isLoading ? (

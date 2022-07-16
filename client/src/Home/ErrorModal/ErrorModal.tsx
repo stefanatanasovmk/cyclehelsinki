@@ -9,7 +9,7 @@ interface Props {
 export default function ErrorModal({
   isModalOpen,
   setIsModalOpen,
-  text,
+  text = "Something went wrong, please try again",
 }: Props): JSX.Element {
   return (
     <Modal open={isModalOpen}>
@@ -27,31 +27,3 @@ export default function ErrorModal({
     </Modal>
   );
 }
-
-// <Modal open={isModalOpen}>
-//   <div className="TripModalBox">
-//     <Typography variant="subtitle2">Departured: {departureTime}</Typography>
-//     <Typography variant="subtitle2">Returned: {returnTime}</Typography>
-//     <Typography variant="subtitle2">
-//       Departure station: {departureStation}
-//     </Typography>
-//     <Typography variant="subtitle2">
-//       Return station: {arrivalStation}
-//     </Typography>
-//     <Typography variant="subtitle2">
-//       Covered distance: {CoveredDistance} m.
-//     </Typography>
-//     <Typography variant="subtitle2">
-//       Duration: {secondsToTime(Duration)}
-//     </Typography>
-//     <Button
-//       style={{ marginTop: "1vh" }}
-//       fullWidth
-//       variant="contained"
-//       color="info"
-//       onClick={() => setIsModalOpen(false)}
-//     >
-//       Close
-//     </Button>
-//   </div>
-// </Modal>;

@@ -1,10 +1,10 @@
 .StationStats {
   margin-top: 10%;
   /* height: 100%; */
-  width: 42vw;
+  width: 45vw;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding-left: 5vh;
   padding-right: 5vw;
   overflow-y: scroll;
@@ -12,12 +12,18 @@
 .StationsName {
   cursor: pointer;
 }
+ol {
+  padding: 0;
+}
 .MostPopularDeparturesContainer,
 .MostPopularReturnsContainer {
   width: 90%;
+  padding: 1vh;
 }
+
 @media (max-width: 620px) {
   .StationStats {
     flex-direction: column;
+    justify-content: flex-start;
   }
 }

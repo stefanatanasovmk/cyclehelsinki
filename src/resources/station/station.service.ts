@@ -11,10 +11,9 @@ export default class StationService {
   //Service for finding and returning all the Stations in the database
   public async getAll(): Promise<[number, Station[]]> {
     try {
-      const stations = await this.station
-        .find()
-        .limit(2 * 1)
-        .skip((1 - 1) * 2);
+      const stations = await this.station.find();
+      // .limit(2 * 1)
+      // .skip((1 - 1) * 2);
       return [200, stations];
     } catch (e) {
       throw new Error();
@@ -27,7 +26,7 @@ export default class StationService {
   ): Promise<[number, Station] | [number, object]> {
     try {
       const station = await this.station.findById(id);
-      if (typeof station !== "undefined" && station !== null) {
+      if (typeof station !== undefined && station !== null) {
         return [200, station];
       } else {
         return [500, { message: "Station with the given ID wasn't found" }];

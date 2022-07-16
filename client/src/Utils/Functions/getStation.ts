@@ -1,4 +1,8 @@
 export default async function getStation(id: string) {
-  const data = await fetch(`/api/station/getone/${id}`);
-  return await data.json();
+  if (id !== undefined && id !== null) {
+    const data = await fetch(`/api/station/getone/${id}`);
+    return await data.json();
+  } else {
+    return "";
+  }
 }
