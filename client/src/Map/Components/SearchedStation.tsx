@@ -20,6 +20,7 @@ export default function SearchedStation({ station }: Props): JSX.Element {
   }, [station, map, searchedStation.Location.coordinates]);
   return (
     <StationMarker
+      id={searchedStation._id}
       Name={searchedStation.Name}
       Osoite={searchedStation.Osoite}
       Kapasiteet={searchedStation.Kapasiteet}

@@ -11,7 +11,7 @@ export default interface Station extends Document {
   Kapasiteet: string;
   Location: {
     type: string;
-    coordinates: Array<number>;
+    coordinates: [number, number];
   };
   timestamp: Date;
   bikesAvailable: string | undefined;

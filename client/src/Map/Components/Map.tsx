@@ -8,7 +8,7 @@ import UserLocationMarker from "./UserLocationMarker";
 import SearchBar from "./SearchBar";
 import SearchedStation from "./SearchedStation";
 import getStations from "../../Utils/Functions/getStations";
-import Loading from "../../Loading/Loading";
+import Loading from "../../Loading/MapLoading";
 import Context from "../../context/context";
 import getAvailableBikes from "../../Utils/Functions/getAvailableBikes";
 export default function Map(): JSX.Element {
@@ -92,6 +92,7 @@ export default function Map(): JSX.Element {
           {!isSearched ? (
             stations.map((e) => (
               <StationMarker
+                id={e._id}
                 key={e._id}
                 Name={e.Name}
                 Osoite={e.Adress}
@@ -106,7 +107,9 @@ export default function Map(): JSX.Element {
               />
             ))
           ) : (
-            <SearchedStation station={searchedStations} />
+            <SearchedStation
+              station={searchedStations}
+            />
           )}
 
           {doesUserHaveLocation && <UserLocationMarker coordinates={longLat} />}

@@ -60,13 +60,22 @@ export default class TripService {
   }
 
   //Service for creating new trip
-  public async addTrip(body: object): Promise<[number, object]> {
+  public async addTrip(body: Trip): Promise<[number, object]> {
     try {
-      const newTrip = new this.trip({ ...body });
-      console.log(newTrip);
-
-      await newTrip.save();
-      return [200, newTrip];
+      const { Duration } = body;
+      if (Duration < 0) {
+        return [
+          500,
+          {
+            message:
+              "There is something wrong with the departure and return time.",
+          },
+        ];
+      } else {
+        const newTrip = new this.trip({ ...body });
+        await newTrip.save();
+        return [200, newTrip];
+      }
     } catch {
       throw new Error();
     }

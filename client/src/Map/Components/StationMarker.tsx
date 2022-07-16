@@ -1,8 +1,9 @@
 import { Marker, useMap } from "react-leaflet";
-import PopUp from "./PopUp";
+import MapPopup from "./MapPopup/Components/MapPopup";
 import { StationIcon } from ".././Icons/StationIcon.config";
 
 interface Props {
+  id: string;
   Name: string;
   Osoite: string;
   Kapasiteet: string;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export default function StationMarker({
-  
+  id,
   Name,
   Osoite,
   Kapasiteet,
@@ -25,11 +26,12 @@ export default function StationMarker({
       position={coordinates}
       eventHandlers={{
         click: () => {
-          map.setView(coordinates, 16);
+          map.setView(coordinates, 14);
         },
       }}
     >
-      <PopUp
+      <MapPopup
+        id={id}
         Name={Name}
         Osoite={Osoite}
         Kapasiteet={Kapasiteet}

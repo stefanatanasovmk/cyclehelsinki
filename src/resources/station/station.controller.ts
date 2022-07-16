@@ -18,8 +18,12 @@ export default class StationController implements Controller {
     this.router.get(`${this.path}/getone/:id`, this.getOne);
     this.router.get(`${this.path}/getonewithtrips/:id`, this.getOneWithTrips);
     this.router.get(
-      `${this.path}/getmostpopulardepartures/:id/`,
+      `${this.path}/getmostpopulardepartures/:id`,
       this.getMostPopularDepartures
+    );
+    this.router.get(
+      `${this.path}/getmostpopularreturns/:id`,
+      this.getMostPopularReturns
     );
   }
 
@@ -67,7 +71,7 @@ export default class StationController implements Controller {
     }
   };
 
-  //Controler for finding the most popular departure and return stations for journeys starting or ending at the station with the given id in params
+  //Controler for finding the most popular return stations for journeys departured at the station with the given id in params
   private getMostPopularDepartures = async (
     req: Request,
     res: Response,
@@ -76,9 +80,26 @@ export default class StationController implements Controller {
     try {
       const { id } = req.params;
 
-      const [status, stations] =
+      const [status, stations, averageDistance] =
         await this.StationService.getMostPopularDepartures(id);
-      res.status(status).json(stations);
+      res.status(status).json({ stations, averageDistance });
+    } catch {
+      next(new HttpError(500, "Problems with the server, please try again"));
+    }
+  };
+
+  //Controler for finding the most popular departure stations for journeys returned at the station with the given id in params
+  private getMostPopularReturns = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> => {
+    try {
+      const { id } = req.params;
+
+      const [status, stations, averageDistance] =
+        await this.StationService.getMostPopularReturns(id);
+      res.status(status).json({ stations, averageDistance });
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
     }

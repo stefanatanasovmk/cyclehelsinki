@@ -32,8 +32,9 @@ export default function SearchBar({
       .addEventListener("change", (e) => setMatches(e.matches));
   }, []);
   return (
-    <Control position="topright">
+    <Control position="bottomright">
       <Autocomplete
+        placeholder="Search station"
         value={value}
         style={{ backgroundColor: "white", borderRadius: "5px" }}
         disablePortal

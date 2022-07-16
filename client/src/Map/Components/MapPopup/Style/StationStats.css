@@ -1,0 +1,23 @@
+.StationStats {
+  margin-top: 10%;
+  /* height: 100%; */
+  width: 42vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 5vh;
+  padding-right: 5vw;
+  overflow-y: scroll;
+}
+.StationsName {
+  cursor: pointer;
+}
+.MostPopularDeparturesContainer,
+.MostPopularReturnsContainer {
+  width: 90%;
+}
+@media (max-width: 620px) {
+  .StationStats {
+    flex-direction: column;
+  }
+}

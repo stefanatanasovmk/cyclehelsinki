@@ -2,7 +2,8 @@ import stationModel from "./station.model";
 import Station from "./station.interface";
 import HttpError from "../../utils/errors/HttpError";
 import tripModel from "../trip/trip.model";
-
+import mostPopularStations from "../../utils/functions/mostPopularStations";
+import Trip from "../trip/trip.interface";
 export default class StationService {
   private station = stationModel;
   private trip = tripModel;
@@ -10,9 +11,10 @@ export default class StationService {
   //Service for finding and returning all the Stations in the database
   public async getAll(): Promise<Station[]> {
     try {
-      return await this.station.find();
-      // .limit(2 * 1)
-      // .skip((1 - 1) * 2);
+      return await this.station
+        .find()
+        .limit(2 * 1)
+        .skip((1 - 1) * 2);
     } catch (e) {
       throw new Error();
     }
@@ -53,41 +55,54 @@ export default class StationService {
 
   public async getMostPopularDepartures(
     id: string
-  ): Promise<[number, Station[]] | [number, object]> {
+  ): Promise<
+    | [number, Station[], number]
+    | [number, object, number]
+    | [number, { message: string }]
+  > {
     try {
       const station = await this.station.findById(id);
       if (station !== null && station !== undefined) {
         const trips = await this.trip.find({ DeparturedStationId: id });
-        const stationsIds: any = [];
-        trips.forEach((trip) => {
-          stationsIds.push(trip.ReturnedStationId);
+        const tripsLength: number[] = [];
+        const stationsIds: String[] = [];
+        trips.forEach((trips: Trip) => {
+          stationsIds.push(trips.ReturnedStationId);
+          tripsLength.push(trips.CoveredDistance);
         });
+        const averageDistance: number =
+          tripsLength.reduce((a, b) => a + b, 0) / tripsLength.length;
+        const stations = await mostPopularStations(stationsIds);
+        return [200, stations, averageDistance];
+      } else {
+        return [500, { message: "Station with the given ID wasn't found" }];
+      }
+    } catch (e) {
+      throw new Error();
+    }
+  }
 
-        const stationsCount = stationsIds.reduce((acc: any, curr: any) => {
-          if (acc[curr]) {
-            acc[curr]++;
-          } else {
-            acc[curr] = 1;
-          }
-          return acc;
-        }, {});
-        const stationsSorted = Object.keys(stationsCount)
-          .map((key) => ({
-            key,
-            value: stationsCount[key],
-          }))
-          .sort((a, b) => b.value - a.value)
-          .slice(0, 5);
-        let stations: Station[] = [];
-        for (let e of stationsSorted) {
-          const foundStation: Station | null = await this.station.findById(
-            e.key
-          );
-          if (foundStation !== null && foundStation !== undefined) {
-            stations.push(foundStation);
-          }
-        }
-        return [200, stations];
+  public async getMostPopularReturns(
+    id: string
+  ): Promise<
+    | [number, Station[], number]
+    | [number, object, number]
+    | [number, { message: string }]
+  > {
+    try {
+      const station = await this.station.findById(id);
+      if (station !== null && station !== undefined) {
+        const trips = await this.trip.find({ ReturnedStationId: id });
+        const tripsLength: number[] = [];
+        const stationsIds: String[] = [];
+        trips.forEach((trips) => {
+          stationsIds.push(trips.DeparturedStationId);
+          tripsLength.push(trips.CoveredDistance);
+        });
+        const averageDistance: number =
+          tripsLength.reduce((a, b) => a + b, 0) / tripsLength.length;
+        const stations = await mostPopularStations(stationsIds);
+        return [200, stations, averageDistance];
       } else {
         return [500, { message: "Station with the given ID wasn't found" }];
       }

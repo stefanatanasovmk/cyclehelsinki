@@ -19,6 +19,7 @@
   .MapDiv,
   .Loading {
     width: 100%;
+    height: 70vh;
   }
   .Trips {
     width: 100%;
@@ -30,6 +31,9 @@
   }
 
   .TripModalBox {
+    width: 80%;
+  }
+  .ErrorModal {
     width: 80%;
   }
 }
