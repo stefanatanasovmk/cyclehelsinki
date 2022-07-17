@@ -44,6 +44,7 @@ export default function StationStats({
             <ol>
               {mostPopularDepartures.map((e) => (
                 <li
+                  key={e._id}
                   className="StationsName"
                   onClick={() =>
                     handleClickOnStationName(e.Location.coordinates)
@@ -66,6 +67,7 @@ export default function StationStats({
             <ol>
               {mostPopularReturns.map((e) => (
                 <li
+                  key={e._id}
                   className="StationsName"
                   onClick={() =>
                     handleClickOnStationName(e.Location.coordinates)

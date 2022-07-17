@@ -41,7 +41,6 @@ export default function MapPopup({
   function getMostPopularStations() {
     getMostPopularDepartures(id)
       .then((data) => {
-        console.log(data);
         setMostPopularDepartures(data.data.stations);
         setAverageDistanceDepartures(data.data.averageDistance);
       })

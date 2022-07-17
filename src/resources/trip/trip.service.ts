@@ -49,8 +49,8 @@ export default class TripService {
     try {
       const trips = await this.trip
         .find()
-        .sort({ Return: -1 })
-        .limit(limit * 1)
+        // .sort({ Return: -1 })
+        // .limit(limit * 1)
         .skip((page - 1) * limit);
       if (typeof trips !== undefined && trips !== null) {
         return [200, trips];

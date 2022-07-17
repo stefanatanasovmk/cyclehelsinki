@@ -1,6 +1,5 @@
 import stationModel from "./station.model";
 import Station from "./station.interface";
-import HttpError from "../../utils/errors/HttpError";
 import tripModel from "../trip/trip.model";
 import mostPopularStations from "../../utils/functions/mostPopularStations";
 import Trip from "../trip/trip.interface";
@@ -11,9 +10,10 @@ export default class StationService {
   //Service for finding and returning all the Stations in the database
   public async getAll(): Promise<[number, Station[]]> {
     try {
-      const stations = await this.station.find();
-      // .limit(2 * 1)
-      // .skip((1 - 1) * 2);
+      const stations = await this.station
+        .find()
+        .limit(2 * 1)
+        .skip((1 - 1) * 2);
       return [200, stations];
     } catch (e) {
       throw new Error();

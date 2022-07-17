@@ -1,7 +1,6 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import helmet from "helmet";
 import Controller from "./utils/interfaces/controller.interface";
 import ErrorMiddleware from "./middleware/error.middleware";
 import path from "path";
@@ -14,7 +13,6 @@ export default class App {
   constructor(controllers: Controller[], port: number) {
     this.express = express();
     this.port = port;
-
     this.connectToDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
@@ -24,19 +22,6 @@ export default class App {
   //Here goes all the middlewares
   private initializeMiddlewares(): void {
     this.express.use(cors());
-    this.express.use(
-      helmet({
-        contentSecurityPolicy: {
-          useDefaults: true,
-          directives: {
-            "script-src": [
-              "'self'",
-              "https://api.digitransit.fi/routing/v1/routers/finland/index/graphql",
-            ],
-          },
-        },
-      })
-    );
     this.express.use(express.static(path.join(__dirname, "../client/build")));
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
