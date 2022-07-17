@@ -37,4 +37,4 @@ jobs:
       - run: npm test
       - run: |
           cd client
-          npm build
+          npm run build
