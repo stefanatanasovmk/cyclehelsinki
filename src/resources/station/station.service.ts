@@ -99,6 +99,4 @@ export default class StationService {
       throw new Error();
     }
   }
-
-
 }
