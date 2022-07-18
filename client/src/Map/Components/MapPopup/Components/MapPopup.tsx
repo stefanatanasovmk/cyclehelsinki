@@ -4,10 +4,11 @@ import "../Style/MapPopup.css";
 import Buttons from "./Buttons";
 import StationInfo from "./StationInfo";
 import StationStats from "./StationStats";
-import {
-  getMostPopularDepartures,
-  getMostPopularReturns,
-} from "../../../../Utils/Functions/getStationStats";
+import getMostPopular from "../../../../Utils/Functions/getStationStats";
+// import {
+//   getMostPopularDepartures,
+//   getMostPopularReturns,
+// } from "../../../../Utils/Functions/getStationStats";
 import Station from "../../../../Utils/Interfaces/station.interface";
 import Context from "../../../../context/context";
 interface Props {
@@ -39,14 +40,14 @@ export default function MapPopup({
   const { setPopup } = useContext(Context);
 
   function getMostPopularStations() {
-    getMostPopularDepartures(id)
+    getMostPopular(id, "departures")
       .then((data) => {
         setMostPopularDepartures(data.data.stations);
         setAverageDistanceDepartures(data.data.averageDistance);
       })
       .then(() => setIsLoading(false))
       .catch((e) => setPopup(e.response.data.message));
-    getMostPopularReturns(id)
+    getMostPopular(id, "returns")
       .then((data) => {
         setMostPopularReturns(data.data.stations);
         setAverageDistanceReturns(data.data.averageDistance);

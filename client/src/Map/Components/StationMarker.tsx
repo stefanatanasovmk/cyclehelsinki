@@ -20,6 +20,7 @@ export default function StationMarker({
   bikesAvailable,
 }: Props): JSX.Element {
   const map = useMap();
+
   return (
     <Marker
       icon={StationIcon(+bikesAvailable > 0 ? true : false)}

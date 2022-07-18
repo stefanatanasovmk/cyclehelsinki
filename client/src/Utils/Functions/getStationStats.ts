@@ -8,18 +8,14 @@ interface Response {
   };
 }
 
-export async function getMostPopularDepartures(
-  stationId: string
+export default async function getMostPopular(
+  stationId: string,
+  type: string
 ): Promise<Response> {
   const data = await axios.get(
-    `/api/station/getmostpopulardepartures/${stationId}`
+    `/api/station/getmostpopular/${stationId}/${type}`
   );
   return data;
 }
 
-export async function getMostPopularReturns(stationId: string) {
-  const data = await axios.get(
-    `/api/station/getmostpopularreturns/${stationId}`
-  );
-  return data;
-}
+

@@ -49,7 +49,7 @@ export default function Trips(): JSX.Element {
         onClick={getTripsHandler}
         variant="outlined"
         color="error"
-        style={{ height: "30px" }}
+        style={{ height: "40px", marginBottom: "10px" }}
       >
         {isLoading ? (
           <CircularProgress style={{ width: "20px", height: "20px" }} />

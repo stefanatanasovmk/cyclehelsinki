@@ -1,9 +1,13 @@
+/* Paths to the components, and the elements to this class names are absolute, from the root directory perspective  */
+
+/* src/Home/Home.tsx */
 .Home {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
 }
+/* src/Home/Home.tsx */
 .MapAndTrips {
   display: flex;
   flex-direction: row;
@@ -11,16 +15,22 @@
   width: 100%;
 }
 @media (max-width: 850px) {
+  /* src/Home/Home.tsx */
   .MapAndTrips {
     flex-direction: column-reverse;
     margin-bottom: 20px;
   }
+  /* src/Map/Components/Map.tsx */
   .map,
+    /* src/Map/Components/Map.tsx */
+
   .MapDiv,
+  /* src/Loading/Loading.tsx */
   .Loading {
     width: 100%;
     height: 70vh;
   }
+  /* /src/Trips/Components/Trips.tsx */
   .Trips {
     width: 100%;
     padding-left: 0;
@@ -29,15 +39,25 @@
     margin-bottom: 20px;
     padding-bottom: 20px;
   }
-
+  /* src/Trips/Components/TripModal.tsx */
   .TripModalBox {
     width: 80%;
   }
+  /* src/Home/ErrorModal.tsx */
   .ErrorModal {
     width: 80%;
   }
+  /* src\Map\Components\MapPopup\Components\StationInfo.tsx */
   .StationInfoDiv {
     flex-direction: column;
     overflow-y: scroll;
+  }
+}
+
+@media (max-width: 620px) {
+  /* src\Map\Components\MapPopup\Components\StationStats.tsx */
+  .StationStats {
+    flex-direction: column;
+    justify-content: flex-start;
   }
 }

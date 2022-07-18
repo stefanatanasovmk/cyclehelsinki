@@ -14,6 +14,7 @@ export default function Navbar(): JSX.Element {
       </div>
       <div className="Navbar-links">
         <Button
+          style={{ height: "4vh" }}
           onClick={() => setIsAddTripOpen(true)}
           variant="contained"
           color="primary"

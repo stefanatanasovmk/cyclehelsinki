@@ -2,15 +2,17 @@ import { useEffect, useState, useContext } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import ".././Style/Map.css";
 import Station from "../../Utils/Interfaces/station.interface";
-import StationMarker from "./StationMarker";
 import FindUserLocationControl from "./FindUserLocationControl";
 import UserLocationMarker from "./UserLocationMarker";
 import SearchBar from "./SearchBar";
-import SearchedStation from "./SearchedStation";
 import getStations from "../../Utils/Functions/getStations";
 import Loading from "../../Loading/MapLoading";
 import Context from "../../context/context";
 import getAvailableBikes from "../../Utils/Functions/getAvailableBikes";
+import Stations from "./Stations";
+import MarkerCircles from "./MarkerCircles";
+import CirclesColorLegend from "./CirclesColorLegend";
+
 export default function Map(): JSX.Element {
   const [stations, setStations] = useState<Station[] | []>([]);
   const [longLat, setLongLat] = useState<[number, number]>([60.1699, 24.9384]);
@@ -19,7 +21,8 @@ export default function Map(): JSX.Element {
 
   const [search, setSearch] = useState<string | undefined>();
   const [isSearched, setIsSearched] = useState<boolean>(false);
-  const [searchedStations, setSearchedStations] = useState<Station[] | []>([]);
+  const [searchedStation, setSearchedStation] = useState<Station[] | []>([]);
+
   const [loading, setLoading] = useState<boolean>(true);
 
   const { setPopup } = useContext(Context);
@@ -44,7 +47,7 @@ export default function Map(): JSX.Element {
     if (value !== undefined) {
       setSearch(value);
       setIsSearched(true);
-      setSearchedStations(
+      setSearchedStation(
         stations.filter((e) =>
           e.Name.toLowerCase().includes(value.toLowerCase())
         )
@@ -89,31 +92,23 @@ export default function Map(): JSX.Element {
         >
           <TileLayer attribution={attribution} url={url} />
 
-          {!isSearched ? (
-            stations.map((e) => (
-              <StationMarker
-                id={e._id}
-                key={e._id}
-                Name={e.Name}
-                Osoite={e.Adress}
-                Kapasiteet={e.Kapasiteet}
-                coordinates={[
-                  e.Location.coordinates[1],
-                  e.Location.coordinates[0],
-                ]}
-                bikesAvailable={
-                  e.bikesAvailable !== undefined ? e.bikesAvailable : "0"
-                }
-              />
-            ))
-          ) : (
-            <SearchedStation
-              station={searchedStations}
-            />
-          )}
+          <Stations
+            stations={stations}
+            isSearched={isSearched}
+            searchedStation={searchedStation}
+          />
 
           {doesUserHaveLocation && <UserLocationMarker coordinates={longLat} />}
 
+          {isSearched && (
+            <MarkerCircles
+              coordinates={[
+                searchedStation[0].Location.coordinates[1],
+                searchedStation[0].Location.coordinates[0],
+              ]}
+            />
+          )}
+          {doesUserHaveLocation || isSearched ? <CirclesColorLegend /> : null}
           <FindUserLocationControl
             pos={"topleft"}
             onClick={findLocation}

@@ -21,9 +21,4 @@ ol {
   padding: 1vh;
 }
 
-@media (max-width: 620px) {
-  .StationStats {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-}
+

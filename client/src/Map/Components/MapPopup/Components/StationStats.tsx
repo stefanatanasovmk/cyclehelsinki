@@ -20,8 +20,16 @@ export default function StationStats({
   isLoading,
 }: Props): JSX.Element {
   const map = useMap();
-  function handleClickOnStationName(coordinates: [number, number]) {
-    map.setView(coordinates, 16);
+  function handleClickOnStationName(i: any, coordinates: [number, number]) {
+    i.stopPropagation();
+    map
+      .setView([coordinates[1], coordinates[0]], 16)
+      .closePopup()
+      .openTooltip(`<h6>Click on the marker for more station info</h6>`, [
+        coordinates[1] + 0.0002,
+        coordinates[0] - 0.0001,
+      ]);
+
     setValue(0);
   }
   return (
@@ -46,8 +54,8 @@ export default function StationStats({
                 <li
                   key={e._id}
                   className="StationsName"
-                  onClick={() =>
-                    handleClickOnStationName(e.Location.coordinates)
+                  onClick={(i) =>
+                    handleClickOnStationName(i, e.Location.coordinates)
                   }
                 >
                   {e.Name}
@@ -61,7 +69,7 @@ export default function StationStats({
               {(averageDistanceReturns / 1000).toFixed(2)} km.
             </h5>
             <h5>
-              Most popular departure stations for trips that ended at this
+              Most popular departure stations for trips that arrived at this
               station:
             </h5>
             <ol>
@@ -69,8 +77,8 @@ export default function StationStats({
                 <li
                   key={e._id}
                   className="StationsName"
-                  onClick={() =>
-                    handleClickOnStationName(e.Location.coordinates)
+                  onClick={(i) =>
+                    handleClickOnStationName(i, e.Location.coordinates)
                   }
                 >
                   {e.Name}
