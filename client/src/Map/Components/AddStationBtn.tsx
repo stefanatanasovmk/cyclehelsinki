@@ -14,7 +14,10 @@ export default function AddStationBtn({
         width="30px"
         height="30px"
         alt="Find user location"
-        onClick={() => setIsAddStationModalOpen(true)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsAddStationModalOpen(true);
+        }}
       />
     </Control>
   );

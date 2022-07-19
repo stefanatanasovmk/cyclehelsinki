@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import csv from "csv-parser";
 import fs from "fs";
 import { config } from "dotenv";
+import addMissingStation from "./insertMissingStation";
 config({ path: "../../.env" });
 
 //To execute the file use "node insertStation.js" command, first you will need to point MONGO_DB_PATH to your MongoDB connection. Reading and saving the stations doesn't requre too much time. The process will exit automaticlly from the script when it ends.
@@ -35,7 +36,7 @@ fs.createReadStream(path)
   .on("data", (data) => stations.push(data))
   .on("end", async () => {
     try {
-      let start = new Date().getTime(); 
+      let start = new Date().getTime();
       for (let e of stations) {
         const newStation = new stationModel({
           _id: e.ID,
@@ -52,12 +53,14 @@ fs.createReadStream(path)
         newStation.Location.coordinates.push(+e.x, +e.y);
         await newStation.save();
       }
-      let end = new Date().getTime(); 
+      let end = new Date().getTime();
       console.log("It took:", ((end - start) / 60000).toFixed(2), "minutes.");
       process.exit();
     } catch (e) {
       console.log("Something went wrong:", e);
     }
   });
+
+addMissingStation();
 
 mongoose.connect(`${mongoDbPath}`);
