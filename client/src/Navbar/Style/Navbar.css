@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 8vh;
+  height: 10vh;
   background-color: salmon;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   margin-bottom: 2vh;
@@ -12,13 +12,23 @@
 
 .Navbar-logo {
   padding-left: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+#LogoText {
+  font-family: "Roboto Mono", monospace;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.3em;
 }
 
 .Navbar-links {
-  width: 20%;
+  width: 25%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding-right: 2vw;
 }

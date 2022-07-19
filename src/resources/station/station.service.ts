@@ -10,9 +10,10 @@ export default class StationService {
   //Service for finding and returning all the Stations in the database
   public async getAll(): Promise<[number, Station[]]> {
     try {
-      const stations = await this.station.find();
-      // .limit(2 * 1)
-      // .skip((1 - 1) * 2);
+      const stations = await this.station
+        .find()
+        .limit(2 * 1)
+        .skip((1 - 1) * 2);
       return [200, stations];
     } catch (e) {
       throw new Error();

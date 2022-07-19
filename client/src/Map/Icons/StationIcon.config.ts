@@ -8,7 +8,7 @@ export function StationIcon(isBikeAvailable: boolean) {
     iconUrl: isBikeAvailable ? greenPin : redPin,
 
     iconSize: [38, 35],
-    iconAnchor: [25, 35],
+    iconAnchor: [20, 35],
     popupAnchor: [-5, -40],
   });
   return icon;
@@ -18,6 +18,6 @@ export const userIcon = new L.Icon({
   iconUrl: userPin,
 
   iconSize: [80, 80],
-  iconAnchor: [40, 80],
+  iconAnchor: [40, 70],
   popupAnchor: [-3, -76],
 });

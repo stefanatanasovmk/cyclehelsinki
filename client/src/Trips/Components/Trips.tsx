@@ -5,10 +5,15 @@ import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
 import Context from "../../context/context";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+
+interface Props {
+  setIsAddTripModalOpen: (isErrorModalOpen: boolean) => void;
+}
 
 const length = 10;
 
-export default function Trips(): JSX.Element {
+export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
   const [page, setPage] = useState<number>(1);
   const [trips, setTrips] = useState<Trip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +37,18 @@ export default function Trips(): JSX.Element {
 
   return (
     <div className="Trips">
+      <Button
+        fullWidth
+        onClick={() => setIsAddTripModalOpen(true)}
+        style={{
+          height: "40px",
+          marginBottom: "1vh",
+        }}
+        variant="contained"
+        color="primary"
+      >
+        Add Trip
+      </Button>
       {trips.map((e) => (
         <TripCard
           key={e._id}
@@ -49,7 +66,7 @@ export default function Trips(): JSX.Element {
         onClick={getTripsHandler}
         variant="outlined"
         color="error"
-        style={{ height: "40px", marginBottom: "10px" }}
+        style={{ height: "40px", marginBottom: "1vh" }}
       >
         {isLoading ? (
           <CircularProgress style={{ width: "20px", height: "20px" }} />

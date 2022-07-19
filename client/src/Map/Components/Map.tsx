@@ -12,8 +12,12 @@ import getAvailableBikes from "../../Utils/Functions/getAvailableBikes";
 import Stations from "./Stations";
 import MarkerCircles from "./MarkerCircles";
 import CirclesColorLegend from "./CirclesColorLegend";
+import AddStationBtn from "./AddStationBtn";
+interface Props {
+  setIsAddStationOpen: (isAddStationOpen: boolean) => void;
+}
 
-export default function Map(): JSX.Element {
+export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
   const [stations, setStations] = useState<Station[] | []>([]);
   const [longLat, setLongLat] = useState<[number, number]>([60.1699, 24.9384]);
   const [doesUserHaveLocation, setDoesUserHaveLocation] =
@@ -109,6 +113,7 @@ export default function Map(): JSX.Element {
             />
           )}
           {doesUserHaveLocation || isSearched ? <CirclesColorLegend /> : null}
+          <AddStationBtn setIsAddStationModalOpen={setIsAddStationOpen} />
           <FindUserLocationControl
             pos={"topleft"}
             onClick={findLocation}

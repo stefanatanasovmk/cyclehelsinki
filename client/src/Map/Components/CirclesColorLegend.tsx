@@ -1,8 +1,17 @@
+import { useState, useEffect } from "react";
 import Control from "react-leaflet-custom-control";
 export default function CirclesColorLegend(): JSX.Element {
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 380px)").matches
+  );
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 440px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
   return (
     <Control
-      position="bottomleft"
+      position={matches ? "bottomleft" : "topright"}
       style={{
         width: "100%",
         backgroundColor: "white",
@@ -13,7 +22,6 @@ export default function CirclesColorLegend(): JSX.Element {
         paddingLeft: "10%",
       }}
     >
-      <h5>Colors legend:</h5>
       <div>Red: 100m</div>
       <div>Green: 200m</div>
       <div>Blue: 300m</div>

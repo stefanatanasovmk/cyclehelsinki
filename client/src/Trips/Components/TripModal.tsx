@@ -43,7 +43,7 @@ export default function TripModal({
           style={{ marginTop: "1vh" }}
           fullWidth
           variant="contained"
-          color="info"
+          color="warning"
           onClick={() => setIsModalOpen(false)}
         >
           Close

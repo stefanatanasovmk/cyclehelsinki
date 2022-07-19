@@ -13,12 +13,10 @@
   cursor: pointer;
 }
 ol {
-  padding: 0;
+  padding-left: 1vh;
 }
 .MostPopularDeparturesContainer,
 .MostPopularReturnsContainer {
   width: 90%;
   padding: 1vh;
 }
-
-

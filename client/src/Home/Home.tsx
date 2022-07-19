@@ -5,26 +5,39 @@ import "./Style/Home.css";
 import Navbar from "../Navbar/Navbar";
 import ErrorModal from "./ErrorModal/ErrorModal";
 import Context from "../context/context";
+import AddTrip from "../AddData/AddTrip";
+import AddStation from "../AddData/AddStation";
 export default function Home(): JSX.Element {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAddTripModalOpen, setIsAddTripModalOpen] = useState<boolean>(false);
+  const [isAddStationModalOpen, setIsAddStationModalOpen] =
+    useState<boolean>(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
   const [popupText, setPopupText] = useState<string>("");
 
   function setPopup(text: string): void {
     setPopupText(text);
-    setIsModalOpen(true);
+    setIsErrorModalOpen(true);
   }
   return (
     <Context.Provider value={{ setPopup }}>
       <div className="Home">
         <Navbar />
         <div className="MapAndTrips">
-          <Trips />
-          <Map />
+          <Trips setIsAddTripModalOpen={setIsAddTripModalOpen} />
+          <Map setIsAddStationOpen={setIsAddStationModalOpen} />
         </div>
         <ErrorModal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isErrorModalOpen}
+          setIsModalOpen={setIsErrorModalOpen}
           text={popupText}
+        />
+        <AddTrip
+          isAddTripOpen={isAddTripModalOpen}
+          setIsAddTripOpen={setIsAddTripModalOpen}
+        />
+        <AddStation
+          isAddStationModalOpen={isAddStationModalOpen}
+          setIsAddStationModalOpen={setIsAddStationModalOpen}
         />
       </div>
     </Context.Provider>

@@ -76,7 +76,6 @@ export default class StationController implements Controller {
   ) => {
     try {
       const { id, type } = req.params;
-      console.log(id, type);
       const [status, stations, averageDistance] =
         await this.StationService.getMostPopular(id, type);
       res.status(status).json({ stations, averageDistance });

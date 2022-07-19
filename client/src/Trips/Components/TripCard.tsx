@@ -26,7 +26,7 @@ export default function TripCard({
   const [departureStation, setDepartureStation] = useState<string>("");
   const [arrivalStation, setArrivalStation] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [backgroundColor, setBackgroundColor] = useState<string>("#02b2b8");
+  const [backgroundColor, setBackgroundColor] = useState<string>("#e8e8e8");
   const { setPopup } = useContext(Context);
 
   useEffect(() => {
@@ -40,8 +40,8 @@ export default function TripCard({
   return (
     <div className="TripCard">
       <Card
-        onMouseEnter={() => setBackgroundColor("#039ba1")}
-        onMouseLeave={() => setBackgroundColor("#02b2b8")}
+        onMouseEnter={() => setBackgroundColor("#bab8b8")}
+        onMouseLeave={() => setBackgroundColor("#e8e8e8")}
         variant="outlined"
         style={{
           backgroundColor: backgroundColor,
