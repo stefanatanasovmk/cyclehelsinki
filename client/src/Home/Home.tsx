@@ -1,23 +1,26 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Map from "../Map/Components/Map";
 import Trips from "../Trips/Components/Trips";
 import "./Style/Home.css";
 import Navbar from "../Navbar/Navbar";
-import ErrorModal from "./ErrorModal/ErrorModal";
+import Popup from "./Popup/Popup";
 import Context from "../context/context";
-import AddTrip from "../AddData/AddTrip";
-import AddStation from "../AddData/AddStation";
+import AddTrip from "../AddData/AddTrip/AddTrip";
+import AddStation from "../AddData/AddStation/AddStation";
 export default function Home(): JSX.Element {
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState<boolean>(false);
   const [isAddStationModalOpen, setIsAddStationModalOpen] =
     useState<boolean>(false);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
-  const [popupText, setPopupText] = useState<string>("");
 
-  function setPopup(text: string): void {
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [popupText, setPopupText] = useState<string>("");
+  const [popupSeverity, setPopupSeverity] = useState<string>("");
+
+  const setPopup = useCallback((text: string, severity: string): void => {
     setPopupText(text);
-    setIsErrorModalOpen(true);
-  }
+    setIsPopupOpen(true);
+    setPopupSeverity(severity);
+  }, []);
   return (
     <Context.Provider value={{ setPopup }}>
       <div className="Home">
@@ -26,10 +29,11 @@ export default function Home(): JSX.Element {
           <Trips setIsAddTripModalOpen={setIsAddTripModalOpen} />
           <Map setIsAddStationOpen={setIsAddStationModalOpen} />
         </div>
-        <ErrorModal
-          isModalOpen={isErrorModalOpen}
-          setIsModalOpen={setIsErrorModalOpen}
+        <Popup
+          isPopupOpen={isPopupOpen}
+          setIsPopupOpen={setIsPopupOpen}
           text={popupText}
+          severity={popupSeverity}
         />
         <AddTrip
           isAddTripOpen={isAddTripModalOpen}

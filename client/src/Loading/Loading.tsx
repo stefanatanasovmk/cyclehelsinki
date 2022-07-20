@@ -3,7 +3,7 @@ import "./Style/Loading.css";
 export default function Loading(): JSX.Element {
   return (
     <div className="Loading">
-      <CircularProgress />;
+      <CircularProgress />
     </div>
   );
 }

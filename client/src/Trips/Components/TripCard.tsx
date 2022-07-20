@@ -4,7 +4,6 @@ import secondsToTime from "../../Utils/Functions/secondsToTime";
 import "./Style/TripCard.css";
 import { Card, CardContent, Typography } from "@mui/material";
 import parseDate from "../../Utils/Functions/parseDate";
-import TripModal from "./TripModal";
 import Context from "../../context/context";
 interface Props {
   Departure: number;
@@ -25,17 +24,16 @@ export default function TripCard({
 }: Props): JSX.Element {
   const [departureStation, setDepartureStation] = useState<string>("");
   const [arrivalStation, setArrivalStation] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [backgroundColor, setBackgroundColor] = useState<string>("#e8e8e8");
   const { setPopup } = useContext(Context);
 
   useEffect(() => {
     getStation(DeparturedStationId)
       .then((data) => setDepartureStation(data.Name))
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
     getStation(ReturnedStationId)
       .then((data) => setArrivalStation(data.Name))
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
   }, [DeparturedStationId, ReturnedStationId, setPopup]);
   return (
     <div className="TripCard">
@@ -45,13 +43,9 @@ export default function TripCard({
         variant="outlined"
         style={{
           backgroundColor: backgroundColor,
-          cursor: "pointer",
           boxShadow:
             "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
         }}
-        onClick={() =>
-          isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true)
-        }
       >
         <CardContent>
           <Typography variant="subtitle2">
@@ -74,16 +68,6 @@ export default function TripCard({
           </Typography>
         </CardContent>
       </Card>
-      <TripModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        departureTime={parseDate(Departure)}
-        returnTime={parseDate(Return)}
-        departureStation={departureStation}
-        arrivalStation={arrivalStation}
-        CoveredDistance={CoveredDistance}
-        Duration={Duration}
-      />
     </div>
   );
 }

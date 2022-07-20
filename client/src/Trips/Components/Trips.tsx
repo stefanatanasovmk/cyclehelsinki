@@ -5,7 +5,6 @@ import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
 import Context from "../../context/context";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 interface Props {
   setIsAddTripModalOpen: (isErrorModalOpen: boolean) => void;
@@ -24,7 +23,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
     getTrips(length, page + 1)
       .then((data) => setTrips((pre) => [...pre, ...data.data]))
       .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
     setPage((pre) => pre + 1);
   }
 
@@ -32,7 +31,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
     getTrips(10, 1)
       .then((data) => setTrips(data.data))
       .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
   }, [setPopup]);
 
   return (

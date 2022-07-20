@@ -1,11 +1,10 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import Station from "./station.interface";
 
 const StationSchema = new Schema(
   {
     _id: {
       type: String,
-      default: new mongoose.Types.ObjectId(), //if you don't provide unique ID for new Station, MongoDB will assing it itself.
     },
     Nimi: {
       type: String,

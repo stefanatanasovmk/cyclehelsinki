@@ -1,16 +1,21 @@
-import { Modal, Button, TextField } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
-import Station from "../Utils/Interfaces/station.interface";
-import "./Style/Modal.css";
+import Station from "../../Utils/Interfaces/station.interface";
+import "../Style/Modal.css";
 import StationSearch from "./StationSearch";
-import saveTrip from "../Utils/Functions/saveTrip";
+import saveTrip from "../../Utils/Functions/saveTrip";
 import axios from "axios";
-import Context from "../context/context";
+import Context from "../../context/context";
+import Buttons from "../Buttons";
+import Inputs from "./Inputs";
 
 interface Props {
   isAddTripOpen: boolean;
   setIsAddTripOpen: (isAddTripOpen: boolean) => void;
 }
+
+const style = { marginTop: "1vh" };
+
 export default function AddTrip({
   isAddTripOpen,
   setIsAddTripOpen,
@@ -36,9 +41,9 @@ export default function AddTrip({
     )
       .then(() => {
         setIsAddTripOpen(false);
-        setPopup("The trip has beeen saved successfully");
+        setPopup("The trip has beeen saved successfully", "success");
       })
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
   }
 
   useEffect(() => {
@@ -49,70 +54,44 @@ export default function AddTrip({
         setChosenDepartureStation(data.data[0].Name);
         setChosenReturnStation(data.data[0].Name);
       })
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
   }, [setPopup]);
 
   return (
-    <Modal open={isAddTripOpen}>
-      <div className="Modal">
+    <Dialog open={isAddTripOpen} scroll="paper">
+      <DialogTitle>
+        <Typography variant="button">Add trip</Typography>
+      </DialogTitle>
+      <DialogContent>
         <StationSearch
+          style={style}
           stations={stations}
           chosenStation={chosenDepartureStation}
           setChosenStation={setChosenDepartureStation}
           label="Search departure station"
         />
         <StationSearch
+          style={style}
           stations={stations}
           chosenStation={chosenReturnStation}
           setChosenStation={setChosenReturnStation}
           label="Search return station"
         />
-        <TextField
-          color="primary"
-          fullWidth
-          type="number"
-          helperText="Covered distance(in meters)"
-          value={coveredDistance}
-          onChange={(e) => setCoveredDistance(+e.target.value)}
-        />
-        <TextField
-          fullWidth
-          variant="outlined"
-          color="primary"
-          helperText="Departure time"
-          type="datetime-local"
-          value={departureTime}
-          onChange={(e) => setDepartureTime(e.target.value)}
+        <Inputs
+          coveredDistance={coveredDistance}
+          setCoveredDistance={setCoveredDistance}
+          departureTime={departureTime}
+          setDepartureTime={setDepartureTime}
+          returnTime={returnTime}
+          setReturnTime={setReturnTime}
+          style={style}
         />
 
-        <TextField
-          fullWidth
-          variant="outlined"
-          color="primary"
-          helperText="Return time"
-          type="datetime-local"
-          value={returnTime}
-          onChange={(e) => setReturnTime(e.target.value)}
+        <Buttons
+          handleSave={saveTripHandler}
+          setIsModalOpen={setIsAddTripOpen}
         />
-        <Button
-          style={{ marginTop: "1vh" }}
-          fullWidth
-          variant="contained"
-          color="success"
-          onClick={saveTripHandler}
-        >
-          Save
-        </Button>
-        <Button
-          style={{ marginTop: "1vh" }}
-          fullWidth
-          variant="contained"
-          color="warning"
-          onClick={() => setIsAddTripOpen(false)}
-        >
-          Close
-        </Button>
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 }

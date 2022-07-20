@@ -46,19 +46,20 @@ export default function MapPopup({
         setAverageDistanceDepartures(data.data.averageDistance);
       })
       .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
     getMostPopular(id, "returns")
       .then((data) => {
         setMostPopularReturns(data.data.stations);
         setAverageDistanceReturns(data.data.averageDistance);
       })
       .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message));
+      .catch((e) => setPopup(e.response.data.message, "error"));
   }
 
   return (
     <Popup>
       <Buttons
+        value={value}
         setValue={setValue}
         getMostPopularStations={getMostPopularStations}
       />

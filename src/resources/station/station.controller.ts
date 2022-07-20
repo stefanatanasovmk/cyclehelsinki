@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import Controller from "../../utils/interfaces/controller.interface";
 import HttpError from "../../utils/errors/HttpError";
 import StationService from "./station.service";
+import { validator, ValidateSchema } from "../../middleware/dataValidator";
 
 export default class StationController implements Controller {
   public path = "/station";
@@ -20,6 +21,11 @@ export default class StationController implements Controller {
     this.router.get(
       `${this.path}/getmostpopular/:id/:type`,
       this.getMostPopular
+    );
+    this.router.post(
+      `${this.path}/addstation`,
+      validator(ValidateSchema.station),
+      this.addStation
     );
   }
 
@@ -79,6 +85,20 @@ export default class StationController implements Controller {
       const [status, stations, averageDistance] =
         await this.StationService.getMostPopular(id, type);
       res.status(status).json({ stations, averageDistance });
+    } catch {
+      next(new HttpError(500, "Problems with the server, please try again"));
+    }
+  };
+
+  //Controller for adding a new Station to the db
+  private addStation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const [status, station] = await this.StationService.addStation(req.body);
+      res.status(status).json(station);
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
     }

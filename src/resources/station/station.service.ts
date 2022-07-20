@@ -3,6 +3,7 @@ import Station from "./station.interface";
 import tripModel from "../trip/trip.model";
 import mostPopularStations from "../../utils/functions/mostPopularStations";
 import Trip from "../trip/trip.interface";
+import mongoose from "mongoose";
 export default class StationService {
   private station = stationModel;
   private trip = tripModel;
@@ -12,8 +13,8 @@ export default class StationService {
     try {
       const stations = await this.station
         .find()
-        .limit(2 * 1)
-        .skip((1 - 1) * 2);
+        .limit(5 * 1)
+        .skip((1 - 1) * 5);
       return [200, stations];
     } catch (e) {
       throw new Error();
@@ -92,9 +93,38 @@ export default class StationService {
         const averageDistance: number =
           tripsLength.reduce((a, b) => a + b, 0) / tripsLength.length;
         const stations = await mostPopularStations(stationsIds);
+        tripsLength.map((e) => console.log(e));
+        console.log("Average distance", averageDistance);
         return [200, stations, averageDistance];
       } else {
         return [500, { message: "Station with the given ID wasn't found" }];
+      }
+    } catch (e) {
+      throw new Error();
+    }
+  }
+
+  //Service for adding a new Station
+
+  public async addStation(
+    body: Station
+  ): Promise<[number, Station] | [number, object]> {
+    try {
+      if (body !== undefined || body !== null) {
+        const [lat, long] = body.Location.coordinates;
+        if (long < 59.95 || long > 60.5 || lat < 24.3 || lat > 25.5) {
+          return [
+            500,
+            { message: "Station location needs to be in Uusimaa area" },
+          ];
+        } else {
+          const id = new mongoose.Types.ObjectId();
+          const station = new this.station({ _id: id, ...body });
+          await station.save();
+          return [200, station];
+        }
+      } else {
+        return [500, { message: "All fields are required" }];
       }
     } catch (e) {
       throw new Error();

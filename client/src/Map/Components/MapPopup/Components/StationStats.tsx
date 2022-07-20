@@ -42,13 +42,13 @@ export default function StationStats({
             className="MostPopularDeparturesContainer"
             style={{ width: "90%" }}
           >
-            <h5>
+            <div className="StatsHeadersText">
               Average length of trips departed from this stations:
               {(averageDistanceDepartures / 1000).toFixed(2)} km.
-            </h5>
-            <h5>
+            </div>
+            <div className="StatsHeadersText">
               Most popular arrival stations for trips started at this station:
-            </h5>
+            </div>
             <ol>
               {mostPopularDepartures.map((e) => (
                 <li
@@ -64,14 +64,14 @@ export default function StationStats({
             </ol>
           </div>
           <div className="MostPopularReturnsContainer" style={{ width: "90%" }}>
-            <h5>
+            <div className="StatsHeadersText">
               Average length of trips returned to this station:
               {(averageDistanceReturns / 1000).toFixed(2)} km.
-            </h5>
-            <h5>
+            </div>
+            <div className="StatsHeadersText">
               Most popular departure stations for trips that arrived at this
               station:
-            </h5>
+            </div>
             <ol>
               {mostPopularReturns.map((e) => (
                 <li

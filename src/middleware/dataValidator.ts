@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Joi, { ObjectSchema } from "joi";
 
-export function tripValidator(schema: ObjectSchema) {
+export function validator(schema: ObjectSchema) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await schema.validateAsync(req.body);
@@ -21,5 +21,20 @@ export const ValidateSchema = {
     ReturnedStation: Joi.string().required(),
     CoveredDistance: Joi.number(),
     Duration: Joi.number().required(),
+  }),
+  station: Joi.object({
+    Nimi: Joi.string().required(),
+    Namn: Joi.string().required(),
+    Name: Joi.string().required(),
+    Osoite: Joi.string().required(),
+    Adress: Joi.string().required(),
+    Kaupunki: Joi.string().required(),
+    Stad: Joi.string().required(),
+    Operaattor: Joi.string().required(),
+    Kapasiteet: Joi.string().required(),
+    Location: Joi.object({
+      type: Joi.string().required(),
+      coordinates: Joi.array().required(),
+    }).required(),
   }),
 };

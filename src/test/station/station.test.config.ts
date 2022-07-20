@@ -14,6 +14,7 @@ const api = supertest(application);
 const path = "/api/station";
 
 const exampleStation = {
+  _id: "5e8f8f8f8f8f8f8f8f8f8f8f",
   Nimi: "Innopoli",
   Namn: "Innopoli",
   Name: "Innopoli",

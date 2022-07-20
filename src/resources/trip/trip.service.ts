@@ -76,6 +76,10 @@ export default class TripService {
         CoveredDistance,
         Duration,
       } = body;
+      const now = new Date();
+      if (Departure > now.getTime() || Return > now.getTime()) {
+        return [500, { message: "Departure or return date is in the future" }];
+      }
       if (Duration < 0) {
         return [
           500,

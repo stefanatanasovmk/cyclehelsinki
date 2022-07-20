@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import Controller from "../../utils/interfaces/controller.interface";
 import HttpError from "../../utils/errors/HttpError";
 import TripService from "./trip.service";
-import { tripValidator, ValidateSchema } from "../../middleware/dataValidator";
+import { validator, ValidateSchema } from "../../middleware/dataValidator";
 import mongoose from "mongoose";
 
 export default class TripController implements Controller {
@@ -24,7 +24,7 @@ export default class TripController implements Controller {
     this.router.get(`${this.path}`, this.getAll);
     this.router.post(
       `${this.path}/addtrip`,
-      tripValidator(ValidateSchema.trip),
+      validator(ValidateSchema.trip),
       this.addTrip
     );
   }

@@ -39,11 +39,11 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
           setDoesUserHaveLocation(true);
         },
         () => {
-          setPopup("You need to allow us to use your location");
+          setPopup("You need to allow us to use your location", "warning");
         }
       );
     } else {
-      setPopup("Your browser does not support geolocation");
+      setPopup("Your browser does not support geolocation", "warning");
     }
     return [longLat[0], longLat[1]];
   }
@@ -76,7 +76,7 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
         setStations(res.data);
         setLoading(false);
       } catch (e: any) {
-        setPopup(e.response.data.message);
+        setPopup(e.response.data.message, "error");
         setLoading(false);
       }
     };
