@@ -82,9 +82,11 @@ export default class StationController implements Controller {
   ) => {
     try {
       const { id, type } = req.params;
-      const [status, stations, averageDistance] =
+      const [status, stations, averageDistance, totalNumberOfTrips] =
         await this.StationService.getMostPopular(id, type);
-      res.status(status).json({ stations, averageDistance });
+      res
+        .status(status)
+        .json({ stations, averageDistance, totalNumberOfTrips });
     } catch {
       next(new HttpError(500, "Problems with the server, please try again"));
     }

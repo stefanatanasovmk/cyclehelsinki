@@ -61,7 +61,7 @@ export default function TripCard({
             Return station: {arrivalStation}
           </Typography>
           <Typography variant="subtitle2">
-            Covered distance: {CoveredDistance} m.
+            Covered distance: {(CoveredDistance / 1000).toFixed(2)} km.
           </Typography>
           <Typography variant="subtitle2">
             Duration: {secondsToTime(Duration)}

@@ -17,8 +17,9 @@
   justify-content: flex-start;
   cursor: pointer;
 }
-#LogoText {
-  font-family: "Roboto Mono", monospace;
+.LogoText {
+  font-family: "Oswald", sans-serif, "Roboto Mono", monospace;
+  font-size: 3em;
   font-weight: 700;
 }
 
@@ -30,3 +31,4 @@
   align-items: center;
   padding-right: 2vw;
 }
+

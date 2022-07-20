@@ -23,7 +23,6 @@
   /* src/Map/Components/Map.tsx */
   .map,
     /* src/Map/Components/Map.tsx */
-
   .MapDiv,
   /* src/Loading/Loading.tsx */
   .Loading {
@@ -39,15 +38,7 @@
     margin-bottom: 20px;
     padding-bottom: 20px;
   }
-  /* src/Trips/Components/TripModal.tsx */
-  .TripModalBox {
-    width: 80%;
-  }
-  /* src/Home/ErrorModal.tsx */
-  .ErrorModal {
-    width: 80%;
-  }
-  /* src\Map\Components\MapPopup\Components\StationInfo.tsx */
+  /* src/Map/Components/MapPopup/Components/StationInfo.tsx */
   .StationInfoDiv {
     flex-direction: column;
     overflow-y: scroll;
@@ -55,9 +46,15 @@
 }
 
 @media (max-width: 620px) {
-  /* src\Map\Components\MapPopup\Components\StationStats.tsx */
+  /* src/Map/Components/MapPopup/Components/StationStats.tsx */
   .StationStats {
     flex-direction: column;
     justify-content: flex-start;
+  }
+}
+@media (max-width: 350px) {
+  /* src/Navbar/Navbar.tsx */
+  #LogoText {
+    font-size: 2em;
   }
 }

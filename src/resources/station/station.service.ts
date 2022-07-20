@@ -64,25 +64,26 @@ export default class StationService {
     id: string,
     type: string
   ): Promise<
-    | [number, Station[], number]
-    | [number, object, number]
+    | [number, Station[], number, number]
+    | [number, object, number, number]
     | [number, { message: string }]
   > {
     try {
       const station = await this.station.findById(id);
       if (station !== null && station !== undefined) {
-        const tripsLength: number[] = [];
-        const stationsIds: String[] = [];
+        let tripsLength: number[] = [];
+        let stationsIds: String[] = [];
+        let totalNumberOfTrips: number = 0;
         if (type === "departures") {
           const trips = await this.trip.find({ DeparturedStationId: id });
-
+          totalNumberOfTrips = trips.length;
           trips.forEach((trips: Trip) => {
             stationsIds.push(trips.ReturnedStationId);
             tripsLength.push(trips.CoveredDistance);
           });
         } else if (type === "returns") {
           const trips = await this.trip.find({ ReturnedStationId: id });
-
+          totalNumberOfTrips = trips.length;
           trips.forEach((trips) => {
             stationsIds.push(trips.DeparturedStationId);
             tripsLength.push(trips.CoveredDistance);
@@ -93,9 +94,7 @@ export default class StationService {
         const averageDistance: number =
           tripsLength.reduce((a, b) => a + b, 0) / tripsLength.length;
         const stations = await mostPopularStations(stationsIds);
-        tripsLength.map((e) => console.log(e));
-        console.log("Average distance", averageDistance);
-        return [200, stations, averageDistance];
+        return [200, stations, averageDistance, totalNumberOfTrips];
       } else {
         return [500, { message: "Station with the given ID wasn't found" }];
       }

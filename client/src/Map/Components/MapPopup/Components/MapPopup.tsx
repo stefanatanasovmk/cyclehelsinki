@@ -4,13 +4,10 @@ import "../Style/MapPopup.css";
 import Buttons from "./Buttons";
 import StationInfo from "./StationInfo";
 import StationStats from "./StationStats";
-import getMostPopular from "../../../../Utils/Functions/getStationStats";
-// import {
-//   getMostPopularDepartures,
-//   getMostPopularReturns,
-// } from "../../../../Utils/Functions/getStationStats";
+import getStationStats from "../../../../Utils/Functions/getStationStats";
 import Station from "../../../../Utils/Interfaces/station.interface";
 import Context from "../../../../context/context";
+
 interface Props {
   id: string;
   Name: string;
@@ -32,25 +29,33 @@ export default function MapPopup({
   );
   const [averageDistanceDepartures, setAverageDistanceDepartures] =
     useState<number>(0);
+  const [totalNumberOfDepartureTrips, setTotalNumberOfDepartureTrips] =
+    useState<number>(0);
+
   const [mostPopularReturns, setMostPopularReturns] = useState<Station[]>([]);
   const [averageDistanceReturns, setAverageDistanceReturns] =
     useState<number>(0);
+  const [totalNumberOfReturnTrips, setTotalNumberOfReturnTrips] =
+    useState<number>(0);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const { setPopup } = useContext(Context);
 
   function getMostPopularStations() {
-    getMostPopular(id, "departures")
+    getStationStats(id, "departures")
       .then((data) => {
         setMostPopularDepartures(data.data.stations);
         setAverageDistanceDepartures(data.data.averageDistance);
+        setTotalNumberOfDepartureTrips(data.data.totalNumberOfTrips);
       })
       .then(() => setIsLoading(false))
       .catch((e) => setPopup(e.response.data.message, "error"));
-    getMostPopular(id, "returns")
+    getStationStats(id, "returns")
       .then((data) => {
         setMostPopularReturns(data.data.stations);
         setAverageDistanceReturns(data.data.averageDistance);
+        setTotalNumberOfReturnTrips(data.data.totalNumberOfTrips);
       })
       .then(() => setIsLoading(false))
       .catch((e) => setPopup(e.response.data.message, "error"));
@@ -78,8 +83,11 @@ export default function MapPopup({
           averageDistanceDepartures={averageDistanceDepartures}
           averageDistanceReturns={averageDistanceReturns}
           isLoading={isLoading}
+          totalNumberOfDepartureTrips={totalNumberOfDepartureTrips}
+          totalNumberOfReturnTrips={totalNumberOfReturnTrips}
         />
       )}
     </Popup>
   );
 }
+          

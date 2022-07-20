@@ -5,10 +5,11 @@ interface Response {
   data: {
     averageDistance: number;
     stations: Station[];
+    totalNumberOfTrips: number;
   };
 }
 
-export default async function getMostPopular(
+export default async function getStationStats(
   stationId: string,
   type: string
 ): Promise<Response> {
@@ -17,5 +18,3 @@ export default async function getMostPopular(
   );
   return data;
 }
-
-

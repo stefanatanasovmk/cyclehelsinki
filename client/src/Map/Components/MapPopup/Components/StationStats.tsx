@@ -9,6 +9,8 @@ interface Props {
   averageDistanceDepartures: number;
   averageDistanceReturns: number;
   isLoading: boolean;
+  totalNumberOfDepartureTrips: number;
+  totalNumberOfReturnTrips: number;
 }
 
 export default function StationStats({
@@ -18,6 +20,8 @@ export default function StationStats({
   averageDistanceDepartures,
   averageDistanceReturns,
   isLoading,
+  totalNumberOfDepartureTrips,
+  totalNumberOfReturnTrips,
 }: Props): JSX.Element {
   const map = useMap();
   function handleClickOnStationName(i: any, coordinates: [number, number]) {
@@ -43,6 +47,10 @@ export default function StationStats({
             style={{ width: "90%" }}
           >
             <div className="StatsHeadersText">
+              Total number of trips departed from this station:
+              {totalNumberOfDepartureTrips}
+            </div>
+            <div className="StatsHeadersText">
               Average length of trips departed from this stations:
               {(averageDistanceDepartures / 1000).toFixed(2)} km.
             </div>
@@ -64,6 +72,10 @@ export default function StationStats({
             </ol>
           </div>
           <div className="MostPopularReturnsContainer" style={{ width: "90%" }}>
+            <div className="StatsHeadersText">
+              Total number of trips returned to this station:
+              {totalNumberOfReturnTrips}
+            </div>
             <div className="StatsHeadersText">
               Average length of trips returned to this station:
               {(averageDistanceReturns / 1000).toFixed(2)} km.
