@@ -51,6 +51,10 @@
     flex-direction: column;
     justify-content: flex-start;
   }
+  /* src/Trips/Components/FilterByTime.tsx */
+  .FilterByTime {
+    flex-direction: column;
+  }
 }
 @media (max-width: 350px) {
   /* src/Navbar/Navbar.tsx */

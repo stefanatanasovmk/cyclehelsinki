@@ -31,8 +31,7 @@ export default function FilterByTime({
         <TextField
           style={{
             marginLeft: "0.5vw",
-            marginRight: "0.5vw",
-            marginBottom: "0.5vh",
+            marginTop: "0.5vh",
           }}
           fullWidth
           variant="outlined"
@@ -43,7 +42,7 @@ export default function FilterByTime({
           onChange={(e) => setUntil(e.target.value)}
         />
         <TextField
-          style={{ marginRight: "0.5vw" }}
+          style={{ marginRight: "0.5vw", marginTop: "0.5vh" }}
           fullWidth
           variant="outlined"
           color="primary"
