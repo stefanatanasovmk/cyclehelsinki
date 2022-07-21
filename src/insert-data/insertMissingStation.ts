@@ -1,8 +1,4 @@
-// import mongoose from "mongoose";
-// import { config } from "dotenv";
 import stationModel from "../resources/station/station.model";
-// config({ path: "../../.env" });
-// const mongoDbPath = process.env.MONGO_DB_PATH;
 
 export default async function addMissingStation() {
   try {
@@ -19,4 +15,3 @@ export default async function addMissingStation() {
   }
 }
 
-// mongoose.connect(`${mongoDbPath}`);

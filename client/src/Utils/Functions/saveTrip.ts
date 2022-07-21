@@ -9,7 +9,7 @@ export default async function saveTrip(
 ): Promise<string> {
   const parsedDeparture = new Date(departureTime).getTime();
   const parsedReturn = new Date(returnTime).getTime();
-  const duration = parsedReturn - parsedDeparture;
+  const duration = (parsedReturn - parsedDeparture) / 1000;
 
   return await axios.post("/api/trip/addtrip", {
     Departure: parsedDeparture,

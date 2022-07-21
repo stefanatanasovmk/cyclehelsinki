@@ -1,10 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import Trip from "../../Utils/Interfaces/trip.interface";
 import getTrips from "../../Utils/Functions/getTrips";
 import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
 import Context from "../../context/context";
+import FilterByTime from "./FilterByTime";
 
 interface Props {
   setIsAddTripModalOpen: (isErrorModalOpen: boolean) => void;
@@ -16,11 +17,32 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
   const [page, setPage] = useState<number>(1);
   const [trips, setTrips] = useState<Trip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [from, setFrom] = useState(
+    new Date("May 01 2021 03:01:01 GMT+0300 (Eastern European Summer Time)")
+      .toISOString()
+      .slice(-0, -8)
+  );
+
+  //Date.now().toIsoString() returns a time that is 3 timezones behind Helsinki time, that's why + 10800000 is added
+  const [until, setUntil] = useState(
+    new Date(Date.now() + 10800000).toISOString().slice(-0, -8)
+  );
+  const [filterBy, setFilterBy] = useState("return");
+
   const { setPopup } = useContext(Context);
 
-  function getTripsHandler(): void {
+  const getTripsHandler = useCallback(() => {
     setIsLoading(true);
-    getTrips(length, page + 1)
+    getTrips(length, 1, from, until, filterBy)
+      .then((data) => setTrips(data.data))
+      .then(() => setIsLoading(false))
+      .catch((e) => setPopup(e.response.data.message, "error"));
+  }, [filterBy, from, setPopup, until]);
+
+  function getMoreTripsHandler(): void {
+    setIsLoading(true);
+    getTrips(length, page + 1, from, until, filterBy)
       .then((data) => setTrips((pre) => [...pre, ...data.data]))
       .then(() => setIsLoading(false))
       .catch((e) => setPopup(e.response.data.message, "error"));
@@ -28,10 +50,19 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    getTrips(10, 1)
-      .then((data) => setTrips(data.data))
-      .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message, "error"));
+    function getTripsOnMount() {
+      getTrips(
+        10,
+        1,
+        "2021-05-01T00:01",
+        new Date(Date.now() + 10800000).toISOString().slice(-0, -8),
+        "return"
+      )
+        .then((data) => setTrips(data.data))
+        .then(() => setIsLoading(false))
+        .catch((e) => setPopup(e.response.data.message, "error"));
+    }
+    getTripsOnMount();
   }, [setPopup]);
 
   return (
@@ -48,6 +79,16 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       >
         Add Trip
       </Button>
+      <FilterByTime
+        from={from}
+        setFrom={setFrom}
+        until={until}
+        setUntil={setUntil}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        getTripsHandler={getTripsHandler}
+        isLoading={isLoading}
+      />
       {trips.map((e) => (
         <TripCard
           key={e._id}
@@ -62,7 +103,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
 
       <Button
         fullWidth
-        onClick={getTripsHandler}
+        onClick={getMoreTripsHandler}
         variant="outlined"
         color="error"
         style={{ height: "40px", marginBottom: "1vh" }}

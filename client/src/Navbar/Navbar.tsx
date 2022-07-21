@@ -5,7 +5,7 @@ export default function Navbar(): JSX.Element {
     <div className="Navbar">
       <div className="Navbar-logo" onClick={() => window.location.reload()}>
         <span id="LogoText" className="LogoText">
-          Cycle Helsinki
+          CycleHelsinki
         </span>
       </div>
     </div>

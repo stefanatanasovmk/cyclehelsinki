@@ -44,16 +44,41 @@ export default class TripService {
   //Service for fetching all the trips, with implemented pagination
   public async getAll(
     page: number,
-    limit: number
+    limit: number,
+    from: number,
+    until: number,
+    filterby: string
   ): Promise<[number, Trip[]] | [number, object]> {
     try {
-      const trips = await this.trip
-        .find()
-        .sort({ Return: -1 })
-        .limit(limit * 1)
-        .skip((page - 1) * limit);
-      if (typeof trips !== undefined && trips !== null) {
-        return [200, trips];
+      let trips;
+      if (filterby === "return") {
+        trips = await this.trip
+          .find({ Return: { $gte: from, $lte: until } })
+          .sort({ Return: -1 })
+          .limit(limit * 1)
+          .skip((page - 1) * limit);
+        if (typeof trips !== undefined && trips !== null) {
+          return [200, trips];
+        } else {
+          return [
+            500,
+            { message: "We couldn't load the trips, please try again..." },
+          ];
+        }
+      } else if (filterby === "departure") {
+        trips = await this.trip
+          .find({ Departure: { $gte: from, $lte: until } })
+          .sort({ Departure: -1 })
+          .limit(limit * 1)
+          .skip((page - 1) * limit);
+        if (typeof trips !== undefined && trips !== null) {
+          return [200, trips];
+        } else {
+          return [
+            500,
+            { message: "We couldn't load the trips, please try again..." },
+          ];
+        }
       } else {
         return [
           500,
@@ -76,8 +101,7 @@ export default class TripService {
         CoveredDistance,
         Duration,
       } = body;
-      const now = new Date();
-      if (Departure > now.getTime() || Return > now.getTime()) {
+      if (Departure > Date.now() || Return > Date.now()) {
         return [500, { message: "Departure or return date is in the future" }];
       }
       if (Duration < 0) {

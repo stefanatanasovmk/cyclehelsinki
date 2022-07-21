@@ -73,9 +73,29 @@ export default class TripController implements Controller {
   //Controller for fetching all the trips, with implemented pagination, it accept page number and limit of how much trips you would like to show on a page, as a number
   private getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { page = 1, limit = 20 } = req.query;
-      const [status, trips] = await this.TripService.getAll(+page, +limit);
-      res.status(status).json(trips);
+      const defaultFrom = new Date("2021-01-01").getTime();
+      const defaultUntil = Date.now();
+      const {
+        page = 1,
+        limit = 20,
+        from = defaultFrom,
+        until = defaultUntil,
+        filterby = "return",
+      } = req.query;
+      if (typeof filterby !== "string") {
+        res
+          .status(500)
+          .json({ message: "You need to choose how to filter the trips" });
+      } else {
+        const [status, trips] = await this.TripService.getAll(
+          +page,
+          +limit,
+          +from,
+          +until,
+          filterby
+        );
+        res.status(status).json(trips);
+      }
     } catch {
       next(new HttpError(500, "Something went kaboom, please try again"));
     }

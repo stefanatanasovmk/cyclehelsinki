@@ -8,7 +8,7 @@ export default function secondsToTime(e: number): string {
     s = Math.floor(e % 60)
       .toString()
       .padStart(2, "0");
-
-  return h + ":" + m + ":" + s;
-  //return `${h}:${m}:${s}`;
+  console.log(e);
+  // return h + ":" + m + ":" + s;
+  return `${h}:${m}:${s}`;
 }
