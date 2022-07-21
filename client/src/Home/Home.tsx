@@ -7,6 +7,7 @@ import Popup from "./Popup/Popup";
 import Context from "../context/context";
 import AddTrip from "../AddData/AddTrip/AddTrip";
 import AddStation from "../AddData/AddStation/AddStation";
+import Footer from "../Footer/Footer";
 export default function Home(): JSX.Element {
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState<boolean>(false);
   const [isAddStationModalOpen, setIsAddStationModalOpen] =
@@ -43,6 +44,7 @@ export default function Home(): JSX.Element {
           isAddStationModalOpen={isAddStationModalOpen}
           setIsAddStationModalOpen={setIsAddStationModalOpen}
         />
+        <Footer />
       </div>
     </Context.Provider>
   );

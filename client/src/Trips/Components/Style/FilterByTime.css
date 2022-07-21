@@ -1,6 +1,6 @@
 .FilterByTime {
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
   margin-top: 0.5vh;
   margin-bottom: 0.5vh;
 }

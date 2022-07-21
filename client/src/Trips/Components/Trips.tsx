@@ -6,6 +6,7 @@ import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
 import Context from "../../context/context";
 import FilterByTime from "./FilterByTime";
+import SwitchComponent from "./SwitchComponent";
 
 interface Props {
   setIsAddTripModalOpen: (isErrorModalOpen: boolean) => void;
@@ -24,11 +25,12 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       .slice(-0, -8)
   );
 
-  //Date.now().toIsoString() returns a time that is 3 timezones behind Helsinki time, that's why + 10800000 is added
+  //Date.now().toIsoString() returns a time that is 3 timezones behind Helsinki time, that's why + 10800000 miliseconds are added
   const [until, setUntil] = useState(
     new Date(Date.now() + 10800000).toISOString().slice(-0, -8)
   );
   const [filterBy, setFilterBy] = useState("return");
+  const [areFiltersOpen, setAreFiltersOpen] = useState<boolean>(false);
 
   const { setPopup } = useContext(Context);
 
@@ -67,6 +69,13 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
 
   return (
     <div className="Trips">
+      <SwitchComponent
+        label="Filter trips by time"
+        value={areFiltersOpen}
+        setValue={setAreFiltersOpen}
+        labelPlacement={"end"}
+        style={{ marginRight: "0px" }}
+      />
       <Button
         fullWidth
         onClick={() => setIsAddTripModalOpen(true)}
@@ -79,16 +88,19 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       >
         Add Trip
       </Button>
-      <FilterByTime
-        from={from}
-        setFrom={setFrom}
-        until={until}
-        setUntil={setUntil}
-        filterBy={filterBy}
-        setFilterBy={setFilterBy}
-        getTripsHandler={getTripsHandler}
-        isLoading={isLoading}
-      />
+      {areFiltersOpen && (
+        <FilterByTime
+          from={from}
+          setFrom={setFrom}
+          until={until}
+          setUntil={setUntil}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          getTripsHandler={getTripsHandler}
+          isLoading={isLoading}
+        />
+      )}
+
       {trips.map((e) => (
         <TripCard
           key={e._id}
@@ -106,7 +118,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
         onClick={getMoreTripsHandler}
         variant="outlined"
         color="error"
-        style={{ height: "40px", marginBottom: "1vh" }}
+        style={{ height: "40px", marginBottom: "6vh" }}
       >
         {isLoading ? (
           <CircularProgress style={{ width: "20px", height: "20px" }} />
