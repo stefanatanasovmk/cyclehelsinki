@@ -19,15 +19,15 @@ The required software to build and run the project locally:
 
 **Typescript ~ v4.7.4**
 
-*The software versions mentioned above are the one that I'm using on my local machine and on the cloud where the website is deployed.
+\*The software versions mentioned above are the one that I'm using on my local machine and on the cloud where the website is deployed.
 
-### Run the project locally
+## Run the project locally
 
-## 1. Clone the directory on your local machine.
+### 1. Clone the directory on your local machine.
 
 > git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-## 2. Install the dependencies
+### 2. Install the dependencies
 
 - In the root directory:
 
@@ -37,13 +37,13 @@ The required software to build and run the project locally:
 
 > npm install --include=dev
 
-## 3. in ~/src/insert-data in files "insert2021-05.ts", "insert2021-06.ts", "insert2021-07.ts", you will need to specify the path where your journeys CSV files are stored. In "insertStations.ts" you will need to specify the path where your stations CSV file is stored.
+### 3. in ~/src/insert-data in files "insert2021-05.ts", "insert2021-06.ts", "insert2021-07.ts", you will need to specify the path where your journeys CSV files are stored. In "insertStations.ts" you will need to specify the path where your stations CSV file is stored.
 
-## 4. Compile the code
+### 4. Compile the code
 
 > npm run build
 
-## 5. To insert the data, cd into newly created ~/dist/insert-data
+### 5. To insert the data, cd into newly created ~/dist/insert-data
 
 - Run this commands one-by-one:
 
@@ -57,20 +57,19 @@ The required software to build and run the project locally:
 
 **Run the commands in this order so the journeys will be saved from the oldest data to the newest. This should take around 15 minutes.**
 
-## 6. Test the backend
+### 6. Test the backend
 
 - in the root directory
 
 > npm run test
 
-
-## 7. Start the backend
+### 7. Start the backend
 
 - in the root directory
 
 > npm start
 
-## 8. Start the frontend
+### 8. Start the frontend
 
 - in ~/client/package.json change "proxy" to "http://localhost:${yourPortNumber}"
 - cd into the /client directory:
@@ -79,19 +78,19 @@ The required software to build and run the project locally:
 
 **NOTE: Frontend is usually running on port 3000, so the port that you specify in .env file, needs to be different.**
 
-### Run only the frontend locally
+## Run only the frontend locally
 
-## 1. Clone the directory on your local machine.
+### 1. Clone the directory on your local machine.
 
 > git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-## 2. Install the dependencies
+### 2. Install the dependencies
 
 - cd into /client directory
 
 > npm install --include=dev
 
-## 3. Start the frontend
+### 3. Start the frontend
 
 - in /client directory
 
