@@ -1,6 +1,7 @@
 import "../Style/StationInfo.css";
 import greenIcon from "../../../Icons/images/green-square.png";
 import redIcon from "../../../Icons/images/red-square.png";
+import { Typography } from "@mui/material";
 
 interface Props {
   Name: string;
@@ -8,6 +9,9 @@ interface Props {
   Kapasiteet: string;
   bikesAvailable: string;
 }
+
+const style = { marginBottom: "2vh", fontWeight: "bold" };
+
 export default function StationInfo({
   Name,
   Osoite,
@@ -17,13 +21,10 @@ export default function StationInfo({
   return (
     <div className="StationInfoDiv">
       <div>
-        <h3>Station name: {Name}</h3>
-        <h3>Address: {Osoite}</h3>
-      </div>
-      <div>
-        <h3>Capacity: {Kapasiteet}</h3>
-
-        <h3>
+        <Typography variant="subtitle2" style={style}>
+          Station name: {Name}
+        </Typography>
+        <Typography variant="subtitle2" style={style}>
           Available bikes: {bikesAvailable}
           {+bikesAvailable > 0 ? (
             <img
@@ -40,7 +41,15 @@ export default function StationInfo({
               alt="There is no available bikes on this station"
             />
           )}
-        </h3>
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="subtitle2" style={style}>
+          Address: {Osoite}
+        </Typography>
+        <Typography variant="subtitle2" style={style}>
+          Capacity: {Kapasiteet}
+        </Typography>
       </div>
     </div>
   );

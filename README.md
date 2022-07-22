@@ -1,102 +1,100 @@
 # CycleHelsinki.fi
 
 This is a project build for an exercise given by Solita, here you can find the exercise and the neccessary data to build and run this project locally:
-\*\*https://github.com/solita/dev-academy-2022-fall-exercise
+**https://github.com/solita/dev-academy-2022-fall-exercise**
 
 ## Project structure
 
-The backend of this project is build with Expressjs and it is in /src directory. The frontend is build with React and you can find it in /client directory.
+The backend of this project is build with Express.js and it is in /src directory. The frontend is build with React and you can find it in /client directory.
 
 To run the project it is required to provide an .env file in the root directory, where you will need to define:
-PORT=
-MONGO_DB_PATH=
-TEST_PORT=
+**PORT=**
+**MONGO_DB_PATH=**
 
 The required software to build and run the project locally:
 
-\*\*Node ~ v16.13.2
+**Node ~ v16.13.2**
 
-\*\*MongoDB ~ v5.0.5
+**MongoDB ~ v5.0.5**
 
-\*\*Typescript ~ v4.7.4
+**Typescript ~ v4.7.4**
 
-The software versions mentioned above are the one that I'm using on my local machine and on the cloud where the website is deployed.
+*The software versions mentioned above are the one that I'm using on my local machine and on the cloud where the website is deployed.
 
-## Run the project locally
+### Run the project locally
 
-1. Clone the directory on your local machine.
+## 1. Clone the directory on your local machine.
 
-### git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
+> git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-2. Install the dependencies
+## 2. Install the dependencies
 
 - In the root directory:
 
-### npm install --include=dev
+> npm install --include=dev
 
-- cd into /client directory
+- cd into ~/client directory
 
-### npm install --include=dev
+> npm install --include=dev
 
-3. in /src/insert-data in files "insert2021-05.ts", "insert2021-06.ts", "insert2021-07.ts", you will need to specify the path where your journeys CSV files are stored. In "insertStations.ts" you will need to specify the path where your stations CSV file is stored.
+## 3. in ~/src/insert-data in files "insert2021-05.ts", "insert2021-06.ts", "insert2021-07.ts", you will need to specify the path where your journeys CSV files are stored. In "insertStations.ts" you will need to specify the path where your stations CSV file is stored.
 
-4. Compile the code
+## 4. Compile the code
 
-### npm run build
+> npm run build
 
-5. Cd into newly created /dist/insert-data
+## 5. To insert the data, cd into newly created ~/dist/insert-data
 
 - Run this commands one-by-one:
 
-### node insertStations.js
+> node insertStations.js
 
-### node insert2021-05.js
+> node insert2021-05.js
 
-### node insert2021-06.js
+> node insert2021-06.js
 
-### node insert2021-07.js
+> node insert2021-07.js
 
-\*\*Run the commands in this order so the journeys will be saved from the oldest data to the newest. This should take around 15 minutes.
+**Run the commands in this order so the journeys will be saved from the oldest data to the newest. This should take around 15 minutes.**
 
-6. Test the backend
-
-- in the root directory
-
-### npm run test
-
-\*\*If you set up everything correctly all the test should pass
-
-7. Start the backend
+## 6. Test the backend
 
 - in the root directory
 
-### npm start
+> npm run test
 
-8. Start the frontend
 
-- in /client/package.json change "proxy" to "http://localhost:YourPortNumber"
+## 7. Start the backend
+
+- in the root directory
+
+> npm start
+
+## 8. Start the frontend
+
+- in ~/client/package.json change "proxy" to "http://localhost:${yourPortNumber}"
 - cd into the /client directory:
 
-### npm start
+> npm start
 
-\*\*NOTE: Frontend is usually running on port 3000, so the port that you specify in .env file, needs to be different.
+**NOTE: Frontend is usually running on port 3000, so the port that you specify in .env file, needs to be different.**
 
-## Run only the frontend locally
+### Run only the frontend locally
 
-1. Clone the directory on your local machine.
+## 1. Clone the directory on your local machine.
 
-### git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
+> git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-2. Install the dependencies
+## 2. Install the dependencies
 
 - cd into /client directory
 
-### npm install --include=dev
+> npm install --include=dev
 
-3. Start the frontend
+## 3. Start the frontend
 
 - in /client directory
 
-### npm start
+> npm start
 
-\*\*The backend will run on the cloud.
+**The backend will run on the cloud.**

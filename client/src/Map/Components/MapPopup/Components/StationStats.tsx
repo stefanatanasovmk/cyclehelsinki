@@ -2,6 +2,8 @@ import { useMap } from "react-leaflet";
 import Station from "../../../../Utils/Interfaces/station.interface";
 import "../Style/StationStats.css";
 import Loading from "../../../../Loading/Loading";
+import { Typography } from "@mui/material";
+
 interface Props {
   mostPopularDepartures: Station[];
   mostPopularReturns: Station[];
@@ -12,6 +14,8 @@ interface Props {
   totalNumberOfDepartureTrips: number;
   totalNumberOfReturnTrips: number;
 }
+
+const headersStyle = { marginBottom: "1vh" };
 
 export default function StationStats({
   mostPopularDepartures,
@@ -46,57 +50,58 @@ export default function StationStats({
             className="MostPopularDeparturesContainer"
             style={{ width: "90%" }}
           >
-            <div className="StatsHeadersText">
+            <Typography align="left" variant="subtitle2" style={headersStyle}>
               Total number of trips departed from this station:
               {totalNumberOfDepartureTrips}
-            </div>
-            <div className="StatsHeadersText">
+            </Typography>
+            <Typography align="left" variant="subtitle2" style={headersStyle}>
               Average length of trips departed from this stations:
               {(averageDistanceDepartures / 1000).toFixed(2)} km.
-            </div>
-            <div className="StatsHeadersText">
+            </Typography>
+            <Typography align="left" variant="subtitle2" style={headersStyle}>
               Most popular arrival stations for trips started at this station:
-            </div>
-            <ol>
-              {mostPopularDepartures.map((e) => (
-                <li
-                  key={e._id}
-                  className="StationsName"
-                  onClick={(i) =>
-                    handleClickOnStationName(i, e.Location.coordinates)
-                  }
-                >
-                  {e.Name}
-                </li>
-              ))}
-            </ol>
+            </Typography>
+
+            {mostPopularDepartures.map((e, i) => (
+              <Typography
+                align="left"
+                fontSize="small"
+                key={e._id}
+                className="StationsName"
+                onClick={(i) =>
+                  handleClickOnStationName(i, e.Location.coordinates)
+                }
+              >
+                {i + 1 + ". " + e.Name}
+              </Typography>
+            ))}
           </div>
           <div className="MostPopularReturnsContainer" style={{ width: "90%" }}>
-            <div className="StatsHeadersText">
+            <Typography align="left" variant="subtitle2" style={headersStyle}>
               Total number of trips returned to this station:
               {totalNumberOfReturnTrips}
-            </div>
-            <div className="StatsHeadersText">
+            </Typography>
+            <Typography align="left" variant="subtitle2" style={headersStyle}>
               Average length of trips returned to this station:
               {(averageDistanceReturns / 1000).toFixed(2)} km.
-            </div>
-            <div className="StatsHeadersText">
+            </Typography>
+            <Typography align="left" variant="subtitle2" style={headersStyle}>
               Most popular departure stations for trips that arrived at this
               station:
-            </div>
-            <ol>
-              {mostPopularReturns.map((e) => (
-                <li
-                  key={e._id}
-                  className="StationsName"
-                  onClick={(i) =>
-                    handleClickOnStationName(i, e.Location.coordinates)
-                  }
-                >
-                  {e.Name}
-                </li>
-              ))}
-            </ol>
+            </Typography>
+            {mostPopularReturns.map((e, i) => (
+              <Typography
+                align="left"
+                fontSize="small"
+                key={e._id}
+                className="StationsName"
+                onClick={(i) =>
+                  handleClickOnStationName(i, e.Location.coordinates)
+                }
+              >
+                {i + 1 + ". " + e.Name}
+              </Typography>
+            ))}
           </div>
         </>
       )}
