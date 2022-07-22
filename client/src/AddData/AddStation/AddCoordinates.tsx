@@ -20,6 +20,7 @@ export default function AddCoordinates({
       <TextField
         style={{ marginBottom: "1vh", marginRight: "1vh" }}
         fullWidth
+        type="number"
         label="Latitude"
         variant="outlined"
         value={lat}
@@ -28,6 +29,7 @@ export default function AddCoordinates({
       <TextField
         style={{ marginBottom: "1vh", marginLeft: "1vh" }}
         fullWidth
+        type="number"
         label="Longitude"
         variant="outlined"
         value={long}

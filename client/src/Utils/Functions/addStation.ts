@@ -41,7 +41,7 @@ export default async function addStation(
       Kapasiteet: capacity,
       Location: {
         type: "Point",
-        coordinates: [lat, long],
+        coordinates: [+lat.replace(/,/, "."), +long.replace(/,/, ".")],
       },
     });
   }

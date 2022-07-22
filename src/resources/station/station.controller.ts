@@ -58,6 +58,7 @@ export default class StationController implements Controller {
     }
   };
 
+  //This route is not in use currently.
   //Controler for finding one Station in the db with given param as a ID and finding all the trips that departed and arrived at the station
   private getOneWithTrips = async (
     req: Request,

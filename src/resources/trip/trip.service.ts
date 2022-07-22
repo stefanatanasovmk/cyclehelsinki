@@ -21,7 +21,8 @@ export default class TripService {
     }
   }
 
-  //Service for fetching one trip, which return the trip itself including the departure and the return station of the trip
+  //This service is not in use currently 
+  //Service for fetching one trip, which return the trip itself including the departure and the return station of the trip. 
   public async getOneWithStations(id: string): Promise<[number, object]> {
     try {
       const trip = await this.trip.findById(id);

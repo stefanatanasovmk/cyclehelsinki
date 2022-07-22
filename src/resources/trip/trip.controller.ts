@@ -49,6 +49,7 @@ export default class TripController implements Controller {
     }
   };
 
+  //This route is not in use currently 
   //Controler for fetching one Trip in the database which return the trip, the departure station and the station where the trip has ended, with given the ID of the trip as a param
   private getOneWithStations = async (
     req: Request,

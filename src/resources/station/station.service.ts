@@ -4,6 +4,7 @@ import tripModel from "../trip/trip.model";
 import mostPopularStations from "../../utils/functions/mostPopularStations";
 import Trip from "../trip/trip.interface";
 import mongoose from "mongoose";
+
 export default class StationService {
   private station = stationModel;
   private trip = tripModel;
@@ -26,7 +27,7 @@ export default class StationService {
   ): Promise<[number, Station] | [number, object]> {
     try {
       const station = await this.station.findById(id);
-      if (typeof station !== undefined && station !== null) {
+      if (station !== null && station !== undefined) {
         return [200, station];
       } else {
         return [500, { message: "Station with the given ID wasn't found" }];
@@ -36,6 +37,8 @@ export default class StationService {
     }
   }
 
+  //This service is not in use currently.
+  //Service for finding one station in the db with given ID and all the trips that have departed or arrived at the station.
   public async getOneWithTrips(id: string): Promise<[number, object]> {
     try {
       const station = await this.station.findById(id);
