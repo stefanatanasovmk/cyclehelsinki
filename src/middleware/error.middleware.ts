@@ -9,7 +9,6 @@ export default function ErrorMiddleware(
   next: NextFunction
 ): void {
   const status = error.status || 500;
-  const message =
-    error.message || "Ooops...something went kaboom, please try again";
+  const message = error.message || "Problems with the server, please try again";
   res.status(status).json({ message });
 }

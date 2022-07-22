@@ -7,11 +7,6 @@ import insertTrip from "./insertTrip";
 
 const mongoDbPath = process.env.MONGO_DB_PATH;
 
-const insertAllTrips = () => {
-  "../../../csv-files";
-  insertTrip("../../../csv-files/2021-05.csv");
-};
-
-insertAllTrips();
+insertTrip("../../../csv-files/2021-05.csv");
 
 mongoose.connect(`${mongoDbPath}`);

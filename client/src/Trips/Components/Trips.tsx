@@ -4,7 +4,7 @@ import getTrips from "../../Utils/Functions/getTrips";
 import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
-import Context from "../../context/context";
+import Context from "../../Utils/context/context";
 import FilterByTime from "./FilterByTime";
 import SwitchComponent from "./SwitchComponent";
 
@@ -69,13 +69,6 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
 
   return (
     <div className="Trips">
-      <SwitchComponent
-        label="Filter trips by time"
-        value={areFiltersOpen}
-        setValue={setAreFiltersOpen}
-        labelPlacement={"end"}
-        style={{ marginRight: "0px" }}
-      />
       <Button
         fullWidth
         onClick={() => setIsAddTripModalOpen(true)}
@@ -88,6 +81,13 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       >
         Add Trip
       </Button>
+      <SwitchComponent
+        label="Filter trips by time"
+        value={areFiltersOpen}
+        setValue={setAreFiltersOpen}
+        labelPlacement={"end"}
+        style={{ marginRight: "0px" }}
+      />
       {areFiltersOpen && (
         <FilterByTime
           from={from}

@@ -83,7 +83,6 @@ describe("Trip routes tests", () => {
             .post(`${path}/addtrip`)
             .send(exampleStationWithStationsNames);
           expect(status).toBe(200);
-          console.log(body);
           expect(body).toMatchObject({
             CoveredDistance: expect.any(Number),
             Departure: expect.any(Number),
@@ -145,7 +144,7 @@ describe("Trip routes tests", () => {
           const { body, status } = await api.get(
             `${path}/getonewithstations/${fakeId}`
           );
-          expect(status).toBe(500);
+          expect(status).toBe(404);
           expect(body).toMatchObject({
             message: "Trip with the given ID wasn't found",
           });

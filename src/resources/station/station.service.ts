@@ -30,7 +30,7 @@ export default class StationService {
       if (station !== null && station !== undefined) {
         return [200, station];
       } else {
-        return [500, { message: "Station with the given ID wasn't found" }];
+        return [404, { message: "Station with the given ID wasn't found" }];
       }
     } catch (e) {
       throw new Error();
@@ -54,7 +54,7 @@ export default class StationService {
           { station, tripsReturnedToStation, tripDepartedToStation },
         ];
       } else {
-        return [500, { message: "Station with the given ID wasn't found" }];
+        return [404, { message: "Station with the given ID wasn't found" }];
       }
     } catch {
       throw new Error();
@@ -98,7 +98,7 @@ export default class StationService {
         const stations = await mostPopularStations(stationsIds);
         return [200, stations, averageDistance, totalNumberOfTrips];
       } else {
-        return [500, { message: "Station with the given ID wasn't found" }];
+        return [404, { message: "Station with the given ID wasn't found" }];
       }
     } catch (e) {
       throw new Error();
@@ -115,7 +115,7 @@ export default class StationService {
         const [lat, long] = body.Location.coordinates;
         if (long < 59.95 || long > 60.5 || lat < 24.3 || lat > 25.5) {
           return [
-            500,
+            400,
             { message: "Station location needs to be in Uusimaa area" },
           ];
         } else {
@@ -125,7 +125,7 @@ export default class StationService {
           return [200, station];
         }
       } else {
-        return [500, { message: "All fields are required" }];
+        return [400, { message: "All fields are required" }];
       }
     } catch (e) {
       throw new Error();

@@ -35,7 +35,7 @@ export default class TripService {
         );
         return [200, { trip, departureStation, returnStation }];
       } else {
-        return [500, { message: "Trip with the given ID wasn't found" }];
+        return [404, { message: "Trip with the given ID wasn't found" }];
       }
     } catch {
       throw new Error();
@@ -103,11 +103,11 @@ export default class TripService {
         Duration,
       } = body;
       if (Departure > Date.now() || Return > Date.now()) {
-        return [500, { message: "Departure or return date is in the future" }];
+        return [400, { message: "Departure or return date is in the future" }];
       }
       if (Duration < 0) {
         return [
-          500,
+          400,
           {
             message:
               "There is something wrong with the departure and return time.",

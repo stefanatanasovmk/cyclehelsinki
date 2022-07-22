@@ -56,7 +56,8 @@ export default function insertTrip(filePath: string) {
         filePath,
         " it took: ",
         ((end - start) / 60000).toFixed(2),
-        " minutes. Press Ctrl + C to exit."
+        " minutes."
       );
+      process.exit();
     });
 }

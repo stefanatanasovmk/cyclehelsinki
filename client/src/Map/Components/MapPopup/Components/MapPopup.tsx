@@ -6,7 +6,7 @@ import StationInfo from "./StationInfo";
 import StationStats from "./StationStats";
 import getStationStats from "../../../../Utils/Functions/getStationStats";
 import Station from "../../../../Utils/Interfaces/station.interface";
-import Context from "../../../../context/context";
+import Context from "../../../../Utils/context/context";
 
 interface Props {
   id: string;

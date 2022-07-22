@@ -50,7 +50,7 @@ describe("Station routes tests", () => {
             const { body, status } = await api.get(
               `${path}/getone/2jfdso349fkfkfk`
             );
-            expect(status).toBe(500);
+            expect(status).toBe(404);
             expect(body).toMatchObject({
               message: "Station with the given ID wasn't found",
             });
@@ -100,7 +100,7 @@ describe("Station routes tests", () => {
               const { body, status } = await api.get(
                 `${path}/getonewithtrips/2jfdso349fkfkfk`
               );
-              expect(status).toBe(500);
+              expect(status).toBe(404);
               expect(body).toMatchObject({
                 message: "Station with the given ID wasn't found",
               });

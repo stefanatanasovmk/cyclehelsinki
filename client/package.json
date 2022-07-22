@@ -1,6 +1,6 @@
 {
   "name": "cycle-helsinki",
-  "proxy": "http://localhost:4000/",
+  "proxy": "https://cyclehelsinki.fi/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
