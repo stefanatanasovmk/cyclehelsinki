@@ -37,7 +37,7 @@ The required software to build and run the project locally:
 
 > ./buildApp.sh
 
-**The frontend should start running on port 3000, and the backend on port 4000 on your local machine**
+**The frontend should start running on port 3000, and the backend on port 4000 on your local machine. You will be able to see the app on both ports on your browser.**
 
 ## Run only the frontend locally
 
