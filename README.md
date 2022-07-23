@@ -7,12 +7,6 @@ This is a project build for an exercise given by Solita, here you can find the e
 
 The backend of this project is build with Express.js and it is in /src directory. The frontend is build with React and you can find it in /client directory.
 
-To run the project it is required to provide an .env file in the root directory, where you will need to define:
-
-### **PORT=**
-
-### **MONGO_DB_PATH=**
-
 The required software to build and run the project locally:
 
 **Node ~ v16.13.2**
@@ -23,54 +17,27 @@ The required software to build and run the project locally:
 
 \*The software versions mentioned above are the one that I'm using on my local machine and on the cloud where the website is deployed.
 
-## Run the project locally
+## Run the entire project locally
 
 ### 1. Clone the directory on your local machine.
 
 > git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-### 2. Install the dependencies
+### 2. in ~/src/insert-data in files **"insert2021-05.ts"**, **"insert2021-06.ts"**, **"insert2021-07.ts"**, you will need to specify the path where your journeys CSV files are stored. In **"insertStations.ts"** you will need to specify the path where your stations CSV file is stored.
 
-- In the root directory:
+**PLEASE MAKE SURE THAT THE PATHS TO YOUR LOCAL CSV FILES ARE CORRECT**
 
-> npm install --include=dev
+### 3. Change the proxy for the frontend
 
-- cd into ~/client directory
+- In ~/client package.json file, change proxy to "http://localhost:4000/"
 
-> npm install --include=dev
+### 4. Build the app
 
-### 3. in ~/src/insert-data in files **"insert2021-05.ts"**, **"insert2021-06.ts"**, **"insert2021-07.ts"**, you will need to specify the path where your journeys CSV files are stored. In **"insertStations.ts"** you will need to specify the path where your stations CSV file is stored.
+- in the root directory execute buildApp script
 
-### 4. Compile the code
+> ./buildApp.sh
 
-> npm run build
-
-### 5. Insert data
-
-- Run this command from the root directory:
-
-> ./insertData.sh
-
-### 6. Test the backend
-
-- in the root directory
-
-> npm run test
-
-### 7. Start the backend
-
-- in the root directory
-
-> npm start
-
-### 8. Start the frontend
-
-- in ~/client/package.json change "proxy" to "http://localhost:YOUR-PORT-NUMBER"
-- cd into the ~/client directory:
-
-> npm start
-
-**NOTE: Frontend is usually running on port 3000, so the port that you specify in .env file, needs to be different.**
+**The frontend should start running on port 3000, and the backend on port 4000 on your local machine**
 
 ## Run only the frontend locally
 
@@ -78,16 +45,10 @@ The required software to build and run the project locally:
 
 > git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-### 2. Install the dependencies
+### 2. Build the Frontend
 
-- cd into ~/client directory
+- from the root directory execute buildFrontend script
 
-> npm install --include=dev
+> ./buildFrontend.sh
 
-### 3. Start the frontend
-
-- in ~/client directory
-
-> npm start
-
-**The backend will run on the cloud.**
+**The website should start running on port 3000 on your local machine, and the backend will run on the cloud.**

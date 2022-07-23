@@ -115,7 +115,7 @@ describe("Trip routes tests", () => {
     });
   });
 
-  describe("Get one trip with return and departed station documents included in the result", () => {
+  describe("Get one trip with return and departed station ids included in the result", () => {
     describe("Try to get the trip, if the given ID is exist", () => {
       it("should return an object with objects of trip, departureStation and returnStation", async () => {
         const newTrip = new tripModel(exampleTripWithoutStationsIds);
@@ -134,7 +134,7 @@ describe("Trip routes tests", () => {
           __v: expect.any(Number),
         });
         expect(body.departureStation).toBe(null);
-        await tripModel.findByIdAndDelete(newTrip.id);
+        await tripModel.findByIdAndDelete(newTrip._id);
       }, 100_000);
     });
     describe("Try to get the trip if the given ID doesn't exist but it's valid", () => {

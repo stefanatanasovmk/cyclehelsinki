@@ -13,8 +13,6 @@ export default class StationService {
   public async getAll(): Promise<[number, Station[]]> {
     try {
       const stations = await this.station.find();
-      // .limit(5 * 1)
-      // .skip((1 - 1) * 5);
       return [200, stations];
     } catch (e) {
       throw new Error();
