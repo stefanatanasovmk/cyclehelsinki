@@ -27,17 +27,13 @@ The required software to build and run the project locally:
 
 **PLEASE MAKE SURE THAT THE PATHS TO YOUR LOCAL CSV FILES ARE CORRECT**
 
-### 3. Change the proxy for the frontend
-
-- In ~/client package.json file, change proxy to "http://localhost:4000/"
-
-### 4. Build the app
+### 3. Build the app
 
 - in the root directory execute buildApp script
 
 > ./buildApp.sh
 
-**The frontend should start running on port 3000, and the backend on port 4000 on your local machine. You will be able to see the app on both ports on your browser.**
+**Inserting of the data, testing, and building the app should take less than 20 minutes. If everything goes fine, the app should start running on port 4000.**
 
 ## Run only the frontend locally
 

@@ -37,7 +37,7 @@ export default function AddressSearch({
     <Autocomplete
       onInputChange={handleInput}
       options={suggestions}
-      noOptionsText={"We coudn't find anu address matching your search"}
+      noOptionsText={"We coudn't find any address matching your search"}
       getOptionLabel={(option: any) => option.label}
       renderOption={(props: any, options: any) => {
         return (
