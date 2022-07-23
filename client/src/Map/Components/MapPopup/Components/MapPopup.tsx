@@ -23,6 +23,7 @@ export default function MapPopup({
   Kapasiteet,
   bikesAvailable,
 }: Props): JSX.Element {
+  //Value is representing which of, StationInfo or StationStats is visible. 0 is StationInfo, 1 is StationStats.
   const [value, setValue] = useState(0);
   const [mostPopularDepartures, setMostPopularDepartures] = useState<Station[]>(
     []
@@ -90,4 +91,3 @@ export default function MapPopup({
     </Popup>
   );
 }
-          

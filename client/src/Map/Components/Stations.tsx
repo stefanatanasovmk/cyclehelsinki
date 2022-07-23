@@ -28,8 +28,8 @@ export default function Stations({
         )
         .closePopup()
         .openTooltip(`<h6>Click on the marker for more station info</h6>`, [
-          foundStation.Location.coordinates[1] + 0.0002,
-          foundStation.Location.coordinates[0] - 0.0001,
+          foundStation.Location.coordinates[1] + 0.0001,
+          foundStation.Location.coordinates[0] - 0.00000099,
         ]);
   }, [isSearched, map, searchedStation, foundStation]);
   return (
@@ -42,9 +42,6 @@ export default function Stations({
           Osoite={e.Adress}
           Kapasiteet={e.Kapasiteet}
           coordinates={[e.Location.coordinates[1], e.Location.coordinates[0]]}
-          bikesAvailable={
-            e.bikesAvailable !== undefined ? e.bikesAvailable : "0"
-          }
         />
       ))}
     </div>

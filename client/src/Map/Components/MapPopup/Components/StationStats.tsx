@@ -34,8 +34,8 @@ export default function StationStats({
       .setView([coordinates[1], coordinates[0]], 16)
       .closePopup()
       .openTooltip(`<h6>Click on the marker for more station info</h6>`, [
-        coordinates[1] + 0.0002,
-        coordinates[0] - 0.0001,
+        coordinates[1] + 0.0001,
+        coordinates[0] - 0.000001,
       ]);
 
     setValue(0);

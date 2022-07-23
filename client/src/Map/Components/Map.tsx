@@ -8,7 +8,6 @@ import SearchBar from "./SearchBar";
 import getStations from "../../Utils/Functions/getStations";
 import Loading from "../../Loading/MapLoading";
 import Context from "../../Utils/context/context";
-import getAvailableBikes from "../../Utils/Functions/getAvailableBikes";
 import Stations from "./Stations";
 import MarkerCircles from "./MarkerCircles";
 import CirclesColorLegend from "./CirclesColorLegend";
@@ -64,24 +63,13 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getStations();
-        for (let e of res.data) {
-          const bikesAvailable = await getAvailableBikes(e._id);
-          if (bikesAvailable !== null && bikesAvailable !== undefined) {
-            e.bikesAvailable =
-              bikesAvailable.data?.bikeRentalStation?.bikesAvailable;
-          }
-        }
-        setStations(res.data);
-        setLoading(false);
-      } catch (e: any) {
+    getStations()
+      .then((data) => setStations(data.data))
+      .then(() => setLoading(false))
+      .catch((e) => {
         setPopup(e.response.data.message, "error");
         setLoading(false);
-      }
-    };
-    fetchData();
+      });
   }, [setPopup]);
 
   return (
@@ -92,7 +80,7 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
         <MapContainer
           className="map"
           center={[longLat[0], longLat[1]]}
-          zoom={11}
+          zoom={16}
           scrollWheelZoom={true}
         >
           <TileLayer attribution={attribution} url={url} />
@@ -113,10 +101,10 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
               ]}
             />
           )}
-            {doesUserHaveLocation || isSearched ? <CirclesColorLegend /> : null}
-            
-            <AddStationBtn setIsAddStationModalOpen={setIsAddStationOpen} />
-            
+          {doesUserHaveLocation || isSearched ? <CirclesColorLegend /> : null}
+
+          <AddStationBtn setIsAddStationModalOpen={setIsAddStationOpen} />
+
           <FindUserLocationControl
             pos={"topleft"}
             onClick={findLocation}

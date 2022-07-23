@@ -14,5 +14,4 @@ export default interface Station extends Document {
     coordinates: [number, number];
   };
   timestamp: Date;
-  bikesAvailable: string | undefined;
 }
