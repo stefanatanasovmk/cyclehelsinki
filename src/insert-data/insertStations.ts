@@ -36,6 +36,7 @@ fs.createReadStream(path)
   .on("data", (data) => stations.push(data))
   .on("end", async () => {
     try {
+      addMissingStation();
       let start = new Date().getTime();
       for (let e of stations) {
         const newStation = new stationModel({
@@ -54,13 +55,11 @@ fs.createReadStream(path)
         await newStation.save();
       }
       let end = new Date().getTime();
-      console.log("It took:", ((end - start) / 60000).toFixed(2), "minutes.");
+      console.log("It took:", ((end - start) / 60000).toFixed(2), "minutes to insert the stations data.");
       process.exit();
     } catch (e) {
       console.log("Something went wrong:", e);
     }
   });
-
-addMissingStation();
 
 mongoose.connect(`${mongoDbPath}`);
