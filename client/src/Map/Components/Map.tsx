@@ -65,11 +65,8 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
   useEffect(() => {
     getStations()
       .then((data) => setStations(data.data))
-      .then(() => setLoading(false))
-      .catch((e) => {
-        setPopup(e.response.data.message, "error");
-        setLoading(false);
-      });
+      .catch((e) => setPopup(e.response.data.message, "error"))
+      .finally(() => setLoading(false));
   }, [setPopup]);
 
   return (

@@ -35,20 +35,20 @@ export default function FilterByTime({
           fullWidth
           variant="outlined"
           color="primary"
-          label="Until "
+          label="From"
           type="datetime-local"
-          value={until}
-          onChange={(e) => setUntil(e.target.value)}
+          value={from}
+          onChange={(e) => setFrom(e.target.value)}
         />
         <TextField
           style={{ marginTop: "1vh" }}
           fullWidth
           variant="outlined"
           color="primary"
-          label="From"
+          label="Until "
           type="datetime-local"
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
+          value={until}
+          onChange={(e) => setUntil(e.target.value)}
         />
       </div>
       <Button

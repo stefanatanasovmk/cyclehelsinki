@@ -38,33 +38,33 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
     setIsLoading(true);
     getTrips(length, 1, from, until, filterBy)
       .then((data) => setTrips(data.data))
-      .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message, "error"));
+      .catch((e) => setPopup(e.response.data.message, "error"))
+      .finally(() => {
+        setPage(1);
+        setIsLoading(false);
+      });
   }, [filterBy, from, setPopup, until]);
 
   function getMoreTripsHandler(): void {
     setIsLoading(true);
     getTrips(length, page + 1, from, until, filterBy)
       .then((data) => setTrips((pre) => [...pre, ...data.data]))
-      .then(() => setIsLoading(false))
-      .catch((e) => setPopup(e.response.data.message, "error"));
+      .catch((e) => setPopup(e.response.data.message, "error"))
+      .finally(() => setIsLoading(false));
     setPage((pre) => pre + 1);
   }
 
   useEffect(() => {
-    function getTripsOnMount() {
-      getTrips(
-        10,
-        1,
-        "2021-05-01T00:01",
-        new Date(Date.now() + 10800000).toISOString().slice(-0, -8),
-        "return"
-      )
-        .then((data) => setTrips(data.data))
-        .then(() => setIsLoading(false))
-        .catch((e) => setPopup(e.response.data.message, "error"));
-    }
-    getTripsOnMount();
+    getTrips(
+      10,
+      1,
+      "2021-05-01T00:01",
+      new Date(Date.now() + 10800000).toISOString().slice(-0, -8),
+      "return"
+    )
+      .then((data) => setTrips(data.data))
+      .catch((e) => setPopup(e.response.data.message, "error"))
+      .finally(() => setIsLoading(false));
   }, [setPopup]);
 
   return (
@@ -118,7 +118,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
         onClick={getMoreTripsHandler}
         variant="outlined"
         color="error"
-        style={{ height: "40px", marginBottom: "6vh" }}
+        style={{ height: "40px", marginBottom: "6vh", marginTop: "1vh" }}
       >
         {isLoading ? (
           <CircularProgress style={{ width: "20px", height: "20px" }} />

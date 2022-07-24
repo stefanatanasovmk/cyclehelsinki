@@ -21,8 +21,8 @@ export default class TripService {
     }
   }
 
-  //This service is not in use currently 
-  //Service for fetching one trip, which return the trip itself including the departure and the return station of the trip. 
+  //This service is not in use currently
+  //Service for fetching one trip, which return the trip itself including the departure and the return station of the trip.
   public async getOneWithStations(id: string): Promise<[number, object]> {
     try {
       const trip = await this.trip.findById(id);
@@ -51,40 +51,44 @@ export default class TripService {
     filterby: string
   ): Promise<[number, Trip[]] | [number, object]> {
     try {
-      let trips;
-      if (filterby === "return") {
-        trips = await this.trip
-          .find({ Return: { $gte: from, $lte: until } })
-          .sort({ Return: -1 })
-          .limit(limit * 1)
-          .skip((page - 1) * limit);
-        if (typeof trips !== undefined && trips !== null) {
-          return [200, trips];
-        } else {
-          return [
-            500,
-            { message: "We couldn't load the trips, please try again..." },
-          ];
-        }
-      } else if (filterby === "departure") {
-        trips = await this.trip
-          .find({ Departure: { $gte: from, $lte: until } })
-          .sort({ Departure: -1 })
-          .limit(limit * 1)
-          .skip((page - 1) * limit);
-        if (typeof trips !== undefined && trips !== null) {
-          return [200, trips];
-        } else {
-          return [
-            500,
-            { message: "We couldn't load the trips, please try again..." },
-          ];
-        }
+      if (from > until) {
+        return [400, { message: "The 'from' date is after the 'until' date" }];
       } else {
-        return [
-          500,
-          { message: "We couldn't load the trips, please try again..." },
-        ];
+        let trips;
+        if (filterby === "return") {
+          trips = await this.trip
+            .find({ Return: { $gte: from, $lte: until } })
+            .sort({ Return: -1 })
+            .limit(limit * 1)
+            .skip((page - 1) * limit);
+          if (typeof trips !== undefined && trips !== null) {
+            return [200, trips];
+          } else {
+            return [
+              500,
+              { message: "We couldn't load the trips, please try again..." },
+            ];
+          }
+        } else if (filterby === "departure") {
+          trips = await this.trip
+            .find({ Departure: { $gte: from, $lte: until } })
+            .sort({ Departure: -1 })
+            .limit(limit * 1)
+            .skip((page - 1) * limit);
+          if (typeof trips !== undefined && trips !== null) {
+            return [200, trips];
+          } else {
+            return [
+              500,
+              { message: "We couldn't load the trips, please try again..." },
+            ];
+          }
+        } else {
+          return [
+            500,
+            { message: "We couldn't load the trips, please try again..." },
+          ];
+        }
       }
     } catch {
       throw new Error();
