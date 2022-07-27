@@ -7,7 +7,7 @@ import Popup from "./Popup/Popup";
 import AddTrip from "../AddData/AddTrip/AddTrip";
 import AddStation from "../AddData/AddStation/AddStation";
 import Footer from "../Footer/Footer";
-import Context from "../Utils/Context/context";
+import Context from "../Utils/context/context";
 
 export default function Home(): JSX.Element {
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState<boolean>(false);

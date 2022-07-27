@@ -7,7 +7,7 @@ import UserLocationMarker from "./UserLocationMarker";
 import SearchBar from "./SearchBar";
 import getStations from "../Utils/Functions/getStations";
 import Loading from "../Loading/MapLoading";
-import Context from "../Utils/Context/context";
+import Context from "../Utils/context/context";
 import Stations from "./Stations";
 import MarkerCircles from "./MarkerCircles";
 import AddStationBtn from "./AddStationBtn";
