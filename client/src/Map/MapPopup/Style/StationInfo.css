@@ -1,0 +1,8 @@
+.StationInfoDiv {
+  width: 42vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 9vh;
+  text-align: start;
+}

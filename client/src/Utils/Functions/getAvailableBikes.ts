@@ -8,11 +8,11 @@ export default async function getAvailableBikes(
       const query = `
         {
           bikeRentalStation(id:"${stationId}") {
-               bikesAvailable
-               
+               bikesAvailable   
            }
      }
           `;
+
       const res = await fetch(
         "https://api.digitransit.fi/routing/v1/routers/finland/index/graphql",
         {

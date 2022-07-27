@@ -11,7 +11,7 @@ import AddressSearch from "./AddressSearch";
 import AddCoordinates from "./AddCoordinates";
 import RadioButtons from "./RadioButtons";
 import addStation from "../../Utils/Functions/addStation";
-import Context from "../../Utils/context/context";
+import Context from "../../Utils/Context/context";
 import TextInputs from "./TextInputs";
 import Buttons from "../Buttons";
 interface Props {

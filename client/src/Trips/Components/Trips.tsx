@@ -4,7 +4,7 @@ import getTrips from "../../Utils/Functions/getTrips";
 import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
-import Context from "../../Utils/context/context";
+import Context from "../../Utils/Context/context";
 import FilterByTime from "./FilterByTime";
 import SwitchComponent from "./SwitchComponent";
 

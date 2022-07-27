@@ -1,6 +1,7 @@
 import "./Style/Footer.css";
 import AtanasovLogo from "./Assets/AtanasovLogo.png";
 import { Typography } from "@mui/material";
+
 export default function Footer(): JSX.Element {
   return (
     <div className="Footer">

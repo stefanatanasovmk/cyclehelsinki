@@ -18,3 +18,6 @@
 .leaflet-control:hover {
   background-color: rgba(73, 73, 73, 0.212);
 }
+.leaflet-routing-alt {
+  display: none;
+}

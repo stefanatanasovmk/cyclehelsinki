@@ -5,7 +5,7 @@ import "../Style/Modal.css";
 import StationSearch from "./StationSearch";
 import saveTrip from "../../Utils/Functions/saveTrip";
 import axios from "axios";
-import Context from "../../Utils/context/context";
+import Context from "../../Utils/Context/context";
 import Buttons from "../Buttons";
 import Inputs from "./Inputs";
 

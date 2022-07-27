@@ -4,7 +4,7 @@ import secondsToTime from "../../Utils/Functions/secondsToTime";
 import "./Style/TripCard.css";
 import { Card, CardContent, Typography } from "@mui/material";
 import parseDate from "../../Utils/Functions/parseDate";
-import Context from "../../Utils/context/context";
+import Context from "../../Utils/Context/context";
 
 interface Props {
   Departure: number;

@@ -14,6 +14,8 @@ interface Props {
   isLoading: boolean;
 }
 
+const textfieldStyle = { marginTop: "1vh" };
+
 export default function FilterByTime({
   from,
   until,
@@ -29,9 +31,7 @@ export default function FilterByTime({
       <RadioButtons filterBy={filterBy} setFilterBy={setFilterBy} />
       <div className="FilterByTime">
         <TextField
-          style={{
-            marginTop: "0.5vh",
-          }}
+          style={textfieldStyle}
           fullWidth
           variant="outlined"
           color="primary"
@@ -41,7 +41,7 @@ export default function FilterByTime({
           onChange={(e) => setFrom(e.target.value)}
         />
         <TextField
-          style={{ marginTop: "1vh" }}
+          style={textfieldStyle}
           fullWidth
           variant="outlined"
           color="primary"

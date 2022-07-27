@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
-import Map from "../Map/Components/Map";
+import Map from "../Map/Map";
 import Trips from "../Trips/Components/Trips";
 import "./Style/Home.css";
 import Navbar from "../Navbar/Navbar";
 import Popup from "./Popup/Popup";
-import Context from "../Utils/context/context";
+import Context from "../Utils/Context/context";
 import AddTrip from "../AddData/AddTrip/AddTrip";
 import AddStation from "../AddData/AddStation/AddStation";
 import Footer from "../Footer/Footer";
