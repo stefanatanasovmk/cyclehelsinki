@@ -27,17 +27,23 @@ export default function MapPopup({
 }: Props): JSX.Element {
   //Value is representing which of, StationInfo or StationStats is visible. 0 is StationInfo, 1 is StationStats.
   const [value, setValue] = useState(0);
+
+  //Array of the most popular departure stations for trips that arrived at the the station which popup is currently open.
   const [mostPopularDepartures, setMostPopularDepartures] = useState<Station[]>(
     []
   );
+  //Average distance of all the departures from the station which popup is currently open.
   const [averageDistanceDepartures, setAverageDistanceDepartures] =
     useState<number>(0);
+  //Total number of departures from the station which popup is currently open.
   const [totalNumberOfDepartureTrips, setTotalNumberOfDepartureTrips] =
     useState<number>(0);
-
+  //Array of most popular return stations for trips that departure from the station which popup is currently open.
   const [mostPopularReturns, setMostPopularReturns] = useState<Station[]>([]);
+  //Average distance of all the returns from the station which popup is currently open.
   const [averageDistanceReturns, setAverageDistanceReturns] =
     useState<number>(0);
+  //Total number of returns from the station which popup is currently open.
   const [totalNumberOfReturnTrips, setTotalNumberOfReturnTrips] =
     useState<number>(0);
 
@@ -45,6 +51,7 @@ export default function MapPopup({
 
   const { setPopup } = useContext(Context);
 
+  //Function that is called when the user click on "STATS" button on the popup.
   function getMostPopularStations() {
     getStationStats(id, "departures")
       .then((data) => {
@@ -72,6 +79,7 @@ export default function MapPopup({
         value={value}
         setValue={setValue}
         getMostPopularStations={getMostPopularStations}
+        bikesAvailable={bikesAvailable}
       />
       {value === 0 ? (
         <StationInfo

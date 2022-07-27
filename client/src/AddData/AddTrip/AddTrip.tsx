@@ -1,7 +1,6 @@
 import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import Station from "../../Utils/Interfaces/station.interface";
-import "../Style/Modal.css";
 import StationSearch from "./StationSearch";
 import saveTrip from "../../Utils/Functions/saveTrip";
 import axios from "axios";
@@ -22,17 +21,20 @@ export default function AddTrip({
 }: Props): JSX.Element {
   const [departureTime, setDepartureTime] = useState<string>("");
   const [returnTime, setReturnTime] = useState<string>("");
-  const [stations, setStations] = useState<Station[]>([]);
   const [chosenDepartureStation, setChosenDepartureStation] =
     useState<string>(" ");
   const [chosenReturnStation, setChosenReturnStation] = useState<string>(" ");
 
   const [coveredDistance, setCoveredDistance] = useState<number>(1);
 
+  //Stations for the StationSearch.tsx autocomplete searchbar
+  const [stations, setStations] = useState<Station[]>([]);
+
   const { setPopup } = useContext(Context);
 
-  async function saveTripHandler(): Promise<void> {
-    await saveTrip(
+  //Saving the trip in the database function
+  function saveTripHandler() {
+    saveTrip(
       chosenDepartureStation,
       chosenReturnStation,
       coveredDistance,
@@ -46,6 +48,7 @@ export default function AddTrip({
       .catch((e) => setPopup(e.response.data.message, "error"));
   }
 
+  //For filling the stations array on component mount
   useEffect(() => {
     axios
       .get("/api/station")

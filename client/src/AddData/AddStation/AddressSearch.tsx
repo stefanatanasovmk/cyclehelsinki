@@ -3,21 +3,21 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 
 interface Props {
-  selectedAddress: object | string;
   setSelectedAddress: (selectedAddress: string | object) => void;
   style: object;
 }
 
 export default function AddressSearch({
   setSelectedAddress,
-  selectedAddress,
   style,
 }: Props): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [addressInput, setAddressInput] = useState<string>("");
+  //State which is an array of the suggestions that have been fetched from OpenStreetMapProvider geosearch
   const [suggestions, setSuggestions] = useState<object[]>([]);
   const addressProvider = new OpenStreetMapProvider();
 
+  //Function which is handling the input in the search bar, and only send the request after the user add empty space. OpenStreetMapsProvider doesn't allow more than one request per second.
   async function handleInput(e: any) {
     e.preventDefault();
     e.stopPropagation();

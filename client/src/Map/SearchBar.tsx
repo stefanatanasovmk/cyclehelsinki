@@ -17,14 +17,18 @@ export default function SearchBar({
   onSearch,
 }: Props): JSX.Element {
   const map = useMap();
+  
+  //For responsivness
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 380px)").matches
   );
+
   function handleOnSearch(e: any): void {
     e.stopPropagation();
     e.preventDefault();
     onSearch(e.target.innerText);
   }
+  //Handling responsiveness of the search bar.
   useEffect(() => {
     window
       .matchMedia("(min-width: 380px)")

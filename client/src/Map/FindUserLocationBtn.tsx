@@ -17,6 +17,7 @@ export default function FindUserLocationBtn({
 }: Props): JSX.Element {
   const map = useMap();
 
+  //Handle for when user ask to be located. It will zoom on the user location on the map.
   const onClickHandler = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(

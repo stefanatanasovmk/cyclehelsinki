@@ -7,6 +7,7 @@ interface Props {
   setValue: (value: number) => void;
   getMostPopularStations: () => void;
   getDirections: () => void;
+  bikesAvailable: string;
 }
 
 export default function Buttons({
@@ -14,6 +15,7 @@ export default function Buttons({
   setValue,
   getMostPopularStations,
   getDirections,
+  bikesAvailable,
 }: Props): JSX.Element {
   return (
     <div className="ButtonsContainer">
@@ -50,6 +52,7 @@ export default function Buttons({
       </div>
       <Button
         fullWidth
+        disabled={bikesAvailable === "0" ? true : false}
         color="info"
         style={{
           maxHeight: "5vh",

@@ -173,5 +173,3 @@ const attribution =
   '&copy; <a target="_blank" href="https://carto.com/basemaps/">Carto Basemaps</a> contributors';
 const url =
   "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png";
-// const url =
-//   "https://{s}.api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png?key=e6dSIOgfOVoHrCtSwAfia44QVeAODWPO";

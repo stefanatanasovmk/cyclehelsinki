@@ -4,12 +4,14 @@ import "leaflet-routing-machine";
 import { userIcon } from "./Icons/StationIcon.config";
 import greenPin from "./Icons/images/map-location-green.png";
 
+//Icon for the station of the beginning of the route
 const stationIcon = L.icon({
   iconUrl: greenPin,
   iconSize: [20, 18],
   iconAnchor: [10, 20],
   popupAnchor: [0, -25],
 });
+
 const createRoutineMachineLayer = (props: any) => {
   const waypoints = [
     L.latLng(props.props.fromLat, props.props.fromLong),

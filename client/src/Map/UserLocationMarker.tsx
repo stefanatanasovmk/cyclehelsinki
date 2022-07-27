@@ -1,4 +1,4 @@
-import { Marker, useMap, LayerGroup } from "react-leaflet";
+import { Marker, LayerGroup } from "react-leaflet";
 import { userIcon } from "./Icons/StationIcon.config";
 import MarkerCircles from "./MarkerCircles";
 
@@ -9,18 +9,9 @@ interface Props {
 export default function UserLocationMarker({
   coordinates,
 }: Props): JSX.Element {
-  const map = useMap();
   return (
     <LayerGroup>
-      <Marker
-        icon={userIcon}
-        position={coordinates}
-        eventHandlers={{
-          click: () => {
-            map.setView(coordinates, 16);
-          },
-        }}
-      />
+      <Marker icon={userIcon} position={coordinates} />
       <MarkerCircles coordinates={coordinates} />
     </LayerGroup>
   );

@@ -1,8 +1,10 @@
 import Control from "react-leaflet-custom-control";
 import addLocation from "./Icons/images/add-location.png";
+
 interface Props {
   setIsAddStationModalOpen: (isErrorModalOpen: boolean) => void;
 }
+
 export default function AddStationBtn({
   setIsAddStationModalOpen,
 }: Props): JSX.Element {

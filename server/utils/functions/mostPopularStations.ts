@@ -30,3 +30,5 @@ export default async function mostPopularStations(stationsIds: String[]) {
 
   return stations;
 }
+
+//This functions accept an array of strings of the station ids and returns a 5 elements array with the strings are most common in the array given as an argument

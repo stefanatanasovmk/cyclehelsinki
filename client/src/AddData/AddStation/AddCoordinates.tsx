@@ -6,6 +6,7 @@ interface Props {
   setLong: (long: string) => void;
   setLat: (lat: string) => void;
 }
+
 export default function AddCoordinates({
   long,
   lat,

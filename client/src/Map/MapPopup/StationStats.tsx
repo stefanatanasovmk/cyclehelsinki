@@ -28,6 +28,8 @@ export default function StationStats({
   totalNumberOfReturnTrips,
 }: Props): JSX.Element {
   const map = useMap();
+
+  //Function that is handling clicking on the name of the most popular departure and arrival stations on the lists.
   function handleClickOnStationName(i: any, coordinates: [number, number]) {
     i.stopPropagation();
     map
@@ -59,7 +61,7 @@ export default function StationStats({
               {(averageDistanceDepartures / 1000).toFixed(2)} km.
             </Typography>
             <Typography align="left" variant="subtitle2" style={headersStyle}>
-              Most popular arrival stations for trips started at this station:
+              Most popular arrival stations for trips departed at this station:
             </Typography>
 
             {mostPopularDepartures.map((e, i) => (
@@ -78,11 +80,11 @@ export default function StationStats({
           </div>
           <div className="MostPopularReturnsContainer" style={{ width: "90%" }}>
             <Typography align="left" variant="subtitle2" style={headersStyle}>
-              Total number of trips returned to this station:
+              Total number of trips arrived to this station:
               {totalNumberOfReturnTrips}
             </Typography>
             <Typography align="left" variant="subtitle2" style={headersStyle}>
-              Average length of trips returned to this station:
+              Average length of trips arrived to this station:
               {(averageDistanceReturns / 1000).toFixed(2)} km.
             </Typography>
             <Typography align="left" variant="subtitle2" style={headersStyle}>

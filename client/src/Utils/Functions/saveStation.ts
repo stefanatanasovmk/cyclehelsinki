@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function addStation(
+export default async function saveStation(
   howCoordinatesAreEntered: string,
   stationName: string,
   customAddress: string,

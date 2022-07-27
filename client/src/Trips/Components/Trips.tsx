@@ -12,13 +12,15 @@ interface Props {
   setIsAddTripModalOpen: (isErrorModalOpen: boolean) => void;
 }
 
-const length = 10;
-
 export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
+  // Page and length of the page of trips, it's necessary for pagination
   const [page, setPage] = useState<number>(1);
+  const length = 10;
+
   const [trips, setTrips] = useState<Trip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // From which date to search for trips
   const [from, setFrom] = useState(
     new Date("May 01 2021 03:01:01 GMT+0300 (Eastern European Summer Time)")
       .toISOString()
@@ -26,14 +28,18 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
   );
 
   //Date.now().toIsoString() returns a time that is 3 timezones behind Helsinki time, that's why + 10800000 miliseconds are added
+  // Until which date to search for trips
   const [until, setUntil] = useState(
     new Date(Date.now() + 10800000).toISOString().slice(-0, -8)
   );
+  //By what to search the dates for trips, by "return" or "departure"
   const [filterBy, setFilterBy] = useState("return");
+  //Following the state of the switch component, are filration inputs open or closed
   const [areFiltersOpen, setAreFiltersOpen] = useState<boolean>(false);
 
   const { setPopup } = useContext(Context);
 
+  //This is for the search buttons in FilterByTime component, it's a useCallback hook to avoid unnecessary rerenders
   const getTripsHandler = useCallback(() => {
     setIsLoading(true);
     getTrips(length, 1, from, until, filterBy)
@@ -45,7 +51,8 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       });
   }, [filterBy, from, setPopup, until]);
 
-  function getMoreTripsHandler(): void {
+  //For loading more trips button at the end of this component
+  function getMoreTripsHandler() {
     setIsLoading(true);
     getTrips(length, page + 1, from, until, filterBy)
       .then((data) => setTrips((pre) => [...pre, ...data.data]))
@@ -54,6 +61,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
     setPage((pre) => pre + 1);
   }
 
+  //Fetching the trips from the server on the component mount
   useEffect(() => {
     getTrips(
       10,
@@ -69,6 +77,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
 
   return (
     <div className="Trips">
+      {/* Add trip Button which opens AddTrip Modal */}
       <Button
         fullWidth
         onClick={() => setIsAddTripModalOpen(true)}
@@ -81,6 +90,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       >
         Add Trip
       </Button>
+      {/* Switch button for opening the filtering date inputs */}
       <SwitchComponent
         label="Filter trips by time"
         value={areFiltersOpen}
@@ -88,6 +98,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
         labelPlacement={"end"}
         style={{ marginRight: "0px" }}
       />
+      {/* Date inputs which are open when areFiltersOpen is true */}
       {areFiltersOpen && (
         <FilterByTime
           from={from}
@@ -101,6 +112,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
         />
       )}
 
+      {/* The trip card */}
       {trips.map((e) => (
         <TripCard
           key={e._id}
@@ -112,20 +124,22 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
           Duration={e.Duration}
         />
       ))}
-
-      <Button
-        fullWidth
-        onClick={getMoreTripsHandler}
-        variant="outlined"
-        color="error"
-        style={{ height: "40px", marginBottom: "6vh", marginTop: "1vh" }}
-      >
-        {isLoading ? (
-          <CircularProgress style={{ width: "20px", height: "20px" }} />
-        ) : (
-          "Load more trips"
-        )}
-      </Button>
+      {/* Load more trips button, it's only shown if there is trips in trips array */}
+      {trips.length !== 0 && (
+        <Button
+          fullWidth
+          onClick={getMoreTripsHandler}
+          variant="outlined"
+          color="error"
+          style={{ height: "40px", marginBottom: "6vh", marginTop: "1vh" }}
+        >
+          {isLoading ? (
+            <CircularProgress style={{ width: "20px", height: "20px" }} />
+          ) : (
+            "Load more trips"
+          )}
+        </Button>
+      )}
     </div>
   );
 }

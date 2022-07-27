@@ -6,11 +6,10 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import "../Style/Modal.css";
 import AddressSearch from "./AddressSearch";
 import AddCoordinates from "./AddCoordinates";
 import RadioButtons from "./RadioButtons";
-import addStation from "../../Utils/Functions/addStation";
+import saveStation from "../../Utils/Functions/saveStation";
 import Context from "../../Utils/context/context";
 import TextInputs from "./TextInputs";
 import Buttons from "../Buttons";
@@ -25,12 +24,18 @@ export default function AddStation({
   setIsAddStationModalOpen,
   isAddStationModalOpen,
 }: Props): JSX.Element {
+  //State for keeping the address if the user choose a address from the searchbar
   const [selectedAddress, setSelectedAddress] = useState<string | object>("");
+
+  //For following how the user chose the address, custom or from the searchbar
   const [howCoordinatesAreEntered, setHowCoordinatesAreEntered] =
     useState<string>("addressSearch");
 
+  //Chosen latitude and logitude
   const [lat, setLat] = useState<string>("");
   const [long, setLong] = useState<string>("");
+
+  //State for custom address
   const [customAddress, setCustomAddress] = useState<string>("");
 
   const [city, setCity] = useState("");
@@ -40,14 +45,16 @@ export default function AddStation({
 
   const { setPopup } = useContext(Context);
 
+  //Function for saving the data in the database
   async function handleSave() {
+    //if condition to make sure that the user have chosen an address
     if (
       howCoordinatesAreEntered === "addressSearch" &&
       selectedAddress === ""
     ) {
       setPopup("Please select an address", "error");
     } else {
-      addStation(
+      saveStation(
         howCoordinatesAreEntered,
         stationName,
         customAddress,
@@ -68,6 +75,7 @@ export default function AddStation({
         .catch((e) => setPopup(e.response.data.message, "error"));
     }
   }
+  //Function for cleaning up the states after the user has saved the data
   function handleCleanup() {
     setSelectedAddress("");
     setHowCoordinatesAreEntered("addressSearch");
@@ -101,28 +109,26 @@ export default function AddStation({
           <AddressSearch
             style={style}
             setSelectedAddress={setSelectedAddress}
-            selectedAddress={selectedAddress}
           />
         )}
         {howCoordinatesAreEntered === "customAddress" && (
-          <AddCoordinates
-            long={long}
-            lat={lat}
-            setLong={setLong}
-            setLat={setLat}
-          />
+          <>
+            <AddCoordinates
+              long={long}
+              lat={lat}
+              setLong={setLong}
+              setLat={setLat}
+            />
+            <TextField
+              style={style}
+              fullWidth
+              label="Address"
+              variant="outlined"
+              value={customAddress}
+              onChange={(e) => setCustomAddress(e.target.value)}
+            />
+          </>
         )}
-        {howCoordinatesAreEntered === "customAddress" && (
-          <TextField
-            style={style}
-            fullWidth
-            label="Address"
-            variant="outlined"
-            value={customAddress}
-            onChange={(e) => setCustomAddress(e.target.value)}
-          />
-        )}
-
         <TextInputs
           city={city}
           setCity={setCity}

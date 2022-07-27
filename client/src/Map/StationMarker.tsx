@@ -24,16 +24,22 @@ export default function StationMarker({
   const map = useMap();
   const [bikesAvailable, setBikesAvailable] = useState<string>("0");
 
+  //For handling when user ask for directions.
+  function handleGetDirections(): void {
+    getDirections(coordinates[1], coordinates[0]);
+    map.closePopup();
+  }
+  //For getting the number of bikes available at the station from HSL API.
   useEffect(() => {
     getAvailableBikes(id)
       .then((res) => {
         if (res !== null && res !== undefined) {
           setBikesAvailable(res.data.bikeRentalStation.bikesAvailable);
         } else {
-          setBikesAvailable("Unknown");
+          setBikesAvailable("0");
         }
       })
-      .catch((e) => setBikesAvailable("Unknown"));
+      .catch((e) => setBikesAvailable("0"));
   }, [id]);
 
   return (
@@ -52,7 +58,7 @@ export default function StationMarker({
         Osoite={Osoite}
         Kapasiteet={Kapasiteet}
         bikesAvailable={bikesAvailable}
-        getDirections={() => getDirections(coordinates[1], coordinates[0])}
+        getDirections={handleGetDirections}
       />
     </Marker>
   );

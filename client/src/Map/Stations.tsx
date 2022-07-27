@@ -18,6 +18,7 @@ export default function Stations({
 }: Props): JSX.Element {
   const map = useMap();
   const [foundStation] = searchedStation;
+  //For when user searches for a specific station in the search bar on the map. It locate the station on the map, zoom in and open Tooltip next to the searched station marker.
   useEffect(() => {
     isSearched &&
       map

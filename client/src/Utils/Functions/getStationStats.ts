@@ -18,3 +18,5 @@ export default async function getStationStats(
   );
   return data;
 }
+
+//The function accept stationId and type as a parameter. Type could be "return" or "departure".
