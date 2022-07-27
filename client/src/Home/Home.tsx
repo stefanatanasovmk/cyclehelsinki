@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import Map from "../Map/Map";
-import Trips from "../Trips/Components/Trips";
+import Trips from "../Trips/Trips";
 import "./Style/Home.css";
 import Navbar from "../Navbar/Navbar";
 import Popup from "./Popup/Popup";

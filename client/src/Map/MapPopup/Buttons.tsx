@@ -52,7 +52,7 @@ export default function Buttons({
       </div>
       <Button
         fullWidth
-        disabled={bikesAvailable === "0" ? true : false}
+        disabled={+bikesAvailable === 0 ? true : false}
         color="info"
         style={{
           maxHeight: "5vh",

@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext, useCallback } from "react";
-import Trip from "../../Utils/Interfaces/trip.interface";
-import getTrips from "../../Utils/Functions/getTrips";
+import Trip from "../Utils/Interfaces/trip.interface";
+import getTrips from "../Utils/Functions/getTrips";
 import TripCard from "./TripCard";
 import "./Style/Trips.css";
 import { Button, CircularProgress } from "@mui/material";
-import Context from "../../Utils/context/context";
+import Context from "../Utils/context/context";
 import FilterByTime from "./FilterByTime";
 import SwitchComponent from "./SwitchComponent";
+import Loading from "../Loading/Loading";
 
 interface Props {
   setIsAddTripModalOpen: (isErrorModalOpen: boolean) => void;
@@ -113,17 +114,22 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       )}
 
       {/* The trip card */}
-      {trips.map((e) => (
-        <TripCard
-          key={e._id}
-          Departure={e.Departure}
-          Return={e.Return}
-          DeparturedStationId={e.DeparturedStationId}
-          ReturnedStationId={e.ReturnedStationId}
-          CoveredDistance={e.CoveredDistance}
-          Duration={e.Duration}
-        />
-      ))}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        trips.map((e) => (
+          <TripCard
+            key={e._id}
+            Departure={e.Departure}
+            Return={e.Return}
+            DeparturedStationId={e.DeparturedStationId}
+            ReturnedStationId={e.ReturnedStationId}
+            CoveredDistance={e.CoveredDistance}
+            Duration={e.Duration}
+          />
+        ))
+      )}
+      
       {/* Load more trips button, it's only shown if there is trips in trips array */}
       {trips.length !== 0 && (
         <Button

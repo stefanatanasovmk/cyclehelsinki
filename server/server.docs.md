@@ -6,7 +6,7 @@
 
 - resources is splited in two separated directories for station and trip, where station and trip interfaces, controllers, model and services are stored.
 
-- test is splited in two separated directories for trip and station tests and test configuration.
+- test is splited in two separated directories for trip and station unit tests and test configurations.
 
 - in utils is the error, functions and interfaces directories
   -- errors is where HttpError class is defined

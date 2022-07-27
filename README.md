@@ -23,12 +23,12 @@ The required software to build and run the project locally:
 
 ### 2. Add file paths:
 
-- In these files you need to specify the path where your journeys CSV files are stored
+- In ~/server/insert-data in these files you need to specify the path where your journeys CSV files are stored
   `insert2021-05.ts`
   `insert2021-06.ts`
   `insert2021-07.ts`
 
-- In this file you will need to specify the path where your stations CSV file is stored.
+- In ~/server/insert-data in this file you will need to specify the path where your stations CSV file is stored.
   `insertStations.ts`
 
 `PLEASE MAKE SURE THAT THE PATHS TO YOUR LOCAL CSV FILES ARE CORRECT`
