@@ -1,0 +1,16 @@
+.DistanceContainer {
+  background-color: #2e7d32;
+}
+.TimeContainer {
+  background-color: #d32f2f;
+}
+
+.DistanceContainer,
+.TimeContainer {
+  padding: 1vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}

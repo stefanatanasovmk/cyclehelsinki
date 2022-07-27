@@ -4,10 +4,11 @@ import Trips from "../Trips/Components/Trips";
 import "./Style/Home.css";
 import Navbar from "../Navbar/Navbar";
 import Popup from "./Popup/Popup";
-import Context from "../Utils/Context/context";
 import AddTrip from "../AddData/AddTrip/AddTrip";
 import AddStation from "../AddData/AddStation/AddStation";
 import Footer from "../Footer/Footer";
+import Context from "../Utils/Context/context";
+
 export default function Home(): JSX.Element {
   const [isAddTripModalOpen, setIsAddTripModalOpen] = useState<boolean>(false);
   const [isAddStationModalOpen, setIsAddStationModalOpen] =
