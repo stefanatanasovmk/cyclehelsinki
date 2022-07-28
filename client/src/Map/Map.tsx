@@ -12,7 +12,7 @@ import Stations from "./Stations";
 import MarkerCircles from "./MarkerCircles";
 import AddStationBtn from "./AddStationBtn";
 import Routing from "./Routing";
-import CloseNav from "./CloseNav";
+import CloseBtn from "./CloseBtn";
 import RouteStats from "./RouteStats";
 
 interface Props {
@@ -141,7 +141,7 @@ export default function Map({ setIsAddStationOpen }: Props): JSX.Element {
           {doesUserHaveLocation ||
           isStationSearched ||
           didUserAskedDirections ? (
-            <CloseNav
+            <CloseBtn
               setDidUserAskedDirections={setDidUserAskedDirections}
               setDoesUserHaveLocation={setDoesUserHaveLocation}
               setIsSearched={setIsStationSearched}

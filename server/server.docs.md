@@ -8,10 +8,7 @@
 
 - test is splited in two separated directories for trip and station unit tests and test configurations.
 
-- in utils is the error, functions and interfaces directories
-  -- errors is where HttpError class is defined
-  -- in functions is where the function for sorting and filtering the most popular departure and return stations are for a given station
-  -- interfaces is where the iterface for app controller is defined.
+- in utils is the errors class, functions and app interfaces directories
 
 - entry point of the server is index.ts and the App class which is where the server is structured is in app.ts
 

@@ -6,7 +6,7 @@
 
 - All the parts of the website are in separated directory with self-explanatory name. The entry component in every directory is having the same name as the directory itself ex. Map/Map.tsx. Except for AddData where there is two additional directories AddStation & AddTrip. Also, directory Map have additional directory MapPopup where are the map popup components.
 
-- In every component directory where there is native HTML element styled, there is Style directory where all the CSS files are stored, which are named as the component that they are styling ex. Map/RouteStats.tsx native elements are styled in Map/Style/RouteStats.css
+- In every component directory where there is native HTML element styled, there is Style directory where all the CSS files are stored, which are named as the component that they are styling ex. Map/RouteStats.tsx native HTML elements are styled in Map/Style/RouteStats.css
 
 - All the native HTML elements are styled in CSS, all the MUI elements are styled in the component itself. Also the "Control" from react-leaflet-custom-control package, is styled in the component itself.
 

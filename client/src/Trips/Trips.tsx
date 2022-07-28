@@ -19,6 +19,8 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
   const length = 10;
 
   const [trips, setTrips] = useState<Trip[]>([]);
+  //isLoadingOnMount is used to shown the loading component only once, when the component is mounted. For other loading purposes, use isLoading
+  const [isLoadingOnMount, setIsLoadingOnMount] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(true);
 
   // From which date to search for trips
@@ -73,7 +75,10 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
     )
       .then((data) => setTrips(data.data))
       .catch((e) => setPopup(e.response.data.message, "error"))
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        setIsLoadingOnMount(false);
+      });
   }, [setPopup]);
 
   return (
@@ -114,7 +119,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
       )}
 
       {/* The trip card */}
-      {isLoading ? (
+      {isLoadingOnMount ? (
         <Loading />
       ) : (
         trips.map((e) => (
@@ -129,7 +134,7 @@ export default function Trips({ setIsAddTripModalOpen }: Props): JSX.Element {
           />
         ))
       )}
-      
+
       {/* Load more trips button, it's only shown if there is trips in trips array */}
       {trips.length !== 0 && (
         <Button

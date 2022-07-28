@@ -8,13 +8,13 @@ interface Props {
   setIsSearched: (isSearched: boolean) => void;
 }
 
-export default function CloseNav({
+export default function CloseBtn({
   setDidUserAskedDirections,
   setDoesUserHaveLocation,
   setIsSearched,
 }: Props): JSX.Element {
   return (
-    <Control position="topright">
+    <Control position="topright" style={{ border: "0px" }}>
       <Button
         color="warning"
         variant="contained"
