@@ -23,7 +23,7 @@ export default function MarkerCircles({ coordinates }: Props): JSX.Element {
         radius={300}
         pathOptions={{ fillColor: "blue", color: "blue" }}
       >
-        <Tooltip direction="bottom" offset={[0, 175]} opacity={1}>
+        <Tooltip direction="bottom" offset={[0, 20]} opacity={1}>
           <div>Red: 100m</div>
           <div>Green: 200m</div>
           <div>Blue: 300m</div>

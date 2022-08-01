@@ -9,7 +9,13 @@ export default function AddStationBtn({
   setIsAddStationModalOpen,
 }: Props): JSX.Element {
   return (
-    <Control position="topleft">
+    <Control
+      position="topleft"
+      style={{
+        border: "0px",
+        filter: "drop-shadow(2px 5px 2px #0202026c)",
+      }}
+    >
       <img
         className="FindUserIcon"
         src={addLocation}

@@ -40,7 +40,13 @@ export default function FindUserLocationBtn({
   };
 
   return (
-    <Control position={position}>
+    <Control
+      position={position}
+      style={{
+        border: "0px",
+        filter: "drop-shadow(2px 5px 2px #0202026c)",
+      }}
+    >
       <img
         className="FindUserIcon"
         src={userLocationIcon}

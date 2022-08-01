@@ -24,6 +24,7 @@ export default function RouteStats({ routeStats }: Props): JSX.Element {
         marginTop: "0px",
         border: "0px",
         cursor: "default",
+        filter: "drop-shadow(1px 1px 2px #0202026c)",
       }}
     >
       <div className="DistanceContainer">

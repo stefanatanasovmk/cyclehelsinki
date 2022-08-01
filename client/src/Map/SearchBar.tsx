@@ -17,7 +17,7 @@ export default function SearchBar({
   onSearch,
 }: Props): JSX.Element {
   const map = useMap();
-  
+
   //For responsivness
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 380px)").matches
@@ -35,7 +35,13 @@ export default function SearchBar({
       .addEventListener("change", (e) => setMatches(e.matches));
   }, []);
   return (
-    <Control position="bottomright">
+    <Control
+      position="bottomright"
+      style={{
+        border: "0px",
+        filter: "drop-shadow(1px 1px 2px #0202026c)",
+      }}
+    >
       <Autocomplete
         placeholder="Search station"
         value={value}

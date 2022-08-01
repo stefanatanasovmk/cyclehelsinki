@@ -1,6 +1,5 @@
-import { Button } from "@mui/material";
 import Control from "react-leaflet-custom-control";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import closeIcon from "./Icons/images/close-icon.png";
 
 interface Props {
   setDidUserAskedDirections: (didUserAskedDirections: boolean) => void;
@@ -14,19 +13,26 @@ export default function CloseBtn({
   setIsSearched,
 }: Props): JSX.Element {
   return (
-    <Control position="topright" style={{ border: "0px" }}>
-      <Button
-        color="warning"
-        variant="contained"
+    <Control
+      position="topright"
+      style={{
+        border: "0px",
+        filter: "drop-shadow(2px 5px 2px #0202026c)",
+      }}
+    >
+      <img
+        className="CloseIcon"
+        src={closeIcon}
+        width="30px"
+        height="30px"
+        alt="Find user location"
         onClick={(e) => {
           e.stopPropagation();
           setDoesUserHaveLocation(false);
           setDidUserAskedDirections(false);
           setIsSearched(false);
         }}
-      >
-        <HighlightOffIcon />
-      </Button>
+      />
     </Control>
   );
 }

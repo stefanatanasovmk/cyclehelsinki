@@ -2,6 +2,8 @@ import "./Style/Footer.css";
 import AtanasovLogo from "./Assets/AtanasovLogo.png";
 import { Typography } from "@mui/material";
 
+const iconsBy = "Icons by: ";
+
 export default function Footer(): JSX.Element {
   return (
     <div className="Footer">
@@ -10,7 +12,15 @@ export default function Footer(): JSX.Element {
         color="textSecondary"
         style={{ paddingLeft: "0.5vw" }}
       >
-        &copy; CycleHelsinki.fi
+        {iconsBy}
+        <a
+          href="https://icons8.com"
+          target="_blank"
+          rel="noreferrer"
+          className="Link"
+        >
+          Icons8
+        </a>
       </Typography>
       <a
         href="https://www.atanasov.fi"
