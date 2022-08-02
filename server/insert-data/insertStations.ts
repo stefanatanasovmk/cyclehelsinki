@@ -10,7 +10,7 @@ config({ path: "../../.env" });
 
 const mongoDbPath = process.env.MONGO_DB_PATH;
 let stations: any = [];
-let path = "../../../csv-files/stations.csv";
+let path = "../../csv-files/stations.csv";
 
 fs.createReadStream(path)
   .pipe(
@@ -55,7 +55,11 @@ fs.createReadStream(path)
         await newStation.save();
       }
       let end = new Date().getTime();
-      console.log("It took:", ((end - start) / 60000).toFixed(2), "minutes to insert the stations data.");
+      console.log(
+        "It took:",
+        ((end - start) / 60000).toFixed(2),
+        "minutes to insert the stations data."
+      );
       process.exit();
     } catch (e) {
       console.log("Something went wrong:", e);

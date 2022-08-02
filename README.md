@@ -17,29 +17,21 @@ The required software to build and run the project locally:
 
 ## Run the entire project locally
 
+**!! TURN ON YOUR LOCAL MONGO DATABASE !!**
+
+
 ### 1. Clone the directory on your local machine.
 
 > git clone https://github.com/stefanatanasovmk/cyclehelsinki.git
 
-### 2. Add file paths:
-
-- In ~/server/insert-data in these files you need to specify the path where your journeys CSV files are stored
-  `insert2021-05.ts`
-  `insert2021-06.ts`
-  `insert2021-07.ts`
-
-- In ~/server/insert-data in this file you will need to specify the path where your stations CSV file is stored.
-  `insertStations.ts`
-
-`PLEASE MAKE SURE THAT THE PATHS TO YOUR LOCAL CSV FILES ARE CORRECT`
-
-### 3. Build the app
+### 2. Build the app
 
 - in the root directory execute buildApp script
 
 > ./buildApp.sh
 
 **Inserting of the data, testing, and building the app should take less than 20 minutes. If everything goes fine, the app should start running on port 4000.**
+
 
 ## Run only the frontend locally
 

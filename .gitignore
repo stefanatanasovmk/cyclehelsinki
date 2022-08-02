@@ -2,7 +2,7 @@ node_modules
 dist
 .env
 csv-files
-
+/csv-files
 client/build/
 /client/build/
 /client/build

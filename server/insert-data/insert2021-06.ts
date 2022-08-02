@@ -8,7 +8,7 @@ import insertTrip from "./insertTrip";
 const mongoDbPath = process.env.MONGO_DB_PATH;
 
 
-  insertTrip("../../../csv-files/2021-06.csv");
+  insertTrip("../../csv-files/2021-06.csv");
 
 
 mongoose.connect(`${mongoDbPath}`);
