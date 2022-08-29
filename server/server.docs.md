@@ -47,7 +47,7 @@ url = api/station
 
 url = api/trip
 
-- GET - / - for getting all the routes, with implemented pagination. It accepts "page=number", "limit=number", "from=number", "until=number", "filterby=return/departure".
+- GET - / - for getting all the routes, with implemented pagination. It accepts "page=number", "limit=number", "from=number", "until=number", "filterby=return/departure" as queries.
   "page" is which page of the results is requested,
   "limit" is how much results are requested,
   "from" and "until" should be a miliseconds from ECMAScript epoch, "filterby" should be either "return" or "departure" so it's going to sort the results from the latest return or departure time.
@@ -56,6 +56,7 @@ url = api/trip
   limit=20,
   from=${new Date("2021-01-01").getTime()} 
   until=${Date.now()}
+  filterby="return"
 
 - GET - /getone/:id - for getting one trip with the given id, it accepts the trip id as a param.
 

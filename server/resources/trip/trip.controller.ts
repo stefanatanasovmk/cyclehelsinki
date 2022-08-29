@@ -70,7 +70,12 @@ export default class TripController implements Controller {
         res.status(status).json(tripAndStations);
       }
     } catch {
-      next(new HttpError(500, "We couldn't get the trip and the stations, please try again"));
+      next(
+        new HttpError(
+          500,
+          "We couldn't get the trip and the stations, please try again"
+        )
+      );
     }
   };
 
@@ -86,7 +91,7 @@ export default class TripController implements Controller {
         until = defaultUntil,
         filterby = "return",
       } = req.query;
-      if (typeof filterby !== "string") {
+      if (filterby != "return" && filterby != "departure") {
         res
           .status(500)
           .json({ message: "You need to choose how to filter the trips" });
@@ -101,7 +106,9 @@ export default class TripController implements Controller {
         res.status(status).json(trips);
       }
     } catch {
-      next(new HttpError(500, "We couldn't get the stations, please try again"));
+      next(
+        new HttpError(500, "We couldn't get the stations, please try again")
+      );
     }
   };
 
